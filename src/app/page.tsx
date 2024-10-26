@@ -1,7 +1,5 @@
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  console.log('Executing....')
-  return (
-    <h1>Hello Homepage</h1>
-  ) 
-  }
+export default function RootPage() {
+  return redirect('/en')
+}
