@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev # Commande pour l'environnement de développement
