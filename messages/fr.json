@@ -1,0 +1,13 @@
+{
+    "Homepage": {
+        "title" : "Bienvenue sur notre site",
+        "description" : "Nous sommes une entreprise de développement web spécialisée dans la création de sites web et d'applications mobiles.",
+        "button" : "En savoir plus"
+    },
+    "Navbar": {
+        "director" : "réalisateur",
+        "photographer" : "photographe",
+        "contact" : "contact"
+    }
+
+}
