@@ -1,4 +1,4 @@
-type Props = {
+type LocaleParams = {
     params: {locale: string};
   };
 

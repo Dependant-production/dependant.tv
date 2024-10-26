@@ -1,4 +1,10 @@
 {
+    "Global": {
+        "language": {
+            "fr": "Français",
+            "en": "Anglais"
+        }       
+    },
     "Homepage": {
         "title" : "Bienvenue sur notre site",
         "description" : "Nous sommes une entreprise de développement web spécialisée dans la création de sites web et d'applications mobiles.",
@@ -8,6 +14,10 @@
         "director" : "réalisateur",
         "photographer" : "photographe",
         "contact" : "contact"
+    },
+    "NotFound": {
+        "title": "Quelque chose s'est mal passé !",
+        "description": "La page que vous recherchez n'existe pas ou a été déplacée."
     }
 
 }
