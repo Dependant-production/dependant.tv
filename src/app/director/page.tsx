@@ -5,6 +5,6 @@ export const metadata: Metadata = {
   };
 
 
-export default function Page() {
+export default function DirectorPage() {
     return <h1>Hello, Director Page!</h1>
   }

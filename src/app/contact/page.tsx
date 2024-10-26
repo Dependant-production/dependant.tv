@@ -1,3 +1,4 @@
+import { Button } from "@/components/atoms/button/Button";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -5,6 +6,11 @@ export const metadata: Metadata = {
   };
 
 
-export default function Page() {
-    return <h1>Hello, Contact Page!</h1>
+export default function ContactPage() {
+    return (
+        <>
+        <h1>Hello, Contact Page!</h1>
+        <Button />
+        </>
+    )
   }
