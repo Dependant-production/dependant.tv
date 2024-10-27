@@ -1,5 +1,5 @@
-type LocaleParams = {
+interface LocaleParams {
   params: { locale: string };
-};
+}
 
 type Locale = "en" | "fr";
