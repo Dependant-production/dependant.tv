@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Logo.module.css";
+import styles from "./Logo.module.scss";
 import { Link } from "@/i18n/routing";
 
 export const Logo = () => {

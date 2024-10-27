@@ -6,11 +6,9 @@
     }
   },
   "Homepage": {
-    "title": "Welcome on our Website !!! ",
-    "description": "Nous sommes une entreprise de développement web spécialisée dans la création de sites web et d'applications mobiles.",
-    "button": "En savoir plus"
+    "title": "Welcome on Dependant.tv ! ",
+    "desc": "Become dependant."
   },
-
   "Navbar": {
     "director": "director",
     "photographer": "photographer",
