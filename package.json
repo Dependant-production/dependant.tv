@@ -10,6 +10,7 @@
     "prettier:write": "prettier --write ."
   },
   "dependencies": {
+    "contentful": "^11.2.0",
     "next": "15.0.1",
     "next-intl": "^3.23.5",
     "react": "^18.3.1",

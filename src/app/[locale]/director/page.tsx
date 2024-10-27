@@ -7,9 +7,7 @@ export const metadata: Metadata = {
 
 export default function DirectorPage() {
   const t = useTranslations("Homepage");
+  console.log('t', t)
 
-  console.log("t", t);
-
-  console.log("t", t);
   return <h1>Hello, Director Page!</h1>;
 }
