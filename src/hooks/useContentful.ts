@@ -5,8 +5,6 @@ import { useEffect, useState } from 'react';
 
 export default function useContentful(entry: string) {
 const [ data, setData] = useState([]);
-console.log('data', data)
-console.log('Fetching data for content type:', entry);
 useEffect(() => {
     const fetchData = async () => {
         try {
