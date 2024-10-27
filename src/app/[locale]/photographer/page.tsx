@@ -9,5 +9,5 @@ export default function PhotograperPage() {
   const t = useTranslations("Homepage");
   console.log('t', t)
 
-  return <h1>Hello, Photographer Page!</h1>;
+  return  <h1>Hello, Photographer Page!</h1>;
 }

@@ -12,7 +12,7 @@ export default async function BaseLayout({ children, locale }: Props) {
   const messages = await getMessages();
 
   return (
-    <html className="h-full" lang={locale}>
+    <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <Header />
