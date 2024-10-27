@@ -7,7 +7,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/layouts/Header";
 
-
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -28,14 +27,13 @@ interface HomeLayoutProps {
   params: { locale: string };
 }
 
-export default async function HomeLayout({
-  children,
-  params: {locale}
-}: Readonly<HomeLayoutProps>) {
+export default function HomeLayout({ children, params }: HomeLayoutProps) {
+  const { locale } = params;
+
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
- 
+
   setRequestLocale(locale);
   return (
     <html lang={locale}>
