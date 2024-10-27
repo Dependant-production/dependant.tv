@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import BaseLayout from "@/components/templates/baseLayout/BaseLayout";
-import "./globals.css";
+import "./globals.scss";
 import { LayoutProps } from "../../../.next/types/app/layout";
 
 export const metadata: Metadata = {
