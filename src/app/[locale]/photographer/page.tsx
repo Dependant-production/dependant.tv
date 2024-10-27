@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function PhotograperPage() {
   const t = useTranslations("Homepage");
+  console.log('t', t)
 
-  console.log("t", t);
   return <h1>Hello, Photographer Page!</h1>;
 }
