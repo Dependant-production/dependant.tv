@@ -1,5 +1,5 @@
 type LocaleParams = {
-    params: {locale: string};
-  };
+  params: { locale: string };
+};
 
-type Locale = 'en' | 'fr'
+type Locale = "en" | "fr";
