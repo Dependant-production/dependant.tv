@@ -1,4 +1,3 @@
-
 import Contact from "@/components/templates/contactPage/Contact";
 import { Metadata } from "next";
 
@@ -7,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <Contact />
+  return <Contact />;
 }

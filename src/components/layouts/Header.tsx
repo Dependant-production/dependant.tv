@@ -10,7 +10,11 @@ export const Header = () => {
   return (
     <header className={styles.header}>
       <Logo />
-      <Navbar cat1={t('Navbar.director')} cat2={t('Navbar.photographer')} cat3={t('Navbar.contact')} />
+      <Navbar
+        cat1={t("Navbar.projects")}
+        cat2={t("Navbar.directors")}
+        cat3={t("Navbar.contact")}
+      />
       <LocalSwitcher
         enOption={t("Global.language.en")}
         frOption={t("Global.language.fr")}
