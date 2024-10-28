@@ -10,8 +10,8 @@
     "desc": "Become dependant."
   },
   "Navbar": {
-    "director": "director",
-    "photographer": "photographer",
+    "projects": "projects",
+    "directors": "directors",
     "contact": "contact"
   },
   "NotFound": {
