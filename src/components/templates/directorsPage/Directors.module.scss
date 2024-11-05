@@ -1,29 +1,27 @@
 .directorContainer {
-position: relative;
+    position: relative;
 
-.textContainer {
-
-    position: fixed;
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-    padding: 1rem;
-    .nameContainer {
-        
+    .textContainer {
+        position: fixed;
+        bottom: 0;
         display: flex;
-        flex-direction: column;
-        list-style: none;
-        text-transform: uppercase;
-        font-family: "fontRoman";
-        font-size: 50px;
-        .name {
-            cursor: pointer;
-        }
-        .name:hover {
-            font-family: "fontBlack";
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 100%;
+        padding: 1rem;
+        .nameContainer {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            text-transform: uppercase;
+            font-family: 'fontRoman';
+            font-size: 50px;
+            .name {
+                cursor: pointer;
+            }
+            .name:hover {
+                font-family: 'fontBlack';
+            }
         }
     }
-}
 }

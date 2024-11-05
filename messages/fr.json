@@ -11,8 +11,26 @@
     },
     "Navbar": {
         "directors": "réalisateur",
-        "photographers": "photographers",
+        "photographers": "photographes",
         "contact": "contact"
+    },
+    "Contact": {
+        "Infos": {
+            "title": "[contact]",
+            "titleServices": "[services]",
+            "titleCredits": "[credits]",
+            "advertising": "Advertising",
+            "clip": "Clip",
+            "brand": "Brand content",
+            "print": "Print",
+            "designed": "Designé par",
+            "designer": "Baptiste Guine",
+            "developed": "Dévelopé par",
+            "developer": "Bryan Houblon"
+        },
+        "AboutUs": {
+            "title": "[infos]"
+        }
     },
     "NotFound": {
         "title": "Quelque chose s'est mal passé !",
