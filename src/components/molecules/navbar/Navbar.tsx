@@ -11,10 +11,10 @@ interface NavbarProps {
 export default function Navbar({ cat1, cat2, cat3 }: NavbarProps) {
     return (
         <nav className={styles.navbar}>
-            <Link href="/projects" className="navbar-link">
+            <Link href="/directors" className="navbar-link">
                 {cat1}
             </Link>
-            <Link href="/director" className="navbar-link">
+            <Link href="/photographers" className="navbar-link">
                 {cat2}
             </Link>
             <Link href="/contact" className="navbar-link">
