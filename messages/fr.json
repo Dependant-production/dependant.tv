@@ -11,7 +11,7 @@
     },
     "Navbar": {
         "directors": "réalisateur",
-        "photographers": "photographers",
+        "photographers": "photographes",
         "contact": "contact"
     },
     "Contact": {
@@ -24,9 +24,9 @@
             "brand": "Brand content",
             "print": "Print",
             "designed": "Designé par",
-            "designer": "Designer",
+            "designer": "Baptiste Guine",
             "developed": "Dévelopé par",
-            "developer": "Developer"
+            "developer": "Bryan Houblon"
         },
         "AboutUs": {
             "title": "[infos]"

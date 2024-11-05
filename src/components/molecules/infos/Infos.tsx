@@ -4,6 +4,7 @@ import useContentful from '@/hooks/useContentful'
 import { useTranslations } from 'next-intl'
 import React from 'react'
 import styles from './Infos.module.scss'
+import { Link } from '@/i18n/routing'
 
 export default function Infos() {
     const t = useTranslations()
@@ -12,28 +13,35 @@ export default function Infos() {
 
     return (
         <div className={styles.infos}>
-            <h3 className={styles.infosTitle}>{t('Contact.Infos.title')}</h3>
-            <p>{data?.insta}</p>
-            <p>{data?.mail}</p>
-            <p>{data?.phoneNumbers}</p>
-            <p>{data?.address}</p>
-            <div>
+            <div className={styles.container}>
+                <h3 className={styles.infosTitle}>
+                    {t('Contact.Infos.title')}
+                </h3>
+                <Link href={data?.insta}>@dependant.tv</Link>
+                <Link href={`mailto:${data?.mail}`}>{data?.mail}</Link>
+                <p>{data?.address}</p>
+            </div>
+            <div className={styles.container}>
                 <h3 className={styles.infosTitle}>
                     {t('Contact.Infos.titleServices')}
                 </h3>
-                <p>{t('Contact.Infos.advertising')}</p>
-                <p>{t('Contact.Infos.clip')}</p>
-                <p>{t('Contact.Infos.brand')}</p>
-                <p>{t('Contact.Infos.print')}</p>
+                <div className={styles.infosContainer}>
+                    <p>{t('Contact.Infos.advertising')}</p>
+                    <p>{t('Contact.Infos.clip')}</p>
+                    <p>{t('Contact.Infos.brand')}</p>
+                    <p>{t('Contact.Infos.print')}</p>
+                </div>
             </div>
-            <div>
+            <div className={styles.container}>
                 <h3 className={styles.infosTitle}>
                     {t('Contact.Infos.titleCredits')}
                 </h3>
-                <p>{t('Contact.Infos.designed')}</p>
-                <p>{t('Contact.Infos.designer')}</p>
-                <p>{t('Contact.Infos.developed')}</p>
-                <p>{t('Contact.Infos.developer')}</p>
+                <div className={styles.infosContainer}>
+                    <p>{t('Contact.Infos.designed')}</p>
+                    <p>{t('Contact.Infos.designer')}</p>
+                    <p>{t('Contact.Infos.developed')}</p>
+                    <p>{t('Contact.Infos.developer')}</p>
+                </div>
             </div>
         </div>
     )

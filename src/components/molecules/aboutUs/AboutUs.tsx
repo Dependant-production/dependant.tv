@@ -14,13 +14,7 @@ export default function AboutUs() {
             <h3 className={styles.aboutUsTitle}>
                 {t('Contact.AboutUs.title')}
             </h3>
-            <p>
-                {data?.aboutUs} Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Quo assumenda voluptates repudiandae! Esse,
-                voluptatibus corrupti! Ratione praesentium maxime hic, numquam
-                pariatur repellat quasi sit magni voluptatum commodi? Odit,
-                earum quos.{' '}
-            </p>
+            <p className={styles.aboutUsDesc}>{data?.aboutUs}</p>
         </>
     )
 }
