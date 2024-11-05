@@ -1,0 +1,14 @@
+.contact {
+    position: relative;
+    .contactContainer {
+        display: flex;
+        justify-content: space-between;
+        position: fixed;
+        bottom: 0;
+        padding: 1rem;
+    }
+
+    .aboutUsContainer {
+        width: 50%;
+    }
+}

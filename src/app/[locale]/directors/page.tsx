@@ -1,4 +1,4 @@
-import Director from '@/components/templates/directorsPage/Directors'
+import Directors from '@/components/templates/directorsPage/Directors'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 }
 
 export default function DirectorsPage() {
-    return <Director />
+    return <Directors />
 }
