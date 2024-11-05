@@ -1,10 +1,10 @@
-import Projects from "@/components/templates/projectsPage/Projects";
-import { Metadata } from "next";
+import Projects from '@/components/templates/projectsPage/Projects'
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Photographer",
-};
+    title: 'Photographer',
+}
 
 export default function ProjectsPage() {
-  return <Projects />;
+    return <Projects />
 }

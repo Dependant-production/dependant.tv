@@ -1,10 +1,10 @@
-import Contact from "@/components/templates/contactPage/Contact";
-import { Metadata } from "next";
+import Contact from '@/components/templates/contactPage/Contact'
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Contact",
-};
+    title: 'Contact',
+}
 
 export default function ContactPage() {
-  return <Contact />;
+    return <Contact />
 }
