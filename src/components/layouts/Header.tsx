@@ -11,8 +11,8 @@ export const Header = () => {
         <header className={styles.header}>
             <Logo />
             <Navbar
-                cat1={t('Navbar.projects')}
-                cat2={t('Navbar.directors')}
+                cat1={t('Navbar.directors')}
+                cat2={t('Navbar.photographers')}
                 cat3={t('Navbar.contact')}
             />
             <LocalSwitcher
