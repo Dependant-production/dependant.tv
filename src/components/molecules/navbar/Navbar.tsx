@@ -11,15 +11,9 @@ interface NavbarProps {
 export default function Navbar({ cat1, cat2, cat3 }: NavbarProps) {
     return (
         <nav className={styles.navbar}>
-            <Link href="/directors" className="navbar-link">
-                {cat1}
-            </Link>
-            <Link href="/photographers" className="navbar-link">
-                {cat2}
-            </Link>
-            <Link href="/contact" className="navbar-link">
-                {cat3}
-            </Link>
+            <Link href="/directors">{cat1}</Link>
+            <Link href="/photographers">{cat2}</Link>
+            <Link href="/contact">{cat3}</Link>
         </nav>
     )
 }

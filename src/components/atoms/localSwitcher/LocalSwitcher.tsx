@@ -2,6 +2,7 @@
 import { usePathname, useRouter } from '@/i18n/routing'
 import { useLocale } from 'next-intl'
 import React, { ChangeEvent, useTransition } from 'react'
+import styles from './LocalSwitcher.module.scss'
 
 export default function LocalSwitcher({
     enOption,
@@ -22,14 +23,19 @@ export default function LocalSwitcher({
         })
     }
     return (
-        <label>
+        <label className={styles.localeButton}>
             <select
                 defaultValue={currentLocale}
                 onChange={onSelectChange}
                 disabled={isPending}
+                className={styles.select}
             >
-                <option value="en">{enOption}</option>
-                <option value="fr">{frOption}</option>
+                <option value="en" className={styles.option}>
+                    {enOption}
+                </option>
+                <option value="fr" className={styles.option}>
+                    {frOption}
+                </option>
             </select>
         </label>
     )
