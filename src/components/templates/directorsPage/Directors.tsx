@@ -57,13 +57,14 @@ export default function Directors() {
                     ))}
                 </ul>
                 <div>
-                    <p>{currentTitle}</p>
+                    <p>&quot;{currentTitle}&quot;</p>
                 </div>
             </section>
             <section className={styles.videoContainer}>
                 <video
                     className={styles.backgroundVideo}
-                    src={currentVideo ?? null}
+                    // src={currentVideo ?? null}
+                    src="/OtacosLea.mp4"
                     autoPlay
                     loop
                     muted
