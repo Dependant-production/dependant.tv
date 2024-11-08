@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Directors.module.scss'
 import client from '@/utils/contentful'
+import { Link } from '@/i18n/routing'
 
 interface Director {
     name: string | null
@@ -45,16 +46,20 @@ export default function Directors() {
             <section className={styles.textContainer}>
                 <ul className={styles.nameContainer}>
                     {directorsData.map((director, index) => (
-                        <li
-                            key={index}
-                            className={styles.name}
-                            onMouseEnter={() => {
-                                setCurrentVideo(director.videoUrl as string)
-                                setCurrentTitle(director.videoTitle as string)
-                            }}
-                        >
-                            {director.name}
-                        </li>
+                        <Link key={index} href={`/directors/${director.name}`}>
+                            <li
+                                key={index}
+                                className={styles.name}
+                                onMouseEnter={() => {
+                                    setCurrentVideo(director.videoUrl as string)
+                                    setCurrentTitle(
+                                        director.videoTitle as string
+                                    )
+                                }}
+                            >
+                                {director.name}
+                            </li>
+                        </Link>
                     ))}
                 </ul>
                 <div>
