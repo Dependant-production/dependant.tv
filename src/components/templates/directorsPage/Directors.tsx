@@ -14,6 +14,7 @@ export default function Directors() {
     const [directorsData, setDirectorsData] = useState<Director[]>([])
     const [currentVideo, setCurrentVideo] = useState('')
     const [currentTitle, setCurrentTitle] = useState('')
+    console.log('currenVideo', currentVideo)
 
     useEffect(() => {
         const fetchDirectors = async () => {
