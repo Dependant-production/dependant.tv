@@ -24,9 +24,9 @@
             "brand": "Brand content",
             "print": "Print",
             "designed": "Designed by",
-            "designer": "Designer",
+            "designer": "Baptiste Guine",
             "developed": "Developed by",
-            "developer": "Developer"
+            "developer": "Bryan Houblon"
         },
         "AboutUs": {
             "title": "[infos]"
