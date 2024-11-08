@@ -28,7 +28,6 @@ export default function Directors() {
                     videoUrl: item.fields.videoUrl as string, // ou `item.fields.videoFile.fields.file.url` si c'est un champ média
                     videoTitle: item.fields.videoTitle as string,
                 }))
-                console.log('formattedData', formattedData)
                 setDirectorsData(formattedData)
                 if (formattedData.length > 0) {
                     setCurrentVideo(formattedData[0].videoUrl)

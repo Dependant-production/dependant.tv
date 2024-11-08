@@ -12,7 +12,6 @@ export default function useContentful(entry: string) {
                 })
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 setData((await response).items as any)
-                console.log('response', response)
             } catch (error) {
                 console.error(
                     'Erreur lors de la récupération des données Contentful :',
