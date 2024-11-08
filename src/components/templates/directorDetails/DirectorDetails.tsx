@@ -15,9 +15,23 @@ export default function DirectorDetails({
 
     console.log('projects', projects)
 
+    const spaceIndex = directorName.indexOf(' ')
+    console.log('spaceIndex', spaceIndex)
+
     return (
         <main className={styles.directorDetailsContainer}>
-            <h1 className={styles.directorDetailsName}>{directorName}</h1>
+            <h1>
+                {spaceIndex !== -1 ? (
+                    <span className={styles.directorDetailsName}>
+                        <span>{directorName.slice(0, spaceIndex)}</span> <br />
+                        <span>{directorName.slice(spaceIndex + 1)}</span>
+                    </span>
+                ) : (
+                    <span className={styles.directorDetailsName}>
+                        {directorName}
+                    </span>
+                )}
+            </h1>
             <section className={styles.directorDetailsProjects}>
                 {/* {projects.map((project, index) => (
           <div key={index} className={styles.projectItem}>

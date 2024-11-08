@@ -16,6 +16,7 @@
             text-transform: uppercase;
             font-family: 'fontRoman';
             font-size: 50px;
+            color: white;
             .name {
                 cursor: pointer;
             }
@@ -40,5 +41,11 @@
             height: 100%;
             object-fit: cover;
         }
+    }
+
+    .titleVideo {
+        color: white;
+        font-family: 'fontRoman';
+        text-transform: uppercase;
     }
 }

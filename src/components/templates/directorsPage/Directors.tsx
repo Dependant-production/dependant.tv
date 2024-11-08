@@ -61,7 +61,7 @@ export default function Directors() {
                         </Link>
                     ))}
                 </ul>
-                <div>
+                <div className={styles.titleVideo}>
                     <p>&quot;{currentTitle}&quot;</p>
                 </div>
             </section>
