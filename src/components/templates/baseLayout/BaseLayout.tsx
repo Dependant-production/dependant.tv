@@ -1,7 +1,8 @@
 import { Header } from '@/components/layouts/Header'
+import Loader from '@/components/molecules/loader/Loader'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
 
 type Props = {
     children: ReactNode
@@ -15,10 +16,12 @@ export default async function BaseLayout({ children, locale }: Props) {
     return (
         <html lang={locale}>
             <body>
-                <NextIntlClientProvider messages={messages}>
-                    <Header />
-                    {children}
-                </NextIntlClientProvider>
+                <Suspense fallback={<Loader isLoading={true} />}>
+                    <NextIntlClientProvider messages={messages}>
+                        <Header />
+                        {children}
+                    </NextIntlClientProvider>
+                </Suspense>
             </body>
         </html>
     )
