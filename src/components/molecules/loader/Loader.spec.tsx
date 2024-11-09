@@ -17,7 +17,7 @@ const LazyLoadedComponent = lazy(
 describe('Loader Component with Suspense', () => {
     it('should display the loader during data loading', async () => {
         render(
-            <Suspense fallback={<Loader isLoading={true} />}>
+            <Suspense fallback={<Loader />}>
                 <LazyLoadedComponent />
             </Suspense>
         )
