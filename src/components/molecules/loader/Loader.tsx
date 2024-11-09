@@ -3,13 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import styles from './Loader.module.scss'
 
-interface LoaderProps {
-    isLoading: boolean
-}
-
-export default function Loader({ isLoading }: LoaderProps) {
-    if (!isLoading) return null
-
+export default function Loader() {
     return (
         <main className={styles.loader}>
             <Image

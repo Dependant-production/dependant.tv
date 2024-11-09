@@ -6,6 +6,8 @@ import BaseLayout from '@/components/templates/baseLayout/BaseLayout'
 import './globals.scss'
 import { LayoutProps } from '../../../.next/types/app/layout'
 import localFont from 'next/font/local'
+import { Suspense } from 'react'
+import Loading from './loading'
 
 const fontBlack = localFont({
     src: '../fonts/NeueHaasDisplayBlack.ttf',
@@ -44,7 +46,7 @@ export default async function HomeLayout({ children, params }: LayoutProps) {
             locale={locale}
             className={`${fontBlack.variable} ${fontBold.variable} ${fontMedium.variable} ${fontRoman.variable}`}
         >
-            {children}
+            <Suspense fallback={<Loading />}>{children}</Suspense>
         </BaseLayout>
     )
 }
