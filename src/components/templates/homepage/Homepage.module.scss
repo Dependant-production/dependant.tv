@@ -5,4 +5,35 @@
     padding: 20px 80px;
     height: 100vh;
     justify-content: center;
+
+    .textContainer {
+        display: flex;
+        gap: 20px;
+    }
+
+    p {
+        font-size: 30px;
+        color: #fff;
+    }
+
+    .directorName {
+        text-transform: uppercase;
+    }
+}
+
+.videoContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1; // Pour que la vidéo soit en arrière-plan
+    overflow: hidden;
+    overflow-y: hidden;
+
+    .backgroundVideo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }

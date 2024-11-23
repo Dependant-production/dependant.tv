@@ -2,64 +2,65 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react'
 import styles from './Directors.module.scss'
-import client from '@/utils/contentful'
 import { Link } from '@/i18n/routing'
-
-interface Director {
-    name: string | null
-    videoUrl: string | null
-    videoTitle: string | null
-}
+import { useLocale } from 'next-intl'
+import axiosInstance from '@/helpers/axiosInstance'
 
 export default function Directors() {
-    const [directorsData, setDirectorsData] = useState<Director[]>([])
+    const locale = useLocale()
+
+    const [directorsData, setDirectorsData] = useState<any>([])
     const [currentVideo, setCurrentVideo] = useState('')
     const [currentTitle, setCurrentTitle] = useState('')
-    console.log('currenVideo', currentVideo)
 
     useEffect(() => {
-        const fetchDirectors = async () => {
+        const fetchNews = async () => {
             try {
-                const response = await client.getEntries({
-                    content_type: 'directors',
-                })
-                const formattedData = response.items.map((item) => ({
-                    name: item.fields.name as string,
-                    videoUrl: item.fields.videoUrl as string, // ou `item.fields.videoFile.fields.file.url` si c'est un champ média
-                    videoTitle: item.fields.videoTitle as string,
-                }))
-                setDirectorsData(formattedData)
-                if (formattedData.length > 0) {
-                    setCurrentVideo(formattedData[0].videoUrl)
-                    setCurrentTitle(formattedData[0]?.videoTitle)
-                }
+                const data = await axiosInstance.get(
+                    `/directors?locale=${locale}&populate=videos.url`
+                )
+                console.log('data', data)
+                setDirectorsData(data?.data?.data)
             } catch (error) {
-                console.error('Error fetching data from Contentful:', error)
+                console.error(
+                    'Erreur lors de la récupération des articles :',
+                    error
+                )
             }
         }
-        fetchDirectors()
-    }, [])
+        fetchNews()
+    }, [locale])
+
+    console.log('directorData', directorsData)
 
     return (
         <main className={styles.directorContainer}>
             <section className={styles.textContainer}>
                 <ul className={styles.nameContainer}>
-                    {directorsData.map((director, index) => (
-                        <Link key={index} href={`/directors/${director.name}`}>
-                            <li
+                    {directorsData.map((director: any, index: number) => {
+                        const videoUrl = director?.videos?.[0]?.url[0]?.url
+                            ? `http://localhost:1337${director.videos[0].url[0]?.url}`
+                            : ''
+                        return (
+                            <Link
                                 key={index}
-                                className={styles.name}
-                                onMouseEnter={() => {
-                                    setCurrentVideo(director.videoUrl as string)
-                                    setCurrentTitle(
-                                        director.videoTitle as string
-                                    )
-                                }}
+                                href={`/directors/${director.name}`}
                             >
-                                {director.name}
-                            </li>
-                        </Link>
-                    ))}
+                                <li
+                                    key={index}
+                                    className={styles.name}
+                                    onMouseEnter={() => {
+                                        setCurrentVideo(videoUrl as string)
+                                        setCurrentTitle(
+                                            director?.videos[0]?.title as string
+                                        )
+                                    }}
+                                >
+                                    {director.name}
+                                </li>
+                            </Link>
+                        )
+                    })}
                 </ul>
                 <div className={styles.titleVideo}>
                     <p>&quot;{currentTitle}&quot;</p>
@@ -68,8 +69,7 @@ export default function Directors() {
             <section className={styles.videoContainer}>
                 <video
                     className={styles.backgroundVideo}
-                    // src={currentVideo ?? null}
-                    src="/OtacosLea.mp4"
+                    src={currentVideo ?? null}
                     autoPlay
                     loop
                     muted

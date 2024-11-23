@@ -1,24 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import DirectorDetails from '@/components/templates/directorDetails/DirectorDetails'
-import client from '@/utils/contentful'
+import axiosInstance from '@/helpers/axiosInstance'
 
 async function fetchDirectorData(slug: string) {
     try {
         const formattedSlug = slug.replace(/%20/g, '-')
+        console.log('formattedSlug', formattedSlug)
 
-        const response = await client.getEntries({
-            content_type: 'directorsProjects',
-            'fields.directorName.sys.contentType.sys.id': 'directors',
-            'fields.directorName.fields.slug': formattedSlug,
-        })
+        const response = await axiosInstance.get('/director')
 
-        if (response.items.length > 0) {
-            return response.items[0]
-        } else {
-            return null
-        }
+        console.log('response', response)
     } catch (error) {
-        console.error('Error fetching data from Contentful:', error)
+        console.error('Error fetching data from strapi:', error)
         return null
     }
 }
