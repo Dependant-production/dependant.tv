@@ -1,6 +1,7 @@
 'use client'
 import { Link, usePathname } from '@/i18n/routing'
 import styles from './Navbar.module.scss'
+import useMobile from '@/hooks/useMobile'
 
 interface NavbarProps {
     cat1: string
@@ -11,8 +12,11 @@ interface NavbarProps {
 export default function Navbar({ cat1, cat2, cat3 }: NavbarProps) {
     const pathname = usePathname()
     const isActive = (path: string) => pathname?.includes(path)
+    const isMobile = useMobile()
 
-    return (
+    return isMobile ? (
+        <></>
+    ) : (
         <nav className={styles.navbar}>
             <Link
                 href="/directors"

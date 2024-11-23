@@ -1,6 +1,5 @@
 'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useContentful from '@/hooks/useContentful'
 import { useTranslations } from 'next-intl'
 import React from 'react'
 import styles from './Infos.module.scss'
@@ -8,8 +7,6 @@ import { Link } from '@/i18n/routing'
 
 export default function Infos() {
     const t = useTranslations()
-    const contentful: { fields: any }[] = useContentful('infos')
-    const data: any = contentful[0]?.fields || {}
 
     return (
         <div className={styles.infos}>
@@ -17,9 +14,9 @@ export default function Infos() {
                 <h3 className={styles.infosTitle}>
                     {t('Contact.Infos.title')}
                 </h3>
-                <Link href={data?.insta}>@dependant.tv</Link>
-                <Link href={`mailto:${data?.mail}`}>{data?.mail}</Link>
-                <p>{data?.address}</p>
+                <Link href="">@dependant.tv</Link>
+                <Link href="">mail</Link>
+                <p>addrress</p>
             </div>
             <div className={styles.container}>
                 <h3 className={styles.infosTitle}>
