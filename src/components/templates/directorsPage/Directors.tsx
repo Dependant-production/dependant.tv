@@ -5,6 +5,7 @@ import styles from './Directors.module.scss'
 import { Link } from '@/i18n/routing'
 import { useLocale } from 'next-intl'
 import axiosInstance from '@/helpers/axiosInstance'
+import Loader from '@/components/molecules/loader/Loader'
 
 export default function Directors() {
     const locale = useLocale()
@@ -12,26 +13,44 @@ export default function Directors() {
     const [directorsData, setDirectorsData] = useState<any>([])
     const [currentVideo, setCurrentVideo] = useState('')
     const [currentTitle, setCurrentTitle] = useState('')
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const fetchNews = async () => {
+        const fetchDatas = async () => {
             try {
                 const data = await axiosInstance.get(
                     `/directors?locale=${locale}&populate=videos.url`
                 )
-                console.log('data', data)
                 setDirectorsData(data?.data?.data)
             } catch (error) {
                 console.error(
                     'Erreur lors de la récupération des articles :',
                     error
                 )
+            } finally {
+                setIsLoading(false)
             }
         }
-        fetchNews()
+        fetchDatas()
     }, [locale])
 
-    console.log('directorData', directorsData)
+    useEffect(() => {
+        if (directorsData.length > 0) {
+            const firstDirectorVideo = directorsData[0]?.videos?.[0]?.url?.[0]
+                ?.url
+                ? `http://localhost:1337${directorsData[0].videos[0].url[0]?.url}`
+                : ''
+            const firstDirectorTitle =
+                directorsData[0]?.videos?.[0]?.title || ''
+
+            setCurrentVideo(firstDirectorVideo)
+            setCurrentTitle(firstDirectorTitle)
+        }
+    }, [directorsData])
+
+    if (isLoading) {
+        return <Loader />
+    }
 
     return (
         <main className={styles.directorContainer}>
