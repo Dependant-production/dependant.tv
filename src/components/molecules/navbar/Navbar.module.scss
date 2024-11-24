@@ -7,6 +7,11 @@
     font-family: 'fontRoman';
     text-transform: uppercase;
     height: 60px;
+    color: grey;
+
+    .link:hover {
+        color: white;
+    }
 
     .active {
         font-family: 'fontBlack';

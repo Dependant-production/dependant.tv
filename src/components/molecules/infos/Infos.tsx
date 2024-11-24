@@ -5,7 +5,13 @@ import React from 'react'
 import styles from './Infos.module.scss'
 import { Link } from '@/i18n/routing'
 
-export default function Infos() {
+interface InfosProps {
+    insta: string
+    mail: string
+    address: string
+}
+
+export default function Infos({ insta, mail, address }: InfosProps) {
     const t = useTranslations()
 
     return (
@@ -14,9 +20,9 @@ export default function Infos() {
                 <h3 className={styles.infosTitle}>
                     {t('Contact.Infos.title')}
                 </h3>
-                <Link href="">@dependant.tv</Link>
-                <Link href="">mail</Link>
-                <p>addrress</p>
+                <Link href={insta}>@dependant.tv</Link>
+                <Link href={`mailto:${mail}`}>{mail}</Link>
+                <p>{address}</p>
             </div>
             <div className={styles.container}>
                 <h3 className={styles.infosTitle}>
