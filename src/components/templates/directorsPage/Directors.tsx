@@ -3,36 +3,10 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Directors.module.scss'
 import { Link } from '@/i18n/routing'
-import { useLocale } from 'next-intl'
-import axiosInstance from '@/helpers/axiosInstance'
-import Loader from '@/components/molecules/loader/Loader'
 
-export default function Directors() {
-    const locale = useLocale()
-
-    const [directorsData, setDirectorsData] = useState<any>([])
-    const [currentVideo, setCurrentVideo] = useState('')
+export default function Directors({ directorsData }: any) {
+    const [currentVideo, setCurrentVideo] = useState<string>('')
     const [currentTitle, setCurrentTitle] = useState('')
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const fetchDatas = async () => {
-            try {
-                const data = await axiosInstance.get(
-                    `/directors?locale=${locale}&populate=videos.url`
-                )
-                setDirectorsData(data?.data?.data)
-            } catch (error) {
-                console.error(
-                    'Erreur lors de la récupération des articles :',
-                    error
-                )
-            } finally {
-                setIsLoading(false)
-            }
-        }
-        fetchDatas()
-    }, [locale])
 
     useEffect(() => {
         if (directorsData.length > 0) {
@@ -48,9 +22,7 @@ export default function Directors() {
         }
     }, [directorsData])
 
-    if (isLoading) {
-        return <Loader />
-    }
+    console.log('directorsData', directorsData)
 
     return (
         <main className={styles.directorContainer}>
