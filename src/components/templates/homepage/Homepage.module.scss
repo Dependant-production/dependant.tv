@@ -1,3 +1,5 @@
+@import '../../../app/[locale]/variables.scss';
+
 .homepage {
     display: flex;
     flex-direction: column;
@@ -8,12 +10,21 @@
 
     .textContainer {
         display: flex;
-        gap: 20px;
+        gap: 5px;
+        flex-direction: column;
+        align-items: center;
+
+        @media screen and (min-width: $desktop) {
+            flex-direction: row;
+        }
     }
 
     p {
-        font-size: 30px;
+        font-size: 13px;
         color: #fff;
+        @media screen and (min-width: $desktop) {
+            font-size: 30px;
+        }
     }
 
     .directorName {

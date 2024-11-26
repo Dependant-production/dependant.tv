@@ -1,6 +1,6 @@
 @import '../../../app/[locale]/variables.scss';
 
-.directorContainer {
+.photographerContainer {
     position: relative;
 
     .textContainer {
@@ -13,7 +13,7 @@
         padding: 1rem;
         .nameContainer {
             display: flex;
-            font-size: 16px;
+            font-size: 23px;
             flex-direction: column;
             list-style: none;
             text-transform: uppercase;
@@ -31,24 +31,33 @@
         }
     }
 
-    .videoContainer {
-        position: absolute;
-        top: 0;
-        left: 0;
+    .photoContainer {
         width: 100%;
         height: 100vh;
-        z-index: -1; // Pour que la vidéo soit en arrière-plan
+        display: flex;
+        z-index: -1;
         overflow: hidden;
         overflow-y: hidden;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
 
-        .backgroundVideo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        @media screen and (min-width: $desktop) {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .backgroundPhoto {
+            @media screen and (min-width: $desktop) {
+                width: 700px;
+                height: 700px;
+            }
+            object-fit: contain;
         }
     }
 
-    .titleVideo {
+    .titlePhoto {
         color: white;
         font-family: 'fontRoman';
         text-transform: uppercase;
