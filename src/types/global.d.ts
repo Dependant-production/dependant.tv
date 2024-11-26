@@ -3,3 +3,5 @@ interface LocaleParams {
 }
 
 type Locale = 'en' | 'fr'
+
+type tParams = Promise<{ locale: string }>

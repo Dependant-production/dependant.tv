@@ -1,10 +1,30 @@
-import Projects from '@/components/templates/photographersPage/Photographers'
+import Photographers from '@/components/templates/photographersPage/Photographers'
+import axiosInstance from '@/helpers/axiosInstance'
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
-    title: 'Photographer',
+    title: 'Photographers',
 }
 
-export default function PhotographerPage() {
-    return <Projects />
+export default async function PhotographerPage(props: { params: tParams }) {
+    const { locale } = await props.params
+
+    try {
+        const response = await axiosInstance.get(
+            `/api/photographers?locale=${locale}&populate=photos.url`
+        )
+        if (
+            !response.data ||
+            !response.data.data ||
+            response.data.data.length === 0
+        ) {
+            notFound()
+        }
+
+        const photographersData = response?.data?.data
+        return <Photographers photographersData={photographersData} />
+    } catch (error) {
+        console.error('Erreur lors de la récupération des articles :', error)
+    }
 }

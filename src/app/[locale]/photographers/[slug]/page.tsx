@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import DirectorDetails from '@/components/templates/directorDetails/DirectorDetails'
+import PhotographerDetails from '@/components/templates/photographerDetails/PhotographerDetails'
 import axiosInstance from '@/helpers/axiosInstance'
 
 async function fetchPhotographerData(slug: string) {
@@ -7,7 +7,7 @@ async function fetchPhotographerData(slug: string) {
         const formattedSlug = slug.replace(/%20/g, '-')
         console.log('formattedSlug', formattedSlug)
 
-        const response = await axiosInstance.get('/photographer')
+        const response = await axiosInstance.get('/api/photographer')
 
         console.log('response', response)
     } catch (error) {
@@ -29,5 +29,5 @@ export default async function PhotograophersPage({ params }: any) {
         )
     }
 
-    return <DirectorDetails directorData={photographerData} />
+    return <PhotographerDetails directorData={photographerData} />
 }

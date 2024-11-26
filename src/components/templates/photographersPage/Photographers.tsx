@@ -1,38 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { useLocale } from 'next-intl'
 import React, { useEffect, useState } from 'react'
 import styles from './Photographers.module.scss'
 import { Link } from '@/i18n/routing'
-import axiosInstance from '@/helpers/axiosInstance'
-import Loader from '@/components/molecules/loader/Loader'
 import Image from 'next/image'
 
-export default function Photographers() {
-    const locale = useLocale()
-    const [photographersData, setPhotographersData] = useState<any>([])
+export default function Photographers({ photographersData }: any) {
     const [currentPhoto, setCurrentPhoto] = useState('')
     const [currentTitle, setCurrentTitle] = useState('')
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const fetchDatas = async () => {
-            try {
-                const data = await axiosInstance.get(
-                    `/photographers?locale=${locale}&populate=photos.url`
-                )
-                setPhotographersData(data?.data?.data)
-            } catch (error) {
-                console.error(
-                    'Erreur lors de la récupération des articles :',
-                    error
-                )
-            } finally {
-                setIsLoading(false)
-            }
-        }
-        fetchDatas()
-    }, [locale])
 
     useEffect(() => {
         if (photographersData.length > 0) {
@@ -48,9 +23,6 @@ export default function Photographers() {
         }
     }, [photographersData])
 
-    if (isLoading) {
-        return <Loader />
-    }
     return (
         <main className={styles.photographerContainer}>
             <section className={styles.textContainer}>
