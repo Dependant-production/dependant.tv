@@ -1,13 +1,27 @@
+@import '../../../app/[locale]/variables.scss';
+
 .navbar {
+    position: absolute;
+    bottom: 0;
+    font-size: 13px;
+    left: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    gap: 2rem;
-    font-family: 'fontRoman';
+    width: 100%;
     text-transform: uppercase;
-    height: 60px;
-    color: grey;
+    text-align: center;
+    margin: auto 0;
+    justify-content: space-around;
+    align-items: center;
+    font-family: 'fontRoman';
+    color: white;
+
+    @media screen and (min-width: $desktop) {
+        position: relative;
+        justify-content: initial;
+        padding: 0.5rem 1rem;
+        gap: 2rem;
+        height: 60px;
+    }
 
     .link:hover {
         color: white;
