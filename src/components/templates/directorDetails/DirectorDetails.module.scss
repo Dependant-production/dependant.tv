@@ -1,7 +1,7 @@
-.directorDetailsName {
-    position: fixed;
-    bottom: 0;
-    left: 1rem;
-    text-transform: uppercase;
-    font-family: 'fontBlack';
+.directorDetails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
 }

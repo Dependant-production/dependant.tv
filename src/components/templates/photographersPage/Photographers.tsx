@@ -6,7 +6,7 @@ import { Link } from '@/i18n/routing'
 import Image from 'next/image'
 
 export default function Photographers({ photographersData }: any) {
-    const [currentPhoto, setCurrentPhoto] = useState('')
+    const [currentPhoto, setCurrentPhoto] = useState<string | null>(null)
     const [currentTitle, setCurrentTitle] = useState('')
 
     useEffect(() => {
@@ -68,7 +68,7 @@ export default function Photographers({ photographersData }: any) {
                     height={500}
                     alt="background photo"
                     className={styles.backgroundPhoto}
-                    src={currentPhoto ?? null}
+                    src={currentPhoto as string}
                 />
             </section>
         </main>
