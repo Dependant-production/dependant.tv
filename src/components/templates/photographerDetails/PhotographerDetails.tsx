@@ -7,8 +7,10 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { useGSAP } from '@gsap/react'
+import useMobile from '@/hooks/useMobile'
 
 export default function PhotographerDetails({ photographerData }: any) {
+    const isMobile = useMobile()
     gsap.registerPlugin(ScrollTrigger)
     const containerRef = useRef<HTMLDivElement | null>(null)
     const horizontalScrollRef = useRef<HTMLDivElement | null>(null)
@@ -16,6 +18,7 @@ export default function PhotographerDetails({ photographerData }: any) {
     const photos = photographerData[0]?.photos
 
     useGSAP(() => {
+        if (isMobile) return null
         const container = containerRef.current
         const horizontalScroll = horizontalScrollRef.current
 
@@ -39,18 +42,30 @@ export default function PhotographerDetails({ photographerData }: any) {
 
     return (
         <main className={styles.photographerDetails} ref={containerRef}>
-            <h2 className={styles.title}>photographer name</h2>
+            <h2 className={styles.title}>{photographerData[0]?.name}</h2>
             <div className={styles.horizontalScroll} ref={horizontalScrollRef}>
-                {photos?.map((photo: any, index: number) => (
-                    <section key={index} className={styles.section}>
-                        <Image
-                            src={photo.url[0]?.url}
-                            alt={photo.title || `Photo ${index + 1}`}
-                            width={500}
-                            height={700}
-                            className={styles.image}
-                        />
-                    </section>
+                {photos?.map((photo: any, photoIndex: number) => (
+                    <React.Fragment key={photoIndex}>
+                        {photo?.url?.map((image: any, imageIndex: number) => (
+                            <section
+                                key={`${photoIndex}-${imageIndex}`}
+                                className={styles.section}
+                            >
+                                <Image
+                                    src={image?.url}
+                                    alt={
+                                        photo?.title ||
+                                        `Photo ${photoIndex + 1}-${
+                                            imageIndex + 1
+                                        }`
+                                    }
+                                    width={500}
+                                    height={700}
+                                    className={styles.image}
+                                />
+                            </section>
+                        ))}
+                    </React.Fragment>
                 ))}
             </div>
         </main>
