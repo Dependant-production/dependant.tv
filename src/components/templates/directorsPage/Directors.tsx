@@ -10,10 +10,8 @@ export default function Directors({ directorsData }: any) {
 
     useEffect(() => {
         if (directorsData.length > 0) {
-            const firstDirectorVideo = directorsData[0]?.videos?.[0]?.url?.[0]
-                ?.url
-                ? `http://localhost:1337${directorsData[0].videos[0].url[0]?.url}`
-                : ''
+            const firstDirectorVideo =
+                directorsData[0]?.videos?.[0]?.url?.[0]?.url ?? ''
             const firstDirectorTitle =
                 directorsData[0]?.videos?.[0]?.title || ''
 
@@ -29,9 +27,8 @@ export default function Directors({ directorsData }: any) {
             <section className={styles.textContainer}>
                 <ul className={styles.nameContainer}>
                     {directorsData.map((director: any, index: number) => {
-                        const videoUrl = director?.videos?.[0]?.url[0]?.url
-                            ? `http://localhost:1337${director.videos[0].url[0]?.url}`
-                            : ''
+                        const videoUrl =
+                            director?.videos?.[0]?.url[0]?.url ?? ''
                         return (
                             <Link
                                 key={index}

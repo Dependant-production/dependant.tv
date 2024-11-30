@@ -6,7 +6,7 @@ const withNextIntl = createNextIntlPlugin()
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
     images: {
-        domains: ['localhost', '127.0.0.1'], // Ajouter localhost pour autoriser les images de ce domaine
+        domains: ['d2pq7mh0qct8hv.cloudfront.net'],
     },
 }
 

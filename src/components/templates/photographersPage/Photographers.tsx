@@ -11,10 +11,8 @@ export default function Photographers({ photographersData }: any) {
 
     useEffect(() => {
         if (photographersData.length > 0) {
-            const firstPhotographerPhoto = photographersData[0]?.photos[0]
-                ?.url[0]?.url
-                ? `http://localhost:1337${photographersData[0]?.photos[0]?.url[0]?.url}`
-                : ''
+            const firstPhotographerPhoto =
+                photographersData[0]?.photos[0]?.url[0]?.url ?? ''
             const firstPhotographerTitle =
                 photographersData[0]?.photos?.[0]?.title || ''
 
@@ -29,10 +27,8 @@ export default function Photographers({ photographersData }: any) {
                 <ul className={styles.nameContainer}>
                     {photographersData.map(
                         (photographer: any, index: number) => {
-                            const firstPhotographerPhoto = photographer
-                                ?.photos[0]?.url[0]?.url
-                                ? `http://localhost:1337${photographer?.photos[0]?.url[0]?.url}`
-                                : ''
+                            const firstPhotographerPhoto =
+                                photographer?.photos[0]?.url[0]?.url ?? ''
                             return (
                                 <Link
                                     key={index}
