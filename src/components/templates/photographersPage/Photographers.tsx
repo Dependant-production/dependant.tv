@@ -12,7 +12,7 @@ export default function Photographers({ photographersData }: any) {
     useEffect(() => {
         if (photographersData.length > 0) {
             const firstPhotographerPhoto =
-                photographersData[0]?.photos[0]?.url[0]?.url ?? ''
+                photographersData[0]?.photos[0]?.url[0]?.url ?? null
             const firstPhotographerTitle =
                 photographersData[0]?.photos?.[0]?.title || ''
 
@@ -28,7 +28,7 @@ export default function Photographers({ photographersData }: any) {
                     {photographersData.map(
                         (photographer: any, index: number) => {
                             const firstPhotographerPhoto =
-                                photographer?.photos[0]?.url[0]?.url ?? ''
+                                photographer?.photos[0]?.url[0]?.url ?? null
                             return (
                                 <Link
                                     key={index}
@@ -55,7 +55,7 @@ export default function Photographers({ photographersData }: any) {
                     )}
                 </ul>
                 <div className={styles.titlePhoto}>
-                    <p>&quot;{currentTitle}&quot;</p>
+                    <p>{currentTitle}</p>
                 </div>
             </section>
             <section className={styles.photoContainer}>
