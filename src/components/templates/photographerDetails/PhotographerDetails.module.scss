@@ -2,36 +2,36 @@
 
 .photographerDetails {
     @media screen and (min-width: $desktop) {
-        width: 100vw;
-        height: 100vh;
         overflow: hidden;
+        height: 100vh;
         position: relative;
     }
 
     .horizontalScroll {
         display: flex;
+        flex-wrap: nowrap;
         height: 100%;
-        width: 100vw;
+        gap: 100px;
     }
 
     .section {
-        flex: 0 0 100vw;
-        height: 100%;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
-        text-align: center;
-        border-right: 1px solid #ddd;
+        justify-content: center;
     }
 
     .title {
-        font-size: 2rem;
+        font-size: 40px;
         margin-bottom: 1rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        font-family: 'fontRoman';
+        text-transform: uppercase;
+        z-index: 2;
     }
 
     .image {
-        width: auto;
-        height: auto;
+        max-height: 700px;
     }
 }

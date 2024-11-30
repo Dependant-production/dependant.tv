@@ -11,7 +11,6 @@ export default function Homepage({ homepageData }: any) {
 
     useEffect(() => {
         if (!homepageData || homepageData.length === 0) return
-
         const video = homepageData[currentIndex]
         const videoUrl = video?.url[0]?.url
         setCurrentVideo(
