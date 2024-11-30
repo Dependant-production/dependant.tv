@@ -9,20 +9,20 @@ export default function Homepage({ homepageData }: any) {
     const [currentDirector, setCurrentDirector] = useState('')
     const [currentIndex, setCurrentIndex] = useState(0)
 
+    console.log('homepageData', homepageData)
+
     useEffect(() => {
         if (!homepageData || homepageData.length === 0) return
         const video = homepageData[currentIndex]
         const videoUrl = video?.url[0]?.url
-        setCurrentVideo(
-            (process.env.NEXT_PUBLIC_STRAPI_BASE_URL + videoUrl) as string
-        )
+        setCurrentVideo(videoUrl as string)
         setCurrentTitle(video?.title || '')
         setCurrentDirector(video?.director?.name || '')
         // Changer de vidéo toutes les 5 secondes
         const interval = setInterval(() => {
             const nextIndex = (currentIndex + 1) % homepageData.length
             setCurrentIndex(nextIndex)
-        }, 5000)
+        }, 10000)
 
         // Nettoyer l'intervalle au démontage
         return () => clearInterval(interval)
@@ -32,7 +32,7 @@ export default function Homepage({ homepageData }: any) {
         <main className={styles.homepage}>
             <section className={styles.textContainer}>
                 <p className={styles.directorName}>{currentDirector}</p>
-                <p>&quot;{currentTitle}&quot;</p>
+                <p>« {currentTitle} »</p>
             </section>
 
             <section className={styles.videoContainer}>

@@ -10,20 +10,22 @@
 
     .textContainer {
         display: flex;
-        gap: 5px;
         flex-direction: column;
         align-items: center;
+        gap: 5px;
 
         @media screen and (min-width: $desktop) {
             flex-direction: row;
+            gap: 50px;
         }
     }
 
     p {
-        font-size: 13px;
+        font-size: 20px;
         color: #fff;
+        font-family: 'fontMedium';
         @media screen and (min-width: $desktop) {
-            font-size: 30px;
+            font-size: 40px;
         }
     }
 

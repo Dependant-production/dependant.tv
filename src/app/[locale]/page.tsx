@@ -16,7 +16,6 @@ export default async function Home() {
         }
 
         const homepageData = response?.data?.data
-        console.log('homepageData', homepageData)
         return <Homepage homepageData={homepageData} />
     } catch (error) {
         console.error('Erreur lors de la récupération des articles :', error)
