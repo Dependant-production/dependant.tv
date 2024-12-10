@@ -13,7 +13,7 @@ export default async function DirectorsPage(props: { params: tParamsSlug }) {
         console.log('formattedSlug', formattedSlug)
 
         const response = await axiosInstance.get(
-            `/api/directors?filters[slug][$eq]=${formattedSlug}&locale=${locale}&populate=videos.url`
+            `/api/directors?filters[slug][$eq]=${formattedSlug}&locale=${locale}&populate=videos.url&populate=photographer`
         )
 
         const directorData = response?.data?.data

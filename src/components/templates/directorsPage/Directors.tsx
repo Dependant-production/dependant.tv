@@ -6,17 +6,13 @@ import { Link } from '@/i18n/routing'
 
 export default function Directors({ directorsData }: any) {
     const [currentVideo, setCurrentVideo] = useState<string>('')
-    const [currentTitle, setCurrentTitle] = useState('')
 
     useEffect(() => {
         if (directorsData.length > 0) {
             const firstDirectorVideo =
                 directorsData[0]?.videos?.[0]?.url?.[0]?.url ?? ''
-            const firstDirectorTitle =
-                directorsData[0]?.videos?.[0]?.title || ''
 
             setCurrentVideo(firstDirectorVideo)
-            setCurrentTitle(firstDirectorTitle)
         }
     }, [directorsData])
 
@@ -39,9 +35,6 @@ export default function Directors({ directorsData }: any) {
                                     className={styles.name}
                                     onMouseEnter={() => {
                                         setCurrentVideo(videoUrl as string)
-                                        setCurrentTitle(
-                                            director?.videos[0]?.title as string
-                                        )
                                     }}
                                 >
                                     {director.name}
@@ -50,9 +43,6 @@ export default function Directors({ directorsData }: any) {
                         )
                     })}
                 </ul>
-                <div className={styles.titleVideo}>
-                    <p>&quot;{currentTitle}&quot;</p>
-                </div>
             </section>
             <section className={styles.videoContainer}>
                 <video

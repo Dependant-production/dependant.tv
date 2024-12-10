@@ -12,7 +12,7 @@ export default async function PhotograophersPage(props: {
         const formattedSlug = slug.replace(/%20/g, '-')
 
         const response = await axiosInstance.get(
-            `/api/photographers?filters[slug][$eq]=${formattedSlug}&locale=${locale}&populate=photos.url`
+            `/api/photographers?filters[slug][$eq]=${formattedSlug}&locale=${locale}&populate=photos.url&populate=director`
         )
 
         const photographerData = response?.data?.data

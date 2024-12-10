@@ -31,12 +31,12 @@
         font-family: 'fontBold';
         text-transform: uppercase;
         color: yellow;
-        bottom: 10px;
+        bottom: 1rem;
+        left: 1rem;
         @media screen and (min-width: $desktop) {
             bottom: 0;
             left: 0;
             font-size: 40px;
-            margin-bottom: 1rem;
         }
     }
 
@@ -48,5 +48,12 @@
             width: 700px;
             height: 700px;
         }
+    }
+
+    .nav {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        z-index: 2;
     }
 }

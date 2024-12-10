@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { useGSAP } from '@gsap/react'
 import useMobile from '@/hooks/useMobile'
+import SideNav from '@/components/molecules/sideNav/SideNav'
 
 export default function PhotographerDetails({ photographerData }: any) {
     const isMobile = useMobile()
@@ -16,6 +17,7 @@ export default function PhotographerDetails({ photographerData }: any) {
     const horizontalScrollRef = useRef<HTMLDivElement | null>(null)
 
     const photos = photographerData[0]?.photos
+    console.log('photographerData', photographerData)
 
     useGSAP(() => {
         if (isMobile) return null
@@ -52,7 +54,7 @@ export default function PhotographerDetails({ photographerData }: any) {
                                 className={styles.section}
                             >
                                 <Image
-                                    src={image?.url}
+                                    src={image?.url || null}
                                     alt={
                                         photo?.title ||
                                         `Photo ${photoIndex + 1}-${
@@ -67,6 +69,15 @@ export default function PhotographerDetails({ photographerData }: any) {
                         ))}
                     </React.Fragment>
                 ))}
+                {photographerData[0]?.director && (
+                    <div>
+                        <SideNav
+                            className={styles.nav}
+                            srcDirector={`/directors/${photographerData[0].director.name}`}
+                            srcPhotographer={`/photographers/${photographerData[0].name}`}
+                        />
+                    </div>
+                )}
             </div>
         </main>
     )

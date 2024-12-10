@@ -3,9 +3,12 @@
 
 import React from 'react'
 import styles from './DirectorDetails.module.scss'
+import SideNav from '@/components/molecules/sideNav/SideNav'
 
 export default function DirectorDetails({ directorData }: any) {
     const videos = directorData[0]?.videos
+
+    console.log('directorData', directorData)
 
     return (
         <main className={styles.directorDetails}>
@@ -28,6 +31,15 @@ export default function DirectorDetails({ directorData }: any) {
                         ))}
                     </React.Fragment>
                 ))}
+                {directorData[0]?.photographer && (
+                    <div>
+                        <SideNav
+                            className={styles.nav}
+                            srcDirector={`/directors/${directorData[0].name}`}
+                            srcPhotographer={`/photographers/${directorData[0].photographer.name}`}
+                        />
+                    </div>
+                )}
             </div>
         </main>
     )

@@ -49,11 +49,14 @@
         }
 
         .backgroundPhoto {
+            padding: 1rem;
+            width: 100%;
+            object-fit: contain;
             @media screen and (min-width: $desktop) {
                 width: 700px;
                 height: 700px;
+                padding: 0;
             }
-            object-fit: contain;
         }
     }
 
