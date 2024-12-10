@@ -2,6 +2,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import styles from './Homepage.module.scss'
+import { Link } from '@/i18n/routing'
 
 export default function Homepage({ homepageData }: any) {
     const [currentVideo, setCurrentVideo] = useState<string | null>(null)
@@ -28,11 +29,24 @@ export default function Homepage({ homepageData }: any) {
         return () => clearInterval(interval)
     }, [currentIndex, homepageData])
 
+    const getLinkDirectors = () => {
+        let link
+        if (currentDirector) {
+            link = `directors/${currentDirector.toLowerCase()}`
+        }
+        return link
+    }
+
     return (
         <main className={styles.homepage}>
             <section className={styles.textContainer}>
-                <p className={styles.directorName}>{currentDirector}</p>
-                <p>« {currentTitle} »</p>
+                <Link
+                    className={styles.linkName}
+                    href={getLinkDirectors() as string}
+                >
+                    <p className={styles.directorName}>{currentDirector}</p>
+                    <p>« {currentTitle} »</p>
+                </Link>
             </section>
 
             <section className={styles.videoContainer}>
