@@ -8,11 +8,18 @@ import SideNav from '@/components/molecules/sideNav/SideNav'
 export default function DirectorDetails({ directorData }: any) {
     const videos = directorData[0]?.videos
 
-    console.log('directorData', directorData)
+    const cutName = directorData[0]?.name.split(' ')
+    const firstPart = cutName?.[0] || ''
+    const secondPart = cutName?.slice(1).join(' ') || ''
 
     return (
         <main className={styles.directorDetails}>
-            <h2 className={styles.title}>{directorData[0]?.name}</h2>
+            <h2 className={styles.title}>
+                {firstPart}
+                <br />
+                {secondPart}
+            </h2>
+
             <div className={styles.videosContainer}>
                 {videos?.map((video: any, videoIndex: number) => (
                     <React.Fragment key={videoIndex}>
@@ -27,10 +34,14 @@ export default function DirectorDetails({ directorData }: any) {
                                     muted
                                     autoPlay
                                 />
+                                <div className={styles.videoTitle}>
+                                    {video?.title}
+                                </div>
                             </section>
                         ))}
                     </React.Fragment>
                 ))}
+
                 {directorData[0]?.photographer && (
                     <div>
                         <SideNav
