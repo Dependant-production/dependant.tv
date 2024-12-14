@@ -19,6 +19,10 @@ export default function PhotographerDetails({ photographerData }: any) {
     const photos = photographerData[0]?.photos
     console.log('photographerData', photographerData)
 
+    const cutName = photographerData[0]?.name.split(' ')
+    const firstPart = cutName?.[0] || ''
+    const secondPart = cutName?.slice(1).join(' ') || ''
+
     useGSAP(() => {
         if (isMobile) return null
         const container = containerRef.current
@@ -42,43 +46,56 @@ export default function PhotographerDetails({ photographerData }: any) {
         })
     })
 
+    console.log('photos', photos)
+
     return (
-        <main className={styles.photographerDetails} ref={containerRef}>
-            <h2 className={styles.title}>{photographerData[0]?.name}</h2>
-            <div className={styles.horizontalScroll} ref={horizontalScrollRef}>
-                {photos?.map((photo: any, photoIndex: number) => (
-                    <React.Fragment key={photoIndex}>
-                        {photo?.url?.map((image: any, imageIndex: number) => (
-                            <section
-                                key={`${photoIndex}-${imageIndex}`}
-                                className={styles.section}
-                            >
-                                <Image
-                                    src={image?.url || null}
-                                    alt={
-                                        photo?.title ||
-                                        `Photo ${photoIndex + 1}-${
-                                            imageIndex + 1
-                                        }`
-                                    }
-                                    width={500}
-                                    height={700}
-                                    className={styles.image}
-                                />
-                            </section>
-                        ))}
-                    </React.Fragment>
-                ))}
-                {photographerData[0]?.director && (
-                    <div>
-                        <SideNav
-                            className={styles.nav}
-                            srcDirector={`/directors/${photographerData[0].director.name}`}
-                            srcPhotographer={`/photographers/${photographerData[0].name}`}
-                        />
-                    </div>
-                )}
-            </div>
-        </main>
+        <>
+            <main className={styles.photographerDetails} ref={containerRef}>
+                <h2 className={styles.title}>
+                    {firstPart}
+                    <br />
+                    {secondPart}
+                </h2>
+                <div
+                    className={styles.horizontalScroll}
+                    ref={horizontalScrollRef}
+                >
+                    {photos?.map((photo: any, photoIndex: number) => (
+                        <React.Fragment key={photoIndex}>
+                            {photo?.url?.map(
+                                (image: any, imageIndex: number) => (
+                                    <section
+                                        key={`${photoIndex}-${imageIndex}`}
+                                        className={styles.section}
+                                    >
+                                        <Image
+                                            src={image?.url || null}
+                                            alt={
+                                                photo?.title ||
+                                                `Photo ${photoIndex + 1}-${
+                                                    imageIndex + 1
+                                                }`
+                                            }
+                                            width={500}
+                                            height={700}
+                                            className={styles.image}
+                                        />
+                                    </section>
+                                )
+                            )}
+                        </React.Fragment>
+                    ))}
+                </div>
+            </main>
+            {photographerData[0]?.director && (
+                <div>
+                    <SideNav
+                        className={styles.nav}
+                        srcDirector={`/directors/${photographerData[0].director.name}`}
+                        srcPhotographer={`/photographers/${photographerData[0].name}`}
+                    />
+                </div>
+            )}
+        </>
     )
 }

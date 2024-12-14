@@ -2,6 +2,7 @@
 
 .photographerDetails {
     position: relative;
+    transform: none !important;
     @media screen and (min-width: $desktop) {
         overflow: hidden;
         height: 100vh;
@@ -30,12 +31,9 @@
         z-index: 2;
         font-family: 'fontBold';
         text-transform: uppercase;
-        color: yellow;
         bottom: 1rem;
         left: 1rem;
         @media screen and (min-width: $desktop) {
-            bottom: 0;
-            left: 0;
             font-size: 40px;
         }
     }
