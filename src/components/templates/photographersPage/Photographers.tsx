@@ -12,9 +12,9 @@ export default function Photographers({ photographersData }: any) {
     useEffect(() => {
         if (photographersData.length > 0) {
             const firstPhotographerPhoto =
-                photographersData[0]?.photos[0]?.url[0]?.url ?? null
+                photographersData[0]?.photo?.url ?? null
             const firstPhotographerTitle =
-                photographersData[0]?.photos?.[0]?.title || ''
+                photographersData[0]?.photo?.title || ''
 
             setCurrentPhoto(firstPhotographerPhoto)
             setCurrentTitle(firstPhotographerTitle)
@@ -28,7 +28,7 @@ export default function Photographers({ photographersData }: any) {
                     {photographersData.map(
                         (photographer: any, index: number) => {
                             const firstPhotographerPhoto =
-                                photographer?.photos[0]?.url[0]?.url ?? null
+                                photographer?.photo?.url ?? null
                             return (
                                 <Link
                                     key={index}

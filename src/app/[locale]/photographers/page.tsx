@@ -12,7 +12,7 @@ export default async function PhotographerPage(props: { params: tParams }) {
 
     try {
         const response = await axiosInstance.get(
-            `/api/photographers?locale=${locale}&populate=photos.url`
+            `/api/photographers?locale=${locale}&populate=photo`
         )
         if (
             !response.data ||
