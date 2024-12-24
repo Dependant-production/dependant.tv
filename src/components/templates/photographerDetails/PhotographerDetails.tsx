@@ -16,8 +16,7 @@ export default function PhotographerDetails({ photographerData }: any) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const horizontalScrollRef = useRef<HTMLDivElement | null>(null)
 
-    const photos = photographerData[0]?.photos
-    console.log('photographerData', photographerData)
+    const projects = photographerData[0]?.projects
 
     const cutName = photographerData[0]?.name.split(' ')
     const firstPart = cutName?.[0] || ''
@@ -46,8 +45,6 @@ export default function PhotographerDetails({ photographerData }: any) {
         })
     })
 
-    console.log('photos', photos)
-
     return (
         <>
             <main className={styles.photographerDetails} ref={containerRef}>
@@ -60,30 +57,16 @@ export default function PhotographerDetails({ photographerData }: any) {
                     className={styles.horizontalScroll}
                     ref={horizontalScrollRef}
                 >
-                    {photos?.map((photo: any, photoIndex: number) => (
-                        <React.Fragment key={photoIndex}>
-                            {photo?.url?.map(
-                                (image: any, imageIndex: number) => (
-                                    <section
-                                        key={`${photoIndex}-${imageIndex}`}
-                                        className={styles.section}
-                                    >
-                                        <Image
-                                            src={image?.url || null}
-                                            alt={
-                                                photo?.title ||
-                                                `Photo ${photoIndex + 1}-${
-                                                    imageIndex + 1
-                                                }`
-                                            }
-                                            width={500}
-                                            height={700}
-                                            className={styles.image}
-                                        />
-                                    </section>
-                                )
-                            )}
-                        </React.Fragment>
+                    {projects?.map((project: any, projectIndex: number) => (
+                        <section key={projectIndex} className={styles.section}>
+                            <Image
+                                src={project?.coverMedia?.url || null}
+                                alt={project?.title}
+                                width={500}
+                                height={700}
+                                className={styles.image}
+                            />
+                        </section>
                     ))}
                 </div>
             </main>

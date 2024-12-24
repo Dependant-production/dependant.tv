@@ -16,7 +16,6 @@
             flex-direction: row;
             flex-wrap: nowrap;
             height: 100%;
-            gap: 100px;
         }
     }
 
@@ -24,6 +23,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        flex: 0 0 100vw; /* Chaque section occupe 100% de la largeur de l'écran */
+        height: 100vh;
     }
 
     .title {
