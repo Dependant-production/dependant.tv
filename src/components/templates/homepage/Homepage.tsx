@@ -45,7 +45,7 @@ export default function Homepage({ homepageData }: any) {
                     href={getLinkDirectors() as string}
                 >
                     <p className={styles.directorName}>{currentDirector}</p>
-                    <p>« {currentTitle} »</p>
+                    <p className={styles.title}>« {currentTitle} »</p>
                 </Link>
             </section>
 

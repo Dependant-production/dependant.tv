@@ -55,3 +55,17 @@
         z-index: 2;
     }
 }
+
+.projectTitle {
+    font-family: 'fontBold';
+    text-transform: uppercase;
+    font-size: 40px;
+    position: fixed;
+    z-index: 2;
+    color: white;
+    bottom: 1rem;
+    right: 1rem;
+    @media screen and (min-width: $desktop) {
+        font-size: 60px;
+    }
+}

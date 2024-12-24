@@ -7,7 +7,7 @@
     padding: 20px 50px;
     height: 100vh;
     justify-content: center;
-
+    position: relative;
     .linkName {
         display: flex;
         flex-direction: column;
@@ -15,8 +15,7 @@
         gap: 5px;
         text-align: center;
         @media screen and (min-width: $desktop) {
-            flex-direction: row;
-            gap: 50px;
+            align-items: flex-start;
         }
     }
     .textContainer {
@@ -26,8 +25,10 @@
         gap: 5px;
         text-align: center;
         @media screen and (min-width: $desktop) {
-            flex-direction: row;
-            gap: 50px;
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            justify-content: flex-start;
         }
     }
 
@@ -38,6 +39,10 @@
         @media screen and (min-width: $desktop) {
             font-size: 40px;
         }
+    }
+
+    .title {
+        font-size: 20px;
     }
 
     .directorName {
