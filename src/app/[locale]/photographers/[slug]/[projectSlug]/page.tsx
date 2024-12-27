@@ -10,7 +10,7 @@ type tParamsSlug = Promise<{
 export default async function ProjectDetailPage(props: {
     params: tParamsSlug
 }) {
-    const { slug, projectSlug } = await props.params
+    const { slug, projectSlug, locale } = await props.params
 
     console.log('slug', slug)
 
@@ -19,7 +19,7 @@ export default async function ProjectDetailPage(props: {
         const proSlug = projectSlug.replace(/%20/g, '-').toLowerCase()
 
         const response = await axiosInstance.get(
-            `/api/photographers?filters[slug][$eq]=${formattedSlug}&filters[projects][projectSlug][$eq]=${proSlug}&populate=projects.media`
+            `/api/photographers?filters[slug][$eq]=${formattedSlug}&filters[projects][projectSlug][$eq]=${proSlug}&locale=${locale}&populate=projects.media`
         )
 
         const projectsData = response?.data?.data[0]
