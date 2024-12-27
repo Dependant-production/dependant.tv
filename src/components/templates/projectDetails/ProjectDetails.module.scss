@@ -1,6 +1,6 @@
 @import '../../../app/[locale]/variables.scss';
 
-.photographerDetails {
+.projectDetails {
     transform: none !important;
     @media screen and (min-width: $desktop) {
         overflow: hidden;
@@ -20,11 +20,12 @@
 
     .section {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         position: relative;
         justify-content: center;
-        flex: 0 0 100vw; /* Chaque section occupe 100% de la largeur de l'écran */
         height: 100vh;
+        width: 100%;
     }
 
     .title {
@@ -47,26 +48,5 @@
             width: 700px;
             height: 700px;
         }
-    }
-
-    .nav {
-        position: fixed;
-        top: 50%;
-        right: 0;
-        z-index: 2;
-    }
-}
-
-.projectTitle {
-    font-family: 'fontBold';
-    text-transform: uppercase;
-    font-size: 20px;
-    position: absolute;
-    z-index: 2;
-    color: white;
-    bottom: 1rem;
-    right: 1rem;
-    @media screen and (min-width: $desktop) {
-        font-size: 30px;
     }
 }
