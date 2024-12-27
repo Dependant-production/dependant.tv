@@ -1,24 +1,30 @@
 'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import React, { useRef } from 'react'
-import styles from './PhotographerDetails.module.scss'
+import styles from './ProjectDetails.module.scss'
 import gsap from 'gsap'
+import useMobile from '@/hooks/useMobile'
+import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
-import { useGSAP } from '@gsap/react'
-import useMobile from '@/hooks/useMobile'
-import SideNav from '@/components/molecules/sideNav/SideNav'
-import { Link } from '@/i18n/routing'
 
-export default function PhotographerDetails({ photographerData }: any) {
+interface ProjectDetailsProps {
+    projectDetails: any
+    photographerName: string
+}
+
+function ProjectDetails({
+    projectDetails,
+    photographerName,
+}: ProjectDetailsProps) {
+    console.log('projectData', projectDetails)
     const isMobile = useMobile()
     gsap.registerPlugin(ScrollTrigger)
     const containerRef = useRef<HTMLDivElement | null>(null)
     const horizontalScrollRef = useRef<HTMLDivElement | null>(null)
+    const images = projectDetails?.media
 
-    const projects = photographerData[0]?.projects
-    const cutName = photographerData[0]?.name.split(' ')
+    const cutName = photographerName.split(' ')
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
 
@@ -45,10 +51,9 @@ export default function PhotographerDetails({ photographerData }: any) {
         })
     })
 
-    const formattedSlug = photographerData[0].slug.replace(/-/g, '%20')
     return (
         <>
-            <main className={styles.photographerDetails} ref={containerRef}>
+            <main className={styles.projectDetails} ref={containerRef}>
                 <h2 className={styles.title}>
                     {firstPart}
                     <br />
@@ -58,36 +63,29 @@ export default function PhotographerDetails({ photographerData }: any) {
                     className={styles.horizontalScroll}
                     ref={horizontalScrollRef}
                 >
-                    {projects?.map((project: any, projectIndex: number) => (
-                        <section key={projectIndex} className={styles.section}>
-                            <Link
-                                key={projectIndex}
-                                href={`/photographers/${formattedSlug}/${project.projectSlug}`}
-                            >
-                                <Image
-                                    src={project?.coverMedia?.url || null}
-                                    alt={project?.title}
-                                    width={500}
-                                    height={700}
-                                    className={styles.image}
-                                />
-                                <div className={styles.projectTitle}>
-                                    <h3>{project?.title}</h3>
-                                </div>
-                            </Link>
+                    {images?.map((image: any, index: number) => (
+                        <section key={index} className={styles.section}>
+                            <Image
+                                src={image.url}
+                                alt="toto"
+                                width={500}
+                                height={700}
+                            />
                         </section>
                     ))}
                 </div>
             </main>
-            {photographerData[0]?.director && (
+            {/* {projectDetails[0]?.director && (
                 <div>
                     <SideNav
                         className={styles.nav}
-                        srcDirector={`/directors/${photographerData[0].director.name}`}
-                        srcPhotographer={`/photographers/${photographerData[0].name}`}
+                        srcDirector={`/directors/${projectDetails[0].director.name}`}
+                        srcPhotographer={`/photographers/${projectDetails[0].name}`}
                     />
                 </div>
-            )}
+            )} */}
         </>
     )
 }
+
+export default ProjectDetails

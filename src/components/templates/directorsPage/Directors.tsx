@@ -7,7 +7,6 @@ import { Link } from '@/i18n/routing'
 export default function Directors({ directorsData }: any) {
     const [currentVideo, setCurrentVideo] = useState<string>('')
     const [currentTitle, setCurrentTitle] = useState<string>('')
-    console.log('directorsData', directorsData)
 
     useEffect(() => {
         if (directorsData.length > 0) {
@@ -19,8 +18,6 @@ export default function Directors({ directorsData }: any) {
             setCurrentTitle(firstTitleVideo)
         }
     }, [directorsData])
-
-    console.log('directorsData', directorsData)
 
     return (
         <main className={styles.directorContainer}>
