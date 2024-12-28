@@ -7,7 +7,7 @@ const withNextIntl = createNextIntlPlugin()
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
     images: {
-        domains: ['d2pq7mh0qct8hv.cloudfront.net'],
+        domains: ['d2pq7mh0qct8hv.cloudfront.net', 'cms.dependant.tv'],
     },
 }
 const combinedConfig = withNextVideo(withNextIntl(nextConfig))
