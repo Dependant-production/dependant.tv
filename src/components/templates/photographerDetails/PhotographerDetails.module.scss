@@ -1,0 +1,72 @@
+@import '../../../app/[locale]/variables.scss';
+
+.photographerDetails {
+    transform: none !important;
+    @media screen and (min-width: $desktop) {
+        overflow: hidden;
+        height: 100vh;
+    }
+
+    .horizontalScroll {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        @media screen and (min-width: $desktop) {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            height: 100%;
+        }
+    }
+
+    .section {
+        display: flex;
+        align-items: center;
+        position: relative;
+        justify-content: center;
+        flex: 0 0 100vw; /* Chaque section occupe 100% de la largeur de l'écran */
+        height: 100vh;
+    }
+
+    .title {
+        position: fixed;
+        z-index: 2;
+        font-family: 'fontBold';
+        text-transform: uppercase;
+        bottom: 1rem;
+        left: 1rem;
+        @media screen and (min-width: $desktop) {
+            font-size: 40px;
+        }
+    }
+
+    .image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        @media screen and (min-width: $desktop) {
+            width: 700px;
+            height: 700px;
+        }
+    }
+
+    .nav {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        z-index: 2;
+    }
+}
+
+.projectTitle {
+    font-family: 'fontBold';
+    text-transform: uppercase;
+    font-size: 20px;
+    position: absolute;
+    z-index: 2;
+    color: white;
+    bottom: 1rem;
+    right: 1rem;
+    @media screen and (min-width: $desktop) {
+        font-size: 30px;
+    }
+}

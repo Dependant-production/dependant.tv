@@ -1,0 +1,72 @@
+@import '../../../app/[locale]/variables.scss';
+
+.directorDetails {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    position: relative;
+
+    .title {
+        position: fixed;
+        bottom: 1rem;
+        left: 1rem;
+        z-index: 2;
+        font-size: 25px;
+        font-family: 'fontBold';
+        text-align: start;
+        text-transform: uppercase;
+        @media screen and (min-width: $desktop) {
+            font-size: 50px;
+        }
+    }
+
+    .videosContainer {
+        width: 100%;
+        height: 100%;
+
+        .video {
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+    }
+
+    .section {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+    }
+    .videoTitleContainer {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        font-family: 'fontBold';
+    }
+
+    .videoTitle {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        text-transform: uppercase;
+        color: white;
+        font-size: 16px;
+        font-family: 'fontBold';
+        z-index: 2;
+    }
+
+    .nav {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 2;
+    }
+}

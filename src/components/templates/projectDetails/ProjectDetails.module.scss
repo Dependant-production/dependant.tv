@@ -1,0 +1,52 @@
+@import '../../../app/[locale]/variables.scss';
+
+.projectDetails {
+    transform: none !important;
+    @media screen and (min-width: $desktop) {
+        overflow: hidden;
+        height: 100vh;
+    }
+
+    .horizontalScroll {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        @media screen and (min-width: $desktop) {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            height: 100%;
+        }
+    }
+
+    .section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        position: relative;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .title {
+        position: fixed;
+        z-index: 2;
+        font-family: 'fontBold';
+        text-transform: uppercase;
+        bottom: 1rem;
+        left: 1rem;
+        @media screen and (min-width: $desktop) {
+            font-size: 40px;
+        }
+    }
+
+    .image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        @media screen and (min-width: $desktop) {
+            width: 700px;
+            height: 700px;
+        }
+    }
+}

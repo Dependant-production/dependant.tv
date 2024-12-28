@@ -1,0 +1,68 @@
+@import '../../../app/[locale]/variables.scss';
+
+.homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 50px;
+    height: 100vh;
+    justify-content: center;
+    position: relative;
+    .linkName {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        text-align: center;
+        @media screen and (min-width: $desktop) {
+            align-items: flex-start;
+        }
+    }
+    .textContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        text-align: center;
+        @media screen and (min-width: $desktop) {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            justify-content: flex-start;
+        }
+    }
+
+    p {
+        font-size: 20px;
+        color: #fff;
+        font-family: 'fontMedium';
+        @media screen and (min-width: $desktop) {
+            font-size: 40px;
+        }
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .directorName {
+        text-transform: uppercase;
+    }
+}
+
+.videoContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1; // Pour que la vidéo soit en arrière-plan
+    overflow: hidden;
+    overflow-y: hidden;
+
+    .backgroundVideo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}

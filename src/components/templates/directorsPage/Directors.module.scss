@@ -1,0 +1,63 @@
+@import '../../../app/[locale]/variables.scss';
+
+.directorContainer {
+    position: relative;
+
+    .textContainer {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 100%;
+        padding: 1rem;
+
+        .nameContainer {
+            display: flex;
+            font-size: 23px;
+            flex-direction: column;
+            list-style: none;
+            text-transform: uppercase;
+            font-family: 'fontRoman';
+            color: white;
+            @media screen and (min-width: $desktop) {
+                font-size: 50px;
+            }
+            .name {
+                cursor: pointer;
+            }
+            .name:hover {
+                font-family: 'fontBlack';
+            }
+        }
+    }
+
+    .videoContainer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1; // Pour que la vidéo soit en arrière-plan
+        overflow: hidden;
+        overflow-y: hidden;
+
+        .backgroundVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.titleVideo {
+    color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+    p {
+        font-family: 'fontMedium';
+    }
+    @media screen and (min-width: $desktop) {
+        font-size: 20px;
+    }
+}

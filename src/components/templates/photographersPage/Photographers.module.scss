@@ -1,0 +1,72 @@
+@import '../../../app/[locale]/variables.scss';
+
+.photographerContainer {
+    position: relative;
+
+    .textContainer {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 100%;
+        padding: 1rem;
+        .nameContainer {
+            display: flex;
+            font-size: 23px;
+            flex-direction: column;
+            list-style: none;
+            text-transform: uppercase;
+            font-family: 'fontRoman';
+            color: white;
+            @media screen and (min-width: $desktop) {
+                font-size: 50px;
+            }
+            .name {
+                cursor: pointer;
+            }
+            .name:hover {
+                font-family: 'fontBlack';
+            }
+        }
+    }
+
+    .photoContainer {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        z-index: -1;
+        overflow: hidden;
+        overflow-y: hidden;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+
+        @media screen and (min-width: $desktop) {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .backgroundPhoto {
+            padding: 1rem;
+            width: 100%;
+            object-fit: contain;
+            @media screen and (min-width: $desktop) {
+                width: 700px;
+                height: 700px;
+                padding: 0;
+            }
+        }
+    }
+
+    .titlePhoto {
+        color: white;
+        font-family: 'fontRoman';
+        text-transform: uppercase;
+        font-size: 12px;
+        @media screen and (min-width: $desktop) {
+            font-size: 25px;
+        }
+    }
+}
