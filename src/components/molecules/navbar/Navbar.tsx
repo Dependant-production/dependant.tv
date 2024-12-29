@@ -6,14 +6,22 @@ interface NavbarProps {
     cat1: string
     cat2: string
     cat3: string
+    color?: 'black' | 'white'
 }
 
-export default function Navbar({ cat1, cat2, cat3 }: NavbarProps) {
+export default function Navbar({
+    cat1,
+    cat2,
+    cat3,
+    color = 'white',
+}: NavbarProps) {
     const pathname = usePathname()
     const isActive = (path: string) => pathname?.includes(path)
 
+    const navbarColorClass = color === 'black' ? styles.black : styles.white
+
     return (
-        <nav className={styles.navbar}>
+        <nav className={`${styles.navbar} ${navbarColorClass}`}>
             <Link
                 href="/directors"
                 className={`${styles.link} ${

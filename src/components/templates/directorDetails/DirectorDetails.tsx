@@ -12,6 +12,8 @@ export default function DirectorDetails({ directorData }: any) {
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
 
+    console.log('directorData', directorData)
+
     return (
         <main className={styles.directorDetails}>
             <h2 className={styles.title}>

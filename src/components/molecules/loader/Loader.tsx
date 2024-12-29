@@ -7,7 +7,7 @@ export default function Loader() {
     return (
         <main className={styles.loader}>
             <Image
-                src="/logoDpdWhite.png"
+                src="/logoDpdBlack.png"
                 alt="loader"
                 width={300}
                 height={100}
