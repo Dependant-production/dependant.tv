@@ -54,7 +54,7 @@ function ProjectDetails({
     return (
         <>
             <main className={styles.projectDetails} ref={containerRef}>
-                <h2 className={styles.title}>
+                <h2 className={styles.name}>
                     {firstPart}
                     <br />
                     {secondPart}
@@ -75,16 +75,8 @@ function ProjectDetails({
                         </section>
                     ))}
                 </div>
+                <h3 className={styles.title}>{projectDetails.title}</h3>
             </main>
-            {/* {projectDetails[0]?.director && (
-                <div>
-                    <SideNav
-                        className={styles.nav}
-                        srcDirector={`/directors/${projectDetails[0].director.name}`}
-                        srcPhotographer={`/photographers/${projectDetails[0].name}`}
-                    />
-                </div>
-            )} */}
         </>
     )
 }

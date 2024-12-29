@@ -31,3 +31,16 @@
         font-family: 'fontBlack';
     }
 }
+
+.white {
+    .link {
+        color: #fff;
+    }
+}
+
+// Classe pour le style en noir
+.black {
+    .link {
+        color: #000;
+    }
+}
