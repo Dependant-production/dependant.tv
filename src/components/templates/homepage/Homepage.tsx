@@ -10,10 +10,12 @@ export default function Homepage({ homepageData }: any) {
     const [currentDirector, setCurrentDirector] = useState('')
     const [currentIndex, setCurrentIndex] = useState(0)
 
+    console.log('homepageData', homepageData)
+
     useEffect(() => {
         if (!homepageData || homepageData.length === 0) return
         const video = homepageData[currentIndex]
-        const videoUrl = video?.url[0]?.url
+        const videoUrl = video?.url?.[0]?.url
         setCurrentVideo(videoUrl as string)
         setCurrentTitle(video?.title || '')
         setCurrentDirector(video?.director?.name || '')

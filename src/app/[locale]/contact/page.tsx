@@ -22,6 +22,7 @@ export default async function ContactPage(props: { params: tParams }) {
             notFound()
         }
         const contactData = response?.data?.data
+        console.log('contactData', contactData)
         return <Contact contactData={contactData} />
     } catch (error) {
         console.error('Erreur lors de la récupération des articles :', error)

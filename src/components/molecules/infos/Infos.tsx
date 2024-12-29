@@ -29,13 +29,13 @@ export default function Infos({ insta, mail, address }: InfosProps) {
                     {t('Contact.Infos.titleServices')}
                 </h3>
                 <div className={styles.infosContainer}>
-                    <p>{t('Contact.Infos.advertising')}</p>
                     <p>{t('Contact.Infos.clip')}</p>
-                    <p>{t('Contact.Infos.brand')}</p>
+                    <p>{t('Contact.Infos.advertising')}</p>
                     <p>{t('Contact.Infos.print')}</p>
+                    <p>{t('Contact.Infos.brand')}</p>
                 </div>
             </div>
-            <div className={styles.container}>
+            <div className={styles.creditContainer}>
                 <h3 className={styles.infosTitle}>
                     {t('Contact.Infos.titleCredits')}
                 </h3>
