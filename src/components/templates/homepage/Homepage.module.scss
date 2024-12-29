@@ -66,3 +66,15 @@
         object-fit: cover;
     }
 }
+
+.counter {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 20px;
+    color: #fff;
+    font-family: 'fontMedium';
+    @media screen and (min-width: $desktop) {
+        font-size: 40px;
+    }
+}
