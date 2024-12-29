@@ -1,7 +1,7 @@
 'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './PhotographerDetails.module.scss'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -17,10 +17,14 @@ export default function PhotographerDetails({ photographerData }: any) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const horizontalScrollRef = useRef<HTMLDivElement | null>(null)
 
+    const [isHover, setIsHover] = useState(false)
+
     const projects = photographerData[0]?.projects
     const cutName = photographerData[0]?.name.split(' ')
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
+
+    console.log('photographerData', photographerData)
 
     useGSAP(() => {
         if (isMobile) return null
@@ -45,7 +49,7 @@ export default function PhotographerDetails({ photographerData }: any) {
         })
     })
 
-    const formattedSlug = photographerData[0].slug.replace(/-/g, '%20')
+    const formattedSlug = photographerData[0]?.slug.replace(/-/g, '%20')
     return (
         <>
             <main className={styles.photographerDetails} ref={containerRef}>
@@ -63,17 +67,24 @@ export default function PhotographerDetails({ photographerData }: any) {
                             <Link
                                 key={projectIndex}
                                 href={`/photographers/${formattedSlug}/${project.projectSlug}`}
+                                className={styles.link}
                             >
                                 <Image
+                                    onMouseEnter={() => setIsHover(true)}
+                                    onMouseLeave={() => setIsHover(false)}
                                     src={project?.coverMedia?.url || null}
                                     alt={project?.title}
                                     width={500}
                                     height={700}
-                                    className={styles.image}
+                                    className={`${styles.image} ${
+                                        isHover ? styles.hover : ''
+                                    }`}
                                 />
-                                <div className={styles.projectTitle}>
-                                    <h3>{project?.title}</h3>
-                                </div>
+                                {isHover && (
+                                    <div className={styles.projectTitle}>
+                                        <h3>{project?.title}</h3>
+                                    </div>
+                                )}
                             </Link>
                         </section>
                     ))}

@@ -44,7 +44,7 @@ export default function Photographers({ photographersData }: any) {
                                                 firstPhotographerPhoto
                                             )
                                             setCurrentTitle(
-                                                photographer?.photos[0]
+                                                photographer?.photos?.[0]
                                                     ?.title as string
                                             )
                                         }}

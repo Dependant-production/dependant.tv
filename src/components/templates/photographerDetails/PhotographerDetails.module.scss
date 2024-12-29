@@ -21,10 +21,17 @@
     .section {
         display: flex;
         align-items: center;
-        position: relative;
         justify-content: center;
         flex: 0 0 100vw; /* Chaque section occupe 100% de la largeur de l'écran */
         height: 100vh;
+    }
+
+    .hover {
+        opacity: 0.6;
+    }
+
+    .link {
+        position: relative;
     }
 
     .title {
@@ -64,8 +71,9 @@
     position: absolute;
     z-index: 2;
     color: white;
-    bottom: 1rem;
-    right: 1rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     @media screen and (min-width: $desktop) {
         font-size: 30px;
     }
