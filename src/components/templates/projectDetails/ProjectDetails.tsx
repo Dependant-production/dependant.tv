@@ -66,6 +66,7 @@ function ProjectDetails({
                     {images?.map((image: any, index: number) => (
                         <section key={index} className={styles.section}>
                             <Image
+                                className={styles.image}
                                 src={image.url}
                                 alt="toto"
                                 width={500}
