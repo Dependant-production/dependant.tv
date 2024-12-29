@@ -9,6 +9,8 @@ export default function Photographers({ photographersData }: any) {
     const [currentPhoto, setCurrentPhoto] = useState<string | null>(null)
     const [currentTitle, setCurrentTitle] = useState('')
 
+    console.log('photographersData', photographersData)
+
     useEffect(() => {
         if (photographersData.length > 0) {
             const firstPhotographerPhoto =
