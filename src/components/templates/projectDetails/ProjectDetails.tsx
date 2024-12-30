@@ -69,8 +69,8 @@ function ProjectDetails({
                                 className={styles.image}
                                 src={image.url}
                                 alt="toto"
+                                height={600}
                                 width={500}
-                                height={700}
                             />
                         </section>
                     ))}

@@ -62,8 +62,7 @@ export default function Photographers({ photographersData }: any) {
             </section>
             <section className={styles.photoContainer}>
                 <Image
-                    width={500}
-                    height={500}
+                    fill
                     alt="background photo"
                     className={styles.backgroundPhoto}
                     src={currentPhoto as string}
