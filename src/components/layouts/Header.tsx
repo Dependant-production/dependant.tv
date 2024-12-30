@@ -14,7 +14,7 @@ export const Header = () => {
     const blackRoutes = ['/photographers', '/contact']
     const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
     const color = isBlack ? 'black' : 'white'
-    
+
     return (
         <header className={styles.header}>
             <Logo isBlack={isBlack} />

@@ -74,8 +74,7 @@ export default function PhotographerDetails({ photographerData }: any) {
                                     onMouseLeave={() => setIsHover(false)}
                                     src={project?.coverMedia?.url || null}
                                     alt={project?.title}
-                                    width={500}
-                                    height={700}
+                                    fill
                                     className={`${styles.image} ${
                                         isHover ? styles.hover : ''
                                     }`}

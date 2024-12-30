@@ -10,7 +10,8 @@
     .horizontalScroll {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
         @media screen and (min-width: $desktop) {
             flex-direction: row;
             flex-wrap: nowrap;
@@ -19,13 +20,12 @@
     }
 
     .section {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
         position: relative;
-        justify-content: center;
-        height: 100vh;
+        height: 600px;
+        top: 50%;
+        transform: translateY(-50%);
         width: 100%;
+        flex: 0 0 auto;
     }
 
     .name {
@@ -41,13 +41,8 @@
     }
 
     .image {
-        width: 100%;
-        height: 100%;
         object-fit: contain;
-        @media screen and (min-width: $desktop) {
-            width: 700px;
-            height: 700px;
-        }
+        width: 100%;
     }
 
     .title {
