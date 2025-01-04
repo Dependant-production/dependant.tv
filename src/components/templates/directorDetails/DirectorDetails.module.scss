@@ -64,6 +64,17 @@
         z-index: 2;
     }
 
+    .videoTitlePlayer {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        text-transform: uppercase;
+        color: white;
+        font-size: 16px;
+        font-family: 'fontBold';
+        z-index: 4005;
+    }
+
     .nav {
         position: fixed;
         top: 50%;
