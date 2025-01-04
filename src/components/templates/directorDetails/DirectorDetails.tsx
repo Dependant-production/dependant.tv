@@ -55,7 +55,6 @@ export default function DirectorDetails({ directorData }: any) {
                 ScrollTrigger.create({
                     trigger: section,
                     start: 'top top',
-                    markers: true,
                     pin: true,
                     pinSpacing: false,
                 })
@@ -107,6 +106,17 @@ export default function DirectorDetails({ directorData }: any) {
 
                 {isVideoOpen && currentVideoUrl && (
                     <div className={styles.videoLightbox}>
+                        <div>
+                            <h3 className={styles.videoTitlePlayer}>
+                                {videos?.map((video: any) =>
+                                    video.url.map((vid: any) =>
+                                        vid.url === currentVideoUrl
+                                            ? video.title
+                                            : ''
+                                    )
+                                )}
+                            </h3>
+                        </div>
                         <div className={styles.videoContainer}>
                             <div onClick={closeVideo}>
                                 <Image
