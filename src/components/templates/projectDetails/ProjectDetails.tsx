@@ -32,23 +32,29 @@ function ProjectDetails({
         if (isMobile) return null
         const container = containerRef.current
         const horizontalScroll = horizontalScrollRef.current
+        const sections = containerRef.current?.querySelectorAll(
+            `.${styles.section}`
+        )
 
         if (!container || !horizontalScroll) return null
 
         const scrollWidth = horizontalScroll.scrollWidth - window.innerWidth
-        gsap.to(horizontalScrollRef.current, {
-            x: -scrollWidth, // Déplace le conteneur horizontal
-            ease: 'none',
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: 'top top',
-                end: `+=${scrollWidth}`,
-                scrub: true,
-                pin: true,
-                anticipatePin: 1,
-                markers: true,
-            },
-        })
+
+        if (sections) {
+            const section = gsap.utils.toArray(sections)
+            gsap.to(section, {
+                xPercent: -100 * (section.length - 1),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    end: `+=${scrollWidth}`,
+                    scrub: 1,
+                    pin: true,
+                    markers: true,
+                    snap: 1 / (section.length - 1),
+                },
+            })
+        }
     })
 
     return (

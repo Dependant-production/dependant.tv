@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 import styles from './Photographers.module.scss'
 import { Link } from '@/i18n/routing'
 import Image from 'next/image'
+import { useGSAP } from '@gsap/react'
 
 export default function Photographers({ photographersData }: any) {
+    const containerRef = useRef<HTMLDivElement | null>(null)
     const [currentPhoto, setCurrentPhoto] = useState<string | null>(null)
     const [currentTitle, setCurrentTitle] = useState('')
 
@@ -23,8 +26,19 @@ export default function Photographers({ photographersData }: any) {
         }
     }, [photographersData])
 
+    useGSAP(() => {
+        const names = containerRef.current?.querySelectorAll(`.${styles.name}`)
+        if (names) {
+            gsap.fromTo(
+                names,
+                { y: 100, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1, stagger: 0.4 }
+            )
+        }
+    })
+
     return (
-        <main className={styles.photographerContainer}>
+        <main className={styles.photographerContainer} ref={containerRef}>
             <section className={styles.textContainer}>
                 <ul className={styles.nameContainer}>
                     {photographersData.map(

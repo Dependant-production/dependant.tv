@@ -1,5 +1,4 @@
 import createNextIntlPlugin from 'next-intl/plugin'
-import { withNextVideo } from 'next-video/process'
 import type { NextConfig } from 'next'
 
 const withNextIntl = createNextIntlPlugin()
@@ -10,6 +9,5 @@ const nextConfig: NextConfig = {
         domains: ['d2pq7mh0qct8hv.cloudfront.net', 'cms.dependant.tv'],
     },
 }
-const combinedConfig = withNextVideo(withNextIntl(nextConfig))
 
-export default combinedConfig
+export default withNextIntl(nextConfig)
