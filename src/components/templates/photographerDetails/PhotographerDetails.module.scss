@@ -22,8 +22,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        flex: 0 0 100vw; /* Chaque section occupe 100% de la largeur de l'écran */
-        height: 100vh;
+        @media screen and (min-width: $desktop) {
+            flex: 0 0 100vw; /* Chaque section occupe 100% de la largeur de l'écran */
+            height: 100vh;
+        }
     }
 
     .hover {
@@ -31,9 +33,7 @@
     }
 
     .link {
-        position: relative;
         width: 100%;
-        height: 600px;
     }
 
     .title {
@@ -50,6 +50,12 @@
 
     .image {
         object-fit: contain;
+        width: 100%;
+        height: auto;
+        @media screen and (min-width: $desktop) {
+            width: 100%;
+            height: 600px !important;
+        }
     }
 
     .nav {

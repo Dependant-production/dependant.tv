@@ -48,7 +48,7 @@ function ProjectDetails({
                 scrollTrigger: {
                     trigger: containerRef.current,
                     end: `+=${scrollWidth}`,
-                    scrub: 1,
+                    scrub: 0.1,
                     pin: true,
                     markers: true,
                     snap: 1 / (section.length - 1),

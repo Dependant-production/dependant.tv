@@ -13,6 +13,7 @@ import { Link } from '@/i18n/routing'
 
 export default function PhotographerDetails({ photographerData }: any) {
     const isMobile = useMobile()
+
     gsap.registerPlugin(ScrollTrigger)
     const containerRef = useRef<HTMLDivElement | null>(null)
     const horizontalScrollRef = useRef<HTMLDivElement | null>(null)
@@ -26,8 +27,10 @@ export default function PhotographerDetails({ photographerData }: any) {
 
     console.log('photographerData', photographerData)
 
+    console.log('isMobile', isMobile)
+
     useGSAP(() => {
-        if (isMobile) return null
+        if (isMobile === undefined || isMobile) return
         const container = containerRef.current
         const horizontalScroll = horizontalScrollRef.current
         const sections = containerRef.current?.querySelectorAll(
@@ -37,7 +40,7 @@ export default function PhotographerDetails({ photographerData }: any) {
 
         const scrollWidth = horizontalScroll.scrollWidth - window.innerWidth
 
-        if (sections) {
+        if (sections && !isMobile) {
             const section = gsap.utils.toArray(sections)
             gsap.to(section, {
                 xPercent: -100 * (section.length - 1),
@@ -45,14 +48,14 @@ export default function PhotographerDetails({ photographerData }: any) {
                 scrollTrigger: {
                     trigger: containerRef.current,
                     end: `+=${scrollWidth}`,
-                    scrub: 1,
+                    scrub: 0.1,
                     pin: true,
                     markers: true,
                     snap: 1 / (section.length - 1),
                 },
             })
         }
-    })
+    }, [isMobile])
 
     const formattedSlug = photographerData[0]?.slug.replace(/-/g, '%20')
     return (
@@ -79,7 +82,9 @@ export default function PhotographerDetails({ photographerData }: any) {
                                     onMouseLeave={() => setIsHover(false)}
                                     src={project?.coverMedia?.url || null}
                                     alt={project?.title}
-                                    fill
+                                    width={isMobile ? 300 : 500}
+                                    height={isMobile ? 200 : 300}
+                                    layout="intrinsic"
                                     className={`${styles.image} ${
                                         isHover ? styles.hover : ''
                                     }`}
