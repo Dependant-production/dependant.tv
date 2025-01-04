@@ -5,7 +5,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px 50px;
-    height: 100vh;
+    height: 100dvh;
     justify-content: center;
     position: relative;
     .linkName {
@@ -56,7 +56,7 @@
     left: 0;
     width: 100%;
     background-color: black;
-    height: 100vh;
+    height: 100dvh;
     z-index: -1; // Pour que la vidéo soit en arrière-plan
     overflow: hidden;
     overflow-y: hidden;

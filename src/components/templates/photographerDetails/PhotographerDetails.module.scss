@@ -4,7 +4,7 @@
     transform: none !important;
     @media screen and (min-width: $desktop) {
         overflow: hidden;
-        height: 100vh;
+        height: 100dvh;
     }
 
     .horizontalScroll {
@@ -24,7 +24,7 @@
         justify-content: center;
         @media screen and (min-width: $desktop) {
             flex: 0 0 100vw; /* Chaque section occupe 100% de la largeur de l'écran */
-            height: 100vh;
+            height: 100dvh;
         }
     }
 

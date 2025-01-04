@@ -7,6 +7,7 @@ import SideNav from '@/components/molecules/sideNav/SideNav'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './DirectorDetails.module.scss'
+import Image from 'next/image'
 
 export default function DirectorDetails({ directorData }: any) {
     gsap.registerPlugin(ScrollTrigger)
@@ -107,12 +108,17 @@ export default function DirectorDetails({ directorData }: any) {
                 {isVideoOpen && currentVideoUrl && (
                     <div className={styles.videoLightbox}>
                         <div className={styles.videoContainer}>
-                            <button
-                                className={styles.closeButton}
-                                onClick={closeVideo}
-                            >
-                                X
-                            </button>
+                            <div onClick={closeVideo}>
+                                <Image
+                                    src="/cross.png"
+                                    width={50}
+                                    height={50}
+                                    layout="intrinsic"
+                                    alt="cross to close"
+                                    className={styles.closeButton}
+                                />
+                            </div>
+
                             <video
                                 src={currentVideoUrl}
                                 controls
