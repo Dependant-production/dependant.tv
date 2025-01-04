@@ -1,22 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useEffect, useState, useRef } from 'react'
-import styles from './Homepage.module.scss'
+import { gsap } from 'gsap'
 import { Link } from '@/i18n/routing'
 import CounterSlide from '@/components/molecules/counterSlide/CounterSlide'
-import { gsap } from 'gsap'
+import styles from './Homepage.module.scss'
 
 export default function Homepage({ homepageData }: any) {
     const [currentVideo, setCurrentVideo] = useState<string | null>(null)
-    const [currentTitle, setCurrentTitle] = useState('')
-    const [currentDirector, setCurrentDirector] = useState('')
-    const [currentIndex, setCurrentIndex] = useState(0)
+    const [currentTitle, setCurrentTitle] = useState<string>('')
+    const [currentDirector, setCurrentDirector] = useState<string>('')
+    const [currentIndex, setCurrentIndex] = useState<number>(0)
 
     const sortedData = React.useMemo(() => {
         return [...homepageData].sort((a, b) => a.order - b.order)
     }, [homepageData])
 
-    // Refs pour accéder aux éléments à animer
     const videoRef = useRef<HTMLVideoElement>(null)
     const titleRef = useRef<HTMLParagraphElement>(null)
     const directorRef = useRef<HTMLParagraphElement>(null)
@@ -26,9 +25,9 @@ export default function Homepage({ homepageData }: any) {
     useEffect(() => {
         if (!homepageData || sortedData.length === 0) return
 
-        gsap.to([titleRef.current, directorRef.current, videoRef.current], {
+        gsap.to(videoRef.current, {
             opacity: 0,
-            duration: 0.5,
+            duration: 1,
             onComplete: () => {
                 const video = sortedData[currentIndex]
                 const videoUrl = video?.url?.[0]?.url
@@ -36,12 +35,21 @@ export default function Homepage({ homepageData }: any) {
                 setCurrentTitle(video?.title || '')
                 setCurrentDirector(video?.director?.name || '')
 
-                gsap.to(
-                    [titleRef.current, directorRef.current, videoRef.current],
-                    {
-                        opacity: 1,
-                        duration: 0.5,
-                    }
+                gsap.to(videoRef.current, {
+                    opacity: 1,
+                    duration: 1,
+                })
+
+                gsap.fromTo(
+                    directorRef.current,
+                    { visibility: 'hidden' },
+                    { visibility: 'visible', duration: 0.5 }
+                )
+
+                gsap.fromTo(
+                    titleRef.current,
+                    { visibility: 'hidden' },
+                    { visibility: 'visible', duration: 0.5, delay: 0.5 }
                 )
             },
         })
@@ -49,7 +57,7 @@ export default function Homepage({ homepageData }: any) {
         const interval = setInterval(() => {
             const nextIndex = (currentIndex + 1) % sortedData.length
             setCurrentIndex(nextIndex)
-        }, 4000)
+        }, 8000)
 
         return () => clearInterval(interval)
     }, [currentIndex, sortedData, homepageData])

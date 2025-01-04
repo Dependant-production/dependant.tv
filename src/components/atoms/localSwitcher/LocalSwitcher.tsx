@@ -1,7 +1,7 @@
 'use client'
-import { usePathname, useRouter } from '@/i18n/routing'
-import { useLocale } from 'next-intl'
 import React, { ChangeEvent, useTransition } from 'react'
+import { useLocale } from 'next-intl'
+import { usePathname, useRouter } from '@/i18n/routing'
 import styles from './LocalSwitcher.module.scss'
 
 export default function LocalSwitcher({
@@ -16,6 +16,10 @@ export default function LocalSwitcher({
     const currentLocale = useLocale()
     const pathname = usePathname()
 
+    const blackRoutes = ['/photographers', '/contact']
+    const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
+    const color = isBlack ? styles.black : styles.white
+
     const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const nextLocale = e.target.value as Locale
         startTransition(() => {
@@ -28,7 +32,7 @@ export default function LocalSwitcher({
                 defaultValue={currentLocale}
                 onChange={onSelectChange}
                 disabled={isPending}
-                className={styles.select}
+                className={`${styles.select} ${color}`}
             >
                 <option value="en" className={styles.option}>
                     {enOption}
