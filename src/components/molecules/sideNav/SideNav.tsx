@@ -16,8 +16,12 @@ export default function SideNav({
     const pathname = usePathname()
     const isActive = (path: string) => pathname?.includes(path)
 
+    const blackRoutes = ['/photographers', '/contact']
+    const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
+    const color = isBlack ? 'black' : 'white'
+
     return (
-        <nav className={className}>
+        <nav className={className} style={{ color: color }}>
             <ul className={styles.sideNavContainer}>
                 <li>
                     <Link

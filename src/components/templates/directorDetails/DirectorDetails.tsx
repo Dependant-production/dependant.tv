@@ -1,15 +1,25 @@
 'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState } from 'react'
-import styles from './DirectorDetails.module.scss'
+import React, { useRef, useState } from 'react'
+import gsap from 'gsap'
 import SideNav from '@/components/molecules/sideNav/SideNav'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import styles from './DirectorDetails.module.scss'
 
 export default function DirectorDetails({ directorData }: any) {
+    gsap.registerPlugin(ScrollTrigger)
+
     const [isVideoOpen, setIsVideoOpen] = useState(false)
     const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null)
-    const videos = directorData[0]?.videos
+    const [titleHovered, setTitleHovered] = useState(false)
 
+    const containerRef = useRef<HTMLDivElement | null>(null)
+    const nameRef = useRef<HTMLHeadingElement | null>(null)
+    const videoTitleRef = useRef<(HTMLDivElement | null)[]>([])
+
+    const videos = directorData[0]?.videos
     const cutName = directorData[0]?.name.split(' ')
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
@@ -25,16 +35,42 @@ export default function DirectorDetails({ directorData }: any) {
     }
 
     console.log('directorData', directorData)
+    console.log('titleHovered', titleHovered)
+
+    useGSAP(() => {
+        const sections = containerRef.current?.querySelectorAll(
+            `.${styles.section}`
+        )
+        gsap.fromTo(
+            nameRef.current,
+            {
+                x: -400,
+            },
+            { x: 0, duration: 1 }
+        )
+
+        if (sections) {
+            gsap.utils.toArray(sections).forEach((section: any) => {
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: 'top top',
+                    markers: true,
+                    pin: true,
+                    pinSpacing: false,
+                })
+            })
+        }
+    })
 
     return (
         <main className={styles.directorDetails}>
-            <h2 className={styles.title}>
+            <h2 className={styles.title} ref={nameRef}>
                 {firstPart}
                 <br />
                 {secondPart}
             </h2>
 
-            <div className={styles.videosContainer}>
+            <div className={styles.videosContainer} ref={containerRef}>
                 {videos?.map((video: any, videoIndex: number) => (
                     <React.Fragment key={videoIndex}>
                         {video?.url?.map((vid: any, vidIndex: number) => (
@@ -47,9 +83,20 @@ export default function DirectorDetails({ directorData }: any) {
                                     className={styles.video}
                                     muted
                                     autoPlay
+                                    loop
                                     onClick={() => openVideo(vid.url)}
                                 />
-                                <div className={styles.videoTitle}>
+                                <div
+                                    className={styles.videoTitle}
+                                    ref={(el) => {
+                                        if (el) {
+                                            videoTitleRef.current[videoIndex] =
+                                                el
+                                        }
+                                    }}
+                                    onMouseEnter={() => setTitleHovered(true)}
+                                    onMouseLeave={() => setTitleHovered(false)}
+                                >
                                     {video?.title}
                                 </div>
                             </section>
@@ -58,12 +105,19 @@ export default function DirectorDetails({ directorData }: any) {
                 ))}
 
                 {isVideoOpen && currentVideoUrl && (
-                    <div className={styles.videoLightbox} onClick={closeVideo}>
+                    <div className={styles.videoLightbox}>
                         <div className={styles.videoContainer}>
+                            <button
+                                className={styles.closeButton}
+                                onClick={closeVideo}
+                            >
+                                X
+                            </button>
                             <video
                                 src={currentVideoUrl}
                                 controls
                                 autoPlay
+                                controlsList="nodownload"
                                 className={styles.videoPlayer}
                             />
                         </div>
