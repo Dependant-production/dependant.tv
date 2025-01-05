@@ -29,7 +29,7 @@ function ProjectDetails({
     const secondPart = cutName?.slice(1).join(' ') || ''
 
     useGSAP(() => {
-        if (isMobile) return null
+        if (isMobile === undefined || isMobile) return
         const container = containerRef.current
         const horizontalScroll = horizontalScrollRef.current
         const sections = containerRef.current?.querySelectorAll(
@@ -55,7 +55,7 @@ function ProjectDetails({
                 },
             })
         }
-    })
+    }, [isMobile])
 
     return (
         <>
@@ -74,9 +74,10 @@ function ProjectDetails({
                             <Image
                                 className={styles.image}
                                 src={image.url}
-                                alt="toto"
-                                height={600}
-                                width={500}
+                                alt={image.title}
+                                width={isMobile ? 300 : 500}
+                                height={isMobile ? 200 : 600}
+                                layout="intrinsic"
                             />
                         </section>
                     ))}

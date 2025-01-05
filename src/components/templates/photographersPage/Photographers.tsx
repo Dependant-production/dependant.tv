@@ -2,15 +2,17 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-import styles from './Photographers.module.scss'
-import { Link } from '@/i18n/routing'
 import Image from 'next/image'
+import { Link } from '@/i18n/routing'
 import { useGSAP } from '@gsap/react'
+import styles from './Photographers.module.scss'
 
 export default function Photographers({ photographersData }: any) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const [currentPhoto, setCurrentPhoto] = useState<string | null>(null)
-    const [currentTitle, setCurrentTitle] = useState('')
+    const [currentTitle, setCurrentTitle] = useState<string>('')
+
+    console.log('currentTitle', currentTitle)
 
     console.log('photographersData', photographersData)
 
