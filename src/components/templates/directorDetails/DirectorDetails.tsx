@@ -132,7 +132,6 @@ export default function DirectorDetails({ directorData }: any) {
                             <video
                                 src={currentVideoUrl}
                                 controls
-                                autoPlay
                                 controlsList="nodownload"
                                 className={styles.videoPlayer}
                             />
