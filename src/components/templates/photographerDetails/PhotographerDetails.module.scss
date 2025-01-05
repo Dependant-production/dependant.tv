@@ -2,29 +2,30 @@
 
 .photographerDetails {
     transform: none !important;
+    height: 100dvh;
     @media screen and (min-width: $desktop) {
         overflow: hidden;
-        height: 100dvh;
     }
 
     .horizontalScroll {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
         @media screen and (min-width: $desktop) {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
             flex-direction: row;
             flex-wrap: nowrap;
-            height: 100%;
         }
     }
 
     .section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        height: auto;
         @media screen and (min-width: $desktop) {
-            flex: 0 0 100vw; /* Chaque section occupe 100% de la largeur de l'écran */
             height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 100vw;
         }
     }
 
@@ -43,17 +44,19 @@
         text-transform: uppercase;
         bottom: 1rem;
         left: 1rem;
+        color: white;
         @media screen and (min-width: $desktop) {
             font-size: 40px;
         }
     }
 
     .image {
-        object-fit: contain;
         width: 100%;
-        height: auto;
+        height: 100% !important;
+        object-fit: contain;
+        vertical-align: top;
+
         @media screen and (min-width: $desktop) {
-            width: 100%;
             height: 600px !important;
         }
     }
@@ -75,6 +78,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
     @media screen and (min-width: $desktop) {
         font-size: 30px;
     }

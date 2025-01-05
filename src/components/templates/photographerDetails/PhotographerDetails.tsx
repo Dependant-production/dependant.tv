@@ -1,7 +1,7 @@
 'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import styles from './PhotographerDetails.module.scss'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -17,8 +17,8 @@ export default function PhotographerDetails({ photographerData }: any) {
     gsap.registerPlugin(ScrollTrigger)
     const containerRef = useRef<HTMLDivElement | null>(null)
     const horizontalScrollRef = useRef<HTMLDivElement | null>(null)
-
-    const [isHover, setIsHover] = useState(false)
+    const nameRef = useRef<HTMLHeadingElement | null>(null)
+    const titleRef = useRef<HTMLDivElement | null>(null)
 
     const projects = photographerData[0]?.projects
     const cutName = photographerData[0]?.name.split(' ')
@@ -29,6 +29,29 @@ export default function PhotographerDetails({ photographerData }: any) {
 
     console.log('isMobile', isMobile)
 
+    const handleMouseEnter = (projectIndex: number) => {
+        const titleElement = document.querySelectorAll(
+            `.${styles.projectTitle}`
+        )[projectIndex]
+        gsap.fromTo(
+            titleElement,
+            { y: -20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
+        )
+    }
+
+    const handleMouseLeave = (projectIndex: number) => {
+        const titleElement = document.querySelectorAll(
+            `.${styles.projectTitle}`
+        )[projectIndex]
+        gsap.to(titleElement, {
+            y: -20,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+        })
+    }
+
     useGSAP(() => {
         if (isMobile === undefined || isMobile) return
         const container = containerRef.current
@@ -36,9 +59,24 @@ export default function PhotographerDetails({ photographerData }: any) {
         const sections = containerRef.current?.querySelectorAll(
             `.${styles.section}`
         )
+
         if (!container || !horizontalScroll) return null
 
         const scrollWidth = horizontalScroll.scrollWidth - window.innerWidth
+
+        gsap.fromTo(
+            nameRef.current,
+            {
+                x: -400,
+            },
+            { x: 0, duration: 0.5 }
+        )
+
+        gsap.fromTo(
+            titleRef.current,
+            { opacity: 0, y: -400 },
+            { opacity: 1, y: 0, duration: 0.5 }
+        )
 
         if (sections && !isMobile) {
             const section = gsap.utils.toArray(sections)
@@ -50,7 +88,6 @@ export default function PhotographerDetails({ photographerData }: any) {
                     end: `+=${scrollWidth}`,
                     scrub: 0.1,
                     pin: true,
-                    markers: true,
                     snap: 1 / (section.length - 1),
                 },
             })
@@ -61,7 +98,7 @@ export default function PhotographerDetails({ photographerData }: any) {
     return (
         <>
             <main className={styles.photographerDetails} ref={containerRef}>
-                <h2 className={styles.title}>
+                <h2 className={styles.title} ref={nameRef}>
                     {firstPart}
                     <br />
                     {secondPart}
@@ -78,22 +115,25 @@ export default function PhotographerDetails({ photographerData }: any) {
                                 className={styles.link}
                             >
                                 <Image
-                                    onMouseEnter={() => setIsHover(true)}
-                                    onMouseLeave={() => setIsHover(false)}
+                                    onMouseEnter={() =>
+                                        handleMouseEnter(projectIndex)
+                                    }
+                                    onMouseLeave={() =>
+                                        handleMouseLeave(projectIndex)
+                                    }
                                     src={project?.coverMedia?.url || null}
                                     alt={project?.title}
                                     width={isMobile ? 300 : 500}
-                                    height={isMobile ? 200 : 300}
+                                    height={isMobile ? 200 : 600}
                                     layout="intrinsic"
-                                    className={`${styles.image} ${
-                                        isHover ? styles.hover : ''
-                                    }`}
+                                    className={styles.image}
                                 />
-                                {isHover && (
-                                    <div className={styles.projectTitle}>
-                                        <h3>{project?.title}</h3>
-                                    </div>
-                                )}
+                                <div
+                                    className={styles.projectTitle}
+                                    ref={titleRef}
+                                >
+                                    <h3>{project?.title}</h3>
+                                </div>
                             </Link>
                         </section>
                     ))}
