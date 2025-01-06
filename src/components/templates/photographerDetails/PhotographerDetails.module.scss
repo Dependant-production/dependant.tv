@@ -20,6 +20,7 @@
 
     .section {
         height: auto;
+        position: relative;
         @media screen and (min-width: $desktop) {
             height: 100dvh;
             display: flex;
@@ -71,22 +72,23 @@
 
 .projectTitle {
     text-transform: uppercase;
-    font-size: 20px;
     position: absolute;
     z-index: 2;
+    font-size: 20px;
     color: white;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0;
-    pointer-events: none;
-    transition:
-        opacity 0.5s ease,
-        transform 0.5s ease;
     @media screen and (min-width: $desktop) {
         font-size: 30px;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+            opacity 0.5s ease,
+            transform 0.5s ease;
     }
     h3 {
         font-family: 'fontBold';
+        text-align: center;
     }
 }

@@ -104,7 +104,7 @@ export default function DirectorDetails({ directorData }: any) {
                     </React.Fragment>
                 ))}
 
-                {(isVideoOpen && currentVideoUrl) && (
+                {isVideoOpen && currentVideoUrl && (
                     <div className={styles.videoLightbox}>
                         <div>
                             <h3 className={styles.videoTitlePlayer}>

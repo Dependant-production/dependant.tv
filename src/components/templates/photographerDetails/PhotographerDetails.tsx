@@ -74,8 +74,8 @@ export default function PhotographerDetails({ photographerData }: any) {
 
         gsap.fromTo(
             titleRef.current,
-            { opacity: 0, y: -400 },
-            { opacity: 1, y: 0, duration: 0.5 }
+            { opacity: 0 },
+            { opacity: 1, duration: 0.5 }
         )
 
         if (sections && !isMobile) {
