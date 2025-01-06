@@ -20,6 +20,7 @@ export default function CounterSlide({
     const numberOfVideos = data.length
     const [currentOrder, setCurrentOrder] = useState(data[index]?.order || 0)
     const [firstLoad, setFirstLoad] = useState(true)
+    const [isHover, setIsHover] = useState(false)
 
     useEffect(() => {
         if (firstLoad) {
@@ -46,7 +47,7 @@ export default function CounterSlide({
                 },
             })
 
-            // Le nouveau numéro descend et devient visible
+            // Le nouveau numéro monte et devient visible
             tl.to(current, {
                 y: 0,
                 opacity: 1,
@@ -60,8 +61,23 @@ export default function CounterSlide({
         return null
     }
 
+    console.log('isHover', isHover)
+
+    const handleHoverEnter = () => {
+        setIsHover(true)
+    }
+
+    const handleHoverLeave = () => {
+        setIsHover(false)
+    }
+
     return (
-        <div className={` ${styles.counter} ${className}`} ref={containerRef}>
+        <div
+            className={`${styles.counter} ${className}`}
+            ref={containerRef}
+            onMouseEnter={handleHoverEnter}
+            onMouseLeave={handleHoverLeave}
+        >
             <div ref={currentNumberRef}>{currentOrder}</div>
             <span>/{numberOfVideos}</span>
         </div>
