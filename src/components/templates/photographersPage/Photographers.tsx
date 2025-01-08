@@ -6,8 +6,10 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { useGSAP } from '@gsap/react'
 import styles from './Photographers.module.scss'
+import useMobile from '@/hooks/useMobile'
 
 export default function Photographers({ photographersData }: any) {
+    const isMobile = useMobile()
     const containerRef = useRef<HTMLDivElement | null>(null)
     const [currentPhoto, setCurrentPhoto] = useState<string | null>(null)
     const [currentTitle, setCurrentTitle] = useState<string>('')
@@ -78,7 +80,9 @@ export default function Photographers({ photographersData }: any) {
             </section>
             <section className={styles.photoContainer}>
                 <Image
-                    fill
+                    width={isMobile ? 300 : 500}
+                    height={isMobile ? 200 : 600}
+                    layout="intrinsic"
                     alt="background photo"
                     className={styles.backgroundPhoto}
                     src={currentPhoto as string}
