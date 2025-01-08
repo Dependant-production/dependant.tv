@@ -1,13 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import React, { useEffect, useState } from 'react'
-import styles from './Photographers.module.scss'
-import { Link } from '@/i18n/routing'
+import React, { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 import Image from 'next/image'
+import { Link } from '@/i18n/routing'
+import { useGSAP } from '@gsap/react'
+import styles from './Photographers.module.scss'
+import useMobile from '@/hooks/useMobile'
 
 export default function Photographers({ photographersData }: any) {
+    const isMobile = useMobile()
+    const containerRef = useRef<HTMLDivElement | null>(null)
     const [currentPhoto, setCurrentPhoto] = useState<string | null>(null)
-    const [currentTitle, setCurrentTitle] = useState('')
+    const [currentTitle, setCurrentTitle] = useState<string>('')
+
+    console.log('currentTitle', currentTitle)
+
+    console.log('photographersData', photographersData)
 
     useEffect(() => {
         if (photographersData.length > 0) {
@@ -21,8 +30,19 @@ export default function Photographers({ photographersData }: any) {
         }
     }, [photographersData])
 
+    useGSAP(() => {
+        const names = containerRef.current?.querySelectorAll(`.${styles.name}`)
+        if (names) {
+            gsap.fromTo(
+                names,
+                { y: 100, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1, stagger: 0.4 }
+            )
+        }
+    })
+
     return (
-        <main className={styles.photographerContainer}>
+        <main className={styles.photographerContainer} ref={containerRef}>
             <section className={styles.textContainer}>
                 <ul className={styles.nameContainer}>
                     {photographersData.map(
@@ -42,7 +62,7 @@ export default function Photographers({ photographersData }: any) {
                                                 firstPhotographerPhoto
                                             )
                                             setCurrentTitle(
-                                                photographer?.photos[0]
+                                                photographer?.photos?.[0]
                                                     ?.title as string
                                             )
                                         }}
@@ -60,8 +80,9 @@ export default function Photographers({ photographersData }: any) {
             </section>
             <section className={styles.photoContainer}>
                 <Image
-                    width={500}
-                    height={500}
+                    width={isMobile ? 300 : 500}
+                    height={isMobile ? 200 : 600}
+                    layout="intrinsic"
                     alt="background photo"
                     className={styles.backgroundPhoto}
                     src={currentPhoto as string}

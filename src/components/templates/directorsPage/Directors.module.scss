@@ -14,7 +14,7 @@
 
         .nameContainer {
             display: flex;
-            font-size: 23px;
+            font-size: 20px;
             flex-direction: column;
             list-style: none;
             text-transform: uppercase;
@@ -37,7 +37,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh;
+        height: 100dvh;
         z-index: -1; // Pour que la vidéo soit en arrière-plan
         overflow: hidden;
         overflow-y: hidden;
@@ -60,4 +60,12 @@
     @media screen and (min-width: $desktop) {
         font-size: 20px;
     }
+}
+
+.fadeIn {
+    opacity: 1;
+}
+
+.fadeOut {
+    opacity: 0;
 }

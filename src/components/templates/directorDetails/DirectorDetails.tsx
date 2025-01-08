@@ -1,26 +1,76 @@
 'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React from 'react'
-import styles from './DirectorDetails.module.scss'
+import React, { useRef, useState } from 'react'
+import gsap from 'gsap'
 import SideNav from '@/components/molecules/sideNav/SideNav'
+import { useGSAP } from '@gsap/react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import styles from './DirectorDetails.module.scss'
+import Image from 'next/image'
 
 export default function DirectorDetails({ directorData }: any) {
-    const videos = directorData[0]?.videos
+    gsap.registerPlugin(ScrollTrigger)
 
+    const [isVideoOpen, setIsVideoOpen] = useState(false)
+    const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null)
+    const [titleHovered, setTitleHovered] = useState(false)
+
+    const containerRef = useRef<HTMLDivElement | null>(null)
+    const nameRef = useRef<HTMLHeadingElement | null>(null)
+    const videoTitleRef = useRef<(HTMLDivElement | null)[]>([])
+
+    const videos = directorData[0]?.videos
     const cutName = directorData[0]?.name.split(' ')
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
 
+    const openVideo = (url: string) => {
+        setCurrentVideoUrl(url)
+        setIsVideoOpen(true)
+    }
+
+    const closeVideo = () => {
+        setCurrentVideoUrl(null)
+        setIsVideoOpen(false)
+    }
+
+    console.log('directorData', directorData)
+    console.log('titleHovered', titleHovered)
+
+    useGSAP(() => {
+        const sections = containerRef.current?.querySelectorAll(
+            `.${styles.section}`
+        )
+        gsap.fromTo(
+            nameRef.current,
+            {
+                x: -400,
+            },
+            { x: 0, duration: 1 }
+        )
+
+        if (sections) {
+            gsap.utils.toArray(sections).forEach((section: any) => {
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: 'top top',
+                    pin: true,
+                    pinSpacing: false,
+                })
+            })
+        }
+    })
+
     return (
         <main className={styles.directorDetails}>
-            <h2 className={styles.title}>
+            <h2 className={styles.title} ref={nameRef}>
                 {firstPart}
                 <br />
                 {secondPart}
             </h2>
 
-            <div className={styles.videosContainer}>
+            <div className={styles.videosContainer} ref={containerRef}>
                 {videos?.map((video: any, videoIndex: number) => (
                     <React.Fragment key={videoIndex}>
                         {video?.url?.map((vid: any, vidIndex: number) => (
@@ -33,14 +83,62 @@ export default function DirectorDetails({ directorData }: any) {
                                     className={styles.video}
                                     muted
                                     autoPlay
+                                    loop
+                                    onClick={() => openVideo(vid.url)}
                                 />
-                                <div className={styles.videoTitle}>
+                                <div
+                                    className={styles.videoTitle}
+                                    ref={(el) => {
+                                        if (el) {
+                                            videoTitleRef.current[videoIndex] =
+                                                el
+                                        }
+                                    }}
+                                    onMouseEnter={() => setTitleHovered(true)}
+                                    onMouseLeave={() => setTitleHovered(false)}
+                                >
                                     {video?.title}
                                 </div>
                             </section>
                         ))}
                     </React.Fragment>
                 ))}
+
+                {isVideoOpen && currentVideoUrl && (
+                    <div className={styles.videoLightbox}>
+                        <div>
+                            <h3 className={styles.videoTitlePlayer}>
+                                {videos?.map((video: any) =>
+                                    video.url.map((vid: any) =>
+                                        vid.url === currentVideoUrl
+                                            ? video.title
+                                            : ''
+                                    )
+                                )}
+                            </h3>
+                        </div>
+                        <div className={styles.videoContainer}>
+                            <div onClick={closeVideo}>
+                                <Image
+                                    src="/cross.png"
+                                    width={50}
+                                    height={50}
+                                    layout="intrinsic"
+                                    alt="cross to close"
+                                    className={styles.closeButton}
+                                />
+                            </div>
+
+                            <video
+                                src={currentVideoUrl}
+                                controls
+                                autoPlay={isVideoOpen}
+                                controlsList="nodownload"
+                                className={styles.videoPlayer}
+                            />
+                        </div>
+                    </div>
+                )}
 
                 {directorData[0]?.photographer && (
                     <div>

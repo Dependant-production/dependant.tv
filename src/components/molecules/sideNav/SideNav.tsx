@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './SideNav.module.scss'
 import { Link, usePathname } from '@/i18n/routing'
+import useMobile from '@/hooks/useMobile'
 
 interface SideNavProps {
     className?: string
@@ -14,10 +15,21 @@ export default function SideNav({
     srcDirector,
 }: SideNavProps) {
     const pathname = usePathname()
+    const isMobile = useMobile()
     const isActive = (path: string) => pathname?.includes(path)
 
+    const blackRoutes = ['/photographers', '/contact']
+    const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
+    const isPhotographers = pathname.startsWith('/photographers');
+    const color =
+        isBlack && isMobile && isPhotographers 
+            ? "white" 
+            : isBlack
+            ? "black" 
+            : "white";
+
     return (
-        <nav className={className}>
+        <nav className={className} style={{ color: color }}>
             <ul className={styles.sideNavContainer}>
                 <li>
                     <Link

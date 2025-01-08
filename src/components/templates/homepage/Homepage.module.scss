@@ -5,7 +5,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px 50px;
-    height: 100vh;
+    height: 100dvh;
     justify-content: center;
     position: relative;
     .linkName {
@@ -55,7 +55,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    background-color: black;
+    height: 100dvh;
     z-index: -1; // Pour que la vidéo soit en arrière-plan
     overflow: hidden;
     overflow-y: hidden;
@@ -64,5 +65,17 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+}
+
+.counter {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 20px;
+    color: #fff;
+    font-family: 'fontMedium';
+    @media screen and (min-width: $desktop) {
+        font-size: 40px;
     }
 }

@@ -9,13 +9,15 @@ export default async function PhotograophersPage(props: {
     const { slug, locale } = await props.params
 
     try {
-        const formattedSlug = slug.replace(/%20/g, '-')
+        const formattedSlug = slug.replace(/%20/g, '-').toLowerCase()
+        console.log('formattedSlug', formattedSlug)
 
         const response = await axiosInstance.get(
             `/api/photographers?filters[slug][$eq]=${formattedSlug}&locale=${locale}&populate=director&populate=projects&populate=projects.coverMedia`
         )
 
         const photographerData = response?.data?.data
+        console.log('photograherData', photographerData)
         return <PhotographerDetails photographerData={photographerData} />
     } catch (error) {
         console.error('Error fetching data from strapi:', error)

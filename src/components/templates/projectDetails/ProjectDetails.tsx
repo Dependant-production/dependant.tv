@@ -29,32 +29,38 @@ function ProjectDetails({
     const secondPart = cutName?.slice(1).join(' ') || ''
 
     useGSAP(() => {
-        if (isMobile) return null
+        if (isMobile === undefined || isMobile) return
         const container = containerRef.current
         const horizontalScroll = horizontalScrollRef.current
+        const sections = containerRef.current?.querySelectorAll(
+            `.${styles.section}`
+        )
 
         if (!container || !horizontalScroll) return null
 
         const scrollWidth = horizontalScroll.scrollWidth - window.innerWidth
-        gsap.to(horizontalScrollRef.current, {
-            x: -scrollWidth, // Déplace le conteneur horizontal
-            ease: 'none',
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: 'top top',
-                end: `+=${scrollWidth}`,
-                scrub: true,
-                pin: true,
-                anticipatePin: 1,
-                markers: true,
-            },
-        })
-    })
+
+        if (sections) {
+            const section = gsap.utils.toArray(sections)
+            gsap.to(section, {
+                xPercent: -100 * (section.length - 1),
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    end: `+=${scrollWidth}`,
+                    scrub: 0.1,
+                    pin: true,
+                    markers: true,
+                    snap: 1 / (section.length - 1),
+                },
+            })
+        }
+    }, [isMobile])
 
     return (
         <>
             <main className={styles.projectDetails} ref={containerRef}>
-                <h2 className={styles.title}>
+                <h2 className={styles.name}>
                     {firstPart}
                     <br />
                     {secondPart}
@@ -66,24 +72,18 @@ function ProjectDetails({
                     {images?.map((image: any, index: number) => (
                         <section key={index} className={styles.section}>
                             <Image
+                                className={styles.image}
                                 src={image.url}
-                                alt="toto"
-                                width={500}
-                                height={700}
+                                alt={image.title}
+                                width={isMobile ? 300 : 500}
+                                height={isMobile ? 200 : 600}
+                                layout="intrinsic"
                             />
                         </section>
                     ))}
                 </div>
+                <h3 className={styles.title}>{projectDetails.title}</h3>
             </main>
-            {/* {projectDetails[0]?.director && (
-                <div>
-                    <SideNav
-                        className={styles.nav}
-                        srcDirector={`/directors/${projectDetails[0].director.name}`}
-                        srcPhotographer={`/photographers/${projectDetails[0].name}`}
-                    />
-                </div>
-            )} */}
         </>
     )
 }
