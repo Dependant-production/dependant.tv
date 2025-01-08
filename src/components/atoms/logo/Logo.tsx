@@ -4,14 +4,14 @@ import Image from 'next/image'
 import styles from './Logo.module.scss'
 
 interface LogoProps {
-    isBlack: boolean
+    isBlack: "white" | "black"
 }
 
 export const Logo = ({ isBlack }: LogoProps) => {
     return (
         <Link href="/" className={styles.logo}>
             <Image
-                src={isBlack ? '/logoDpdBlack.png' : '/logoDpdWhite.png'}
+                src={isBlack === 'black' ? '/logoDpdBlack.png' : '/logoDpdWhite.png'}
                 alt="Dependant.tv"
                 width={150}
                 height={100}

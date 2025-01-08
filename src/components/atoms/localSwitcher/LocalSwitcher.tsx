@@ -3,6 +3,7 @@ import React, { ChangeEvent, useTransition } from 'react'
 import { useLocale } from 'next-intl'
 import { usePathname, useRouter } from '@/i18n/routing'
 import styles from './LocalSwitcher.module.scss'
+import useMobile from '@/hooks/useMobile'
 
 export default function LocalSwitcher({
     enOption,
@@ -12,13 +13,20 @@ export default function LocalSwitcher({
     frOption: string
 }) {
     const router = useRouter()
+    const isMobile = useMobile()
     const [isPending, startTransition] = useTransition()
     const currentLocale = useLocale()
     const pathname = usePathname()
 
     const blackRoutes = ['/photographers', '/contact']
+    const isPhotographers = pathname.startsWith('/photographers');
     const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
-    const color = isBlack ? styles.black : styles.white
+    const color =
+        isBlack && isMobile && isPhotographers 
+            ? styles.white 
+            : isBlack
+            ? styles.black 
+            : styles.white;
 
     const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const nextLocale = e.target.value as Locale
