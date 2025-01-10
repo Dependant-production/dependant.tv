@@ -101,6 +101,7 @@ export default function Homepage({ homepageData }: any) {
                 className={styles.counter}
                 data={sortedData}
                 index={currentIndex}
+                setIndex={setCurrentIndex}
             />
         </main>
     )

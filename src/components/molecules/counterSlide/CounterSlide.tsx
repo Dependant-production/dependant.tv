@@ -8,12 +8,14 @@ interface CounterSlideProps {
     className?: string
     data: any
     index: number
+    setIndex: (index: number) => void
 }
 
 export default function CounterSlide({
     className,
     data,
     index,
+    setIndex,
 }: CounterSlideProps) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const currentNumberRef = useRef<HTMLDivElement | null>(null)
@@ -71,6 +73,10 @@ export default function CounterSlide({
         setIsHover(false)
     }
 
+    const handleNumberClick = (i: number) => {
+        setIndex(i)
+    }
+
     return (
         <div
             className={`${styles.counter} ${className}`}
@@ -78,7 +84,20 @@ export default function CounterSlide({
             onMouseEnter={handleHoverEnter}
             onMouseLeave={handleHoverLeave}
         >
-            <div ref={currentNumberRef}>{currentOrder}</div>
+            {isHover && (
+                <div className={styles.counterHover}>
+                    {data.map((video: any, i: number) => (
+                        <div
+                            key={i}
+                            className={styles.counterHoverItem}
+                            onClick={() => handleNumberClick(i)}
+                        >
+                            {i + 1}
+                        </div>
+                    ))}
+                </div>
+            )}
+            {!isHover && <div ref={currentNumberRef}>{currentOrder}</div>}
             <span>/{numberOfVideos}</span>
         </div>
     )
