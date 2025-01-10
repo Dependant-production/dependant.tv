@@ -19,6 +19,8 @@ export default function CounterSlide({
 }: CounterSlideProps) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const currentNumberRef = useRef<HTMLDivElement | null>(null)
+    const numberRef = useRef<HTMLDivElement | null>(null)
+    const hoverContainerRef = useRef<HTMLDivElement | null>(null)
     const numberOfVideos = data.length
     const [currentOrder, setCurrentOrder] = useState(data[index]?.order || 0)
     const [firstLoad, setFirstLoad] = useState(true)
@@ -59,6 +61,24 @@ export default function CounterSlide({
         }
     }, [index])
 
+    useGSAP(() => {
+        if (!isHover || !hoverContainerRef.current) return
+
+        const items = Array.from(hoverContainerRef.current.children)
+        const tl = gsap.timeline()
+        tl.fromTo(
+            items,
+            { x: 50, opacity: 0 }, // Position initiale
+            {
+                x: 0,
+                opacity: 1,
+                duration: 0.5,
+                ease: 'power2.out',
+                stagger: 0.1, // Décalage entre les chiffres
+            }
+        )
+    }, [isHover])
+
     if (numberOfVideos === 0 || index < 0 || index >= numberOfVideos) {
         return null
     }
@@ -85,14 +105,15 @@ export default function CounterSlide({
             onMouseLeave={handleHoverLeave}
         >
             {isHover && (
-                <div className={styles.counterHover}>
-                    {data.map((video: any, i: number) => (
+                <div className={styles.counterHover} ref={hoverContainerRef}>
+                    {data.map((_: null, i: number) => (
                         <div
                             key={i}
                             className={styles.counterHoverItem}
                             onClick={() => handleNumberClick(i)}
+                            ref={numberRef}
                         >
-                            {i + 1}
+                            {i + 1}.
                         </div>
                     ))}
                 </div>
