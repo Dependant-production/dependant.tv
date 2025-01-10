@@ -81,7 +81,7 @@ export default function Homepage({ homepageData }: any) {
                         {currentDirector}
                     </p>
                     <p ref={titleRef} className={styles.title}>
-                        « {currentTitle} »
+                        {currentTitle ? `« ${currentTitle} »` : ''}
                     </p>
                 </Link>
             </section>
