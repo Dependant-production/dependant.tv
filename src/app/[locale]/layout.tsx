@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import BaseLayout from '@/components/templates/baseLayout/BaseLayout'
@@ -46,7 +47,10 @@ export default async function HomeLayout({ children, params }: LayoutProps) {
             locale={locale}
             className={`${fontBlack.variable} ${fontBold.variable} ${fontMedium.variable} ${fontRoman.variable}`}
         >
-            <Suspense fallback={<Loading />}>{children}</Suspense>
+            <Suspense fallback={<Loading />}>
+                {children}
+                <Analytics />
+            </Suspense>
         </BaseLayout>
     )
 }

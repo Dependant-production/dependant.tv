@@ -19,7 +19,6 @@ export default function CounterSlide({
 }: CounterSlideProps) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const currentNumberRef = useRef<HTMLDivElement | null>(null)
-    const numberRef = useRef<HTMLDivElement | null>(null)
     const hoverContainerRef = useRef<HTMLDivElement | null>(null)
     const numberOfVideos = data.length
     const [currentOrder, setCurrentOrder] = useState(data[index]?.order || 0)
@@ -111,7 +110,6 @@ export default function CounterSlide({
                             key={i}
                             className={styles.counterHoverItem}
                             onClick={() => handleNumberClick(i)}
-                            ref={numberRef}
                         >
                             {i + 1}.
                         </div>
