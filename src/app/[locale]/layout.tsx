@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import BaseLayout from '@/components/templates/baseLayout/BaseLayout'
@@ -50,6 +51,7 @@ export default async function HomeLayout({ children, params }: LayoutProps) {
             <Suspense fallback={<Loading />}>
                 {children}
                 <Analytics />
+                <SpeedInsights />
             </Suspense>
         </BaseLayout>
     )
