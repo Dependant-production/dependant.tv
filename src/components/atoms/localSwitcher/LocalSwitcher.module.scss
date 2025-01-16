@@ -1,5 +1,10 @@
 @import '../../../app/[locale]/variables.scss';
 
+.localeButton {
+    flex: 0 0 auto;
+    width: 150px;
+    text-align: right;
+}
 .select {
     border: none;
     font-family: 'fontRoman';
