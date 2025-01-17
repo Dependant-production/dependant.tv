@@ -13,6 +13,7 @@ export default function Directors({ directorsData }: any) {
     const [currentTitle, setCurrentTitle] = useState<string>('')
 
     const containerRef = useRef<HTMLDivElement | null>(null)
+    const titleRef = useRef<HTMLParagraphElement | null>(null)
     const overlayRef = useRef<HTMLDivElement | null>(null)
 
     // For the first director, set the first video as the current video
@@ -31,8 +32,24 @@ export default function Directors({ directorsData }: any) {
     useGSAP(() => {
         const names = containerRef.current?.querySelectorAll(`.${styles.name}`)
         if (names) {
-            gsap.fromTo(names, { opacity: 0 }, { opacity: 1, duration: 0.5 })
+            gsap.fromTo(
+                names,
+                { y: 100, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: 'back.out(1.7)',
+                    stagger: 0.2,
+                }
+            )
         }
+
+        gsap.fromTo(
+            titleRef.current,
+            { y: 100, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' }
+        )
     })
     // Handle video change with fade effect
     const handleMouseEnter = (videoUrl: string, title: string) => {
@@ -86,7 +103,7 @@ export default function Directors({ directorsData }: any) {
                         )
                     })}
                 </ul>
-                <div className={styles.titleVideo}>
+                <div className={styles.titleVideo} ref={titleRef}>
                     <p>« {currentTitle} »</p>
                 </div>
             </section>

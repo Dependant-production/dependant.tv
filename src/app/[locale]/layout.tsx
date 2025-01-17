@@ -10,7 +10,6 @@ import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import BaseLayout from '@/components/templates/baseLayout/BaseLayout'
-import PageTransitionWrapper from '@/components/molecules/pageTransition/PageTransition'
 import Loading from './loading'
 
 import './globals.scss'
@@ -54,7 +53,7 @@ export default async function HomeLayout({ children, params }: LayoutProps) {
             className={`${fontBlack.variable} ${fontBold.variable} ${fontMedium.variable} ${fontRoman.variable}`}
         >
             <Suspense fallback={<Loading />}>
-                <PageTransitionWrapper>{children}</PageTransitionWrapper>
+                {children}
                 <Analytics />
                 <SpeedInsights />
             </Suspense>

@@ -78,11 +78,19 @@ export default function CounterSlide({
         )
     }, [isHover])
 
+    useGSAP(() => {
+        if (!containerRef.current) return
+
+        gsap.fromTo(
+            containerRef.current,
+            { y: 100, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.7, ease: 'back.out(1.7)' }
+        )
+    })
+
     if (numberOfVideos === 0 || index < 0 || index >= numberOfVideos) {
         return null
     }
-
-    console.log('isHover', isHover)
 
     const handleHoverEnter = () => {
         setIsHover(true)
