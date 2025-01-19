@@ -1,14 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from 'next'
-import { routing } from '@/i18n/routing'
-import { notFound } from 'next/navigation'
-import BaseLayout from '@/components/templates/baseLayout/BaseLayout'
-import './globals.scss'
-import { LayoutProps } from '../../../.next/types/app/layout'
-import localFont from 'next/font/local'
 import { Suspense } from 'react'
+import { notFound } from 'next/navigation'
+import localFont from 'next/font/local'
+import { LayoutProps } from '../../../.next/types/app/layout'
+
+import { routing } from '@/i18n/routing'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
+
+import BaseLayout from '@/components/templates/baseLayout/BaseLayout'
 import Loading from './loading'
 
+import './globals.scss'
+
+// Fonts
 const fontBlack = localFont({
     src: '../fonts/NeueHaasDisplayBlack.ttf',
     variable: '--font-neue-black',
@@ -46,7 +52,11 @@ export default async function HomeLayout({ children, params }: LayoutProps) {
             locale={locale}
             className={`${fontBlack.variable} ${fontBold.variable} ${fontMedium.variable} ${fontRoman.variable}`}
         >
-            <Suspense fallback={<Loading />}>{children}</Suspense>
+            <Suspense fallback={<Loading />}>
+                {children}
+                <Analytics />
+                <SpeedInsights />
+            </Suspense>
         </BaseLayout>
     )
 }

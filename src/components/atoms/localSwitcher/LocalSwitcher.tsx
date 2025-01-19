@@ -19,14 +19,14 @@ export default function LocalSwitcher({
     const pathname = usePathname()
 
     const blackRoutes = ['/photographers', '/contact']
-    const isPhotographers = pathname.startsWith('/photographers');
+    const isPhotographers = pathname.startsWith('/photographers')
     const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
     const color =
-        isBlack && isMobile && isPhotographers 
-            ? styles.white 
+        isBlack && isMobile && isPhotographers
+            ? styles.white
             : isBlack
-            ? styles.black 
-            : styles.white;
+            ? styles.black
+            : styles.white
 
     const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const nextLocale = e.target.value as Locale

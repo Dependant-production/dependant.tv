@@ -81,7 +81,7 @@ export default function Homepage({ homepageData }: any) {
                         {currentDirector}
                     </p>
                     <p ref={titleRef} className={styles.title}>
-                        « {currentTitle} »
+                        {currentTitle ? `« ${currentTitle} »` : ''}
                     </p>
                 </Link>
             </section>
@@ -101,6 +101,7 @@ export default function Homepage({ homepageData }: any) {
                 className={styles.counter}
                 data={sortedData}
                 index={currentIndex}
+                setIndex={setCurrentIndex}
             />
         </main>
     )

@@ -20,13 +20,13 @@ export default function SideNav({
 
     const blackRoutes = ['/photographers', '/contact']
     const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
-    const isPhotographers = pathname.startsWith('/photographers');
+    const isPhotographers = pathname.startsWith('/photographers')
     const color =
-        isBlack && isMobile && isPhotographers 
-            ? "white" 
+        isBlack && isMobile && isPhotographers
+            ? 'white'
             : isBlack
-            ? "black" 
-            : "white";
+            ? 'black'
+            : 'white'
 
     return (
         <nav className={className} style={{ color: color }}>

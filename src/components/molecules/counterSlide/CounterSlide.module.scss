@@ -3,9 +3,15 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    cursor: default;
+    cursor: pointer;
     div,
     span {
         font-family: 'fontMedium';
+    }
+
+    .counterHover {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
     }
 }
