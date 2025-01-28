@@ -8,29 +8,35 @@
     height: 100dvh;
     justify-content: center;
     position: relative;
-    .linkName {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        text-align: center;
-        @media screen and (min-width: $desktop) {
-            gap: 0;
-            align-items: flex-start;
-        }
-    }
+
     .textContainer {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 5px;
         text-align: center;
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        justify-content: flex-start;
+    }
+
+    .linkName {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+        align-items: flex-start;
         @media screen and (min-width: $desktop) {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            justify-content: flex-start;
+            gap: 0;
         }
+    }
+
+    .directorName {
+        text-transform: uppercase;
+    }
+    .title {
+        font-size: 20px;
     }
 
     p {
@@ -43,30 +49,22 @@
         }
     }
 
-    .title {
-        font-size: 20px;
-    }
-
-    .directorName {
-        text-transform: uppercase;
-    }
-}
-
-.videoContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: black;
-    height: 100dvh;
-    z-index: -1; // Pour que la vidéo soit en arrière-plan
-    overflow: hidden;
-    overflow-y: hidden;
-
-    .backgroundVideo {
+    .videoContainer {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        background-color: black;
+        height: 100dvh;
+        z-index: -1; // Pour que la vidéo soit en arrière-plan
+        overflow: hidden;
+        overflow-y: hidden;
+
+        .backgroundVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 }
 
