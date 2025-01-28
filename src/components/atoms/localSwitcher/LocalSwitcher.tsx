@@ -77,7 +77,7 @@ export default function LocalSwitcher() {
                     {locales.map((locale, index) => (
                         <li
                             key={index}
-                            className={styles.locale}
+                            className={`${styles.locale} ${color}`}
                             onClick={() => handleLocaleChange(locale)}
                         >
                             {locale}
