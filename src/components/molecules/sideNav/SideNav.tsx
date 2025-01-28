@@ -1,7 +1,7 @@
 import React from 'react'
-import styles from './SideNav.module.scss'
 import { Link, usePathname } from '@/i18n/routing'
 import useMobile from '@/hooks/useMobile'
+import styles from './SideNav.module.scss'
 
 interface SideNavProps {
     className?: string
@@ -34,19 +34,33 @@ export default function SideNav({
                 <li>
                     <Link
                         href={srcPhotographer}
-                        className={
-                            isActive('/photographer') ? styles.active : ''
-                        }
+                        className={`${styles.link} ${
+                            isActive('/photographer') && styles.active
+                        }`}
                     >
                         Photographers
+                        {isActive('/photographer') && (
+                            <span
+                                className={styles.circle}
+                                style={{ backgroundColor: color }}
+                            />
+                        )}
                     </Link>
                 </li>
                 <li>
                     <Link
                         href={srcDirector}
-                        className={isActive('/director') ? styles.active : ''}
+                        className={`${styles.link} ${
+                            isActive('/director') && styles.active
+                        }`}
                     >
                         Directors
+                        {isActive('/director') && (
+                            <span
+                                className={styles.circle}
+                                style={{ backgroundColor: color }}
+                            />
+                        )}
                     </Link>
                 </li>
             </ul>
