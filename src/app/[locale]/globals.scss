@@ -1,9 +1,11 @@
-@import 'variables.scss';
+@import './variables.scss';
+
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: 'fontRoman';
+    font-family: 'customFont';
+    font-weight: 400;
 }
 
 :root {

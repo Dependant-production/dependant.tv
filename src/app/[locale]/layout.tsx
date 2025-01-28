@@ -15,21 +15,30 @@ import Loading from './loading'
 import './globals.scss'
 
 // Fonts
-const fontBlack = localFont({
-    src: '../fonts/NeueHaasDisplayBlack.ttf',
-    variable: '--font-neue-black',
-})
-const fontBold = localFont({
-    src: '../fonts/NeueHaasDisplayBold.ttf',
-    variable: '--font-neue-bold',
-})
-const fontMedium = localFont({
-    src: '../fonts/NeueHaasDisplayMediu.ttf',
-    variable: '--font-neue-medium',
-})
-const fontRoman = localFont({
-    src: '../fonts/NeueHaasDisplayRoman.ttf',
-    variable: '--font-neue-roman',
+const customFont = localFont({
+    src: [
+        {
+            path: '../fonts/NeueHaasDisplayBlack.ttf',
+            weight: '900',
+            style: 'normal',
+        },
+        {
+            path: '../fonts/NeueHaasDisplayBold.ttf',
+            weight: '700',
+            style: 'normal',
+        },
+        {
+            path: '../fonts/NeueHaasDisplayMedium.ttf',
+            weight: '500',
+            style: 'normal',
+        },
+        {
+            path: '../fonts/NeueHaasDisplayRoman.ttf',
+            weight: '400',
+        },
+    ],
+    variable: '--font-neue-haas',
+    display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -48,10 +57,7 @@ export default async function HomeLayout({ children, params }: LayoutProps) {
     }
 
     return (
-        <BaseLayout
-            locale={locale}
-            className={`${fontBlack.variable} ${fontBold.variable} ${fontMedium.variable} ${fontRoman.variable}`}
-        >
+        <BaseLayout locale={locale} className={customFont.className}>
             <Suspense fallback={<Loading />}>
                 {children}
                 <Analytics />
