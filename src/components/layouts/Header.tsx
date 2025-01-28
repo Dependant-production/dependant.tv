@@ -62,10 +62,7 @@ export const Header = () => {
                 />
             </div>
             <div className={`${styles.headerItem}`}>
-                <LocalSwitcher
-                    enOption={t('Global.language.en')}
-                    frOption={t('Global.language.fr')}
-                />
+                <LocalSwitcher />
             </div>
         </header>
     )
