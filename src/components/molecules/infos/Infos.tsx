@@ -1,11 +1,10 @@
 'use client'
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useTranslations } from 'next-intl'
 import React from 'react'
 import gsap from 'gsap'
-import styles from './Infos.module.scss'
+import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/routing'
 import { useGSAP } from '@gsap/react'
+import styles from './Infos.module.scss'
 
 interface InfosProps {
     insta: string
@@ -40,7 +39,9 @@ export default function Infos({ insta, mail, address }: InfosProps) {
                 <h3 className={styles.infosTitle}>
                     {t('Contact.Infos.title')}
                 </h3>
-                <Link href={insta}>@dependant.tv</Link>
+                <Link href={insta} target="_blank">
+                    @dependant.tv
+                </Link>
                 <Link href={`mailto:${mail}`}>{mail}</Link>
                 <p>{address}</p>
             </div>
@@ -49,10 +50,14 @@ export default function Infos({ insta, mail, address }: InfosProps) {
                     {t('Contact.Infos.titleServices')}
                 </h3>
                 <div className={styles.infosContainer}>
-                    <p>{t('Contact.Infos.clip')}</p>
-                    <p>{t('Contact.Infos.advertising')}</p>
-                    <p>{t('Contact.Infos.print')}</p>
-                    <p>{t('Contact.Infos.brand')}</p>
+                    <div className={styles.flexInfos}>
+                        <p>{t('Contact.Infos.clip')}</p>
+                        <p>{t('Contact.Infos.advertising')}</p>
+                    </div>
+                    <div className={styles.flexInfos}>
+                        <p>{t('Contact.Infos.print')}</p>
+                        <p>{t('Contact.Infos.brand')}</p>
+                    </div>
                 </div>
             </div>
             <div className={styles.creditContainer}>
@@ -60,10 +65,14 @@ export default function Infos({ insta, mail, address }: InfosProps) {
                     {t('Contact.Infos.titleCredits')}
                 </h3>
                 <div className={styles.infosContainer}>
-                    <p>{t('Contact.Infos.designed')}</p>
-                    <p>{t('Contact.Infos.designer')}</p>
-                    <p>{t('Contact.Infos.developed')}</p>
-                    <p>{t('Contact.Infos.developer')}</p>
+                    <div className={styles.flexInfos}>
+                        <p>{t('Contact.Infos.designed')}</p>
+                        <p>{t('Contact.Infos.designer')}</p>
+                    </div>
+                    <div className={styles.flexInfos}>
+                        <p>{t('Contact.Infos.developed')}</p>
+                        <p>{t('Contact.Infos.developer')}</p>
+                    </div>
                 </div>
             </div>
         </div>

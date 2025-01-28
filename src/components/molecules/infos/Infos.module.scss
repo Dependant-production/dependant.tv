@@ -1,16 +1,18 @@
+@import '../../../app/[locale]/variables.scss';
+
 .infos {
+    @media screen and (max-width: $desktop) {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        bottom: 1rem;
+        left: 1rem;
+    }
     a,
     p {
         font-family: 'customFont';
         font-weight: 700;
         font-size: 20px;
-    }
-
-    .infosTitle {
-        font-family: 'customFont';
-        font-weight: 500;
-        font-size: 13px;
-        margin-bottom: 10px;
     }
 
     .container {
@@ -21,15 +23,35 @@
         margin-bottom: 20px;
     }
 
-    .creditContainer {
-        position: fixed;
-        bottom: 1rem;
-        right: 1rem;
+    .infosTitle {
+        font-family: 'customFont';
+        font-weight: 500;
+        font-size: 13px;
+        margin-bottom: 10px;
     }
 
     .infosContainer {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
+        display: flex;
+        flex-direction: column;
+        @media screen and (min-width: $desktop) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+        }
+    }
+
+    .creditContainer {
+        @media screen and (min-width: $desktop) {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+        }
+    }
+}
+
+.flexInfos {
+    @media screen and (max-width: $desktop) {
+        display: flex;
+        gap: 1rem;
     }
 }
