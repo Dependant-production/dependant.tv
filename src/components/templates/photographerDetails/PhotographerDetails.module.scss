@@ -41,7 +41,8 @@
     .title {
         position: fixed;
         z-index: 2;
-        font-family: 'fontBold';
+        font-family: 'customFont';
+        font-weight: 700;
         text-transform: uppercase;
         bottom: 1rem;
         left: 1rem;
@@ -88,7 +89,8 @@
             transform 0.5s ease;
     }
     h3 {
-        font-family: 'fontBold';
+        font-family: 'customFont';
+        font-weight: 700;
         text-align: center;
     }
 }

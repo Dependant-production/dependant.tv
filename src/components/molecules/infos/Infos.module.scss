@@ -1,12 +1,14 @@
 .infos {
     a,
     p {
-        font-family: 'fontBlack';
+        font-family: 'customFont';
+        font-weight: 700;
         font-size: 20px;
     }
 
     .infosTitle {
-        font-family: 'fontMedium';
+        font-family: 'customFont';
+        font-weight: 500;
         font-size: 13px;
         margin-bottom: 10px;
     }
