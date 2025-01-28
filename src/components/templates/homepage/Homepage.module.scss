@@ -15,6 +15,7 @@
         gap: 5px;
         text-align: center;
         @media screen and (min-width: $desktop) {
+            gap: 0;
             align-items: flex-start;
         }
     }
@@ -35,7 +36,8 @@
     p {
         font-size: 20px;
         color: #fff;
-        font-family: 'fontMedium';
+        font-family: 'customFont';
+        font-weight: 500;
         @media screen and (min-width: $desktop) {
             font-size: 40px;
         }
@@ -74,7 +76,8 @@
     right: 2rem;
     font-size: 20px;
     color: #fff;
-    font-family: 'fontMedium';
+    font-family: 'customFont';
+    font-weight: 500;
     @media screen and (min-width: $desktop) {
         font-size: 40px;
     }

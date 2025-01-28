@@ -13,10 +13,12 @@
     a {
         font-size: 13px;
         text-transform: uppercase;
-        font-family: 'fontRoman';
+        font-family: 'customFont';
+        font-weight: 400;
     }
 
     .active {
-        font-family: 'fontBlack';
+        font-family: 'customFont';
+        font-weight: 700;
     }
 }

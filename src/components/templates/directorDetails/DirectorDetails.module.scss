@@ -14,7 +14,8 @@
         left: 1rem;
         z-index: 2;
         font-size: 25px;
-        font-family: 'fontBold';
+        font-family: 'customFont';
+        font-weight: 700;
         text-align: start;
         color: white;
         text-transform: uppercase;
@@ -50,7 +51,8 @@
         border-radius: 5px;
         color: white;
         font-size: 16px;
-        font-family: 'fontBold';
+        font-family: 'customFont';
+        font-weight: 700;
     }
 
     .videoTitle {
@@ -60,7 +62,8 @@
         text-transform: uppercase;
         color: white;
         font-size: 16px;
-        font-family: 'fontBold';
+        font-family: 'customFont';
+        font-weight: 700;
         z-index: 2;
     }
 
@@ -71,7 +74,8 @@
         text-transform: uppercase;
         color: white;
         font-size: 16px;
-        font-family: 'fontBold';
+        font-family: 'customFont';
+        font-weight: 700;
         z-index: 4005;
     }
 
