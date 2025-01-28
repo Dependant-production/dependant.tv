@@ -1,10 +1,5 @@
 {
-    "Global": {
-        "language": {
-            "fr": "FR",
-            "en": "EN"
-        }
-    },
+    "Global": {},
     "Homepage": {
         "title": "Welcome on Dependant.tv ! ",
         "desc": "Become dependant."
