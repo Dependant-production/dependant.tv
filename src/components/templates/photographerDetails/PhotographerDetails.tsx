@@ -12,9 +12,9 @@ import SideNav from '@/components/molecules/sideNav/SideNav'
 import { Link } from '@/i18n/routing'
 
 export default function PhotographerDetails({ photographerData }: any) {
+    gsap.registerPlugin(ScrollTrigger)
     const isMobile = useMobile()
 
-    gsap.registerPlugin(ScrollTrigger)
     const containerRef = useRef<HTMLDivElement | null>(null)
     const horizontalScrollRef = useRef<HTMLDivElement | null>(null)
     const nameRef = useRef<HTMLHeadingElement | null>(null)
@@ -24,33 +24,6 @@ export default function PhotographerDetails({ photographerData }: any) {
     const cutName = photographerData[0]?.name.split(' ')
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
-
-    console.log('photographerData', photographerData)
-
-    console.log('isMobile', isMobile)
-
-    const handleMouseEnter = (projectIndex: number) => {
-        const titleElement = document.querySelectorAll(
-            `.${styles.projectTitle}`
-        )[projectIndex]
-        gsap.fromTo(
-            titleElement,
-            { y: -20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
-        )
-    }
-
-    const handleMouseLeave = (projectIndex: number) => {
-        const titleElement = document.querySelectorAll(
-            `.${styles.projectTitle}`
-        )[projectIndex]
-        gsap.to(titleElement, {
-            y: -20,
-            opacity: 0,
-            duration: 0.5,
-            ease: 'power2.out',
-        })
-    }
 
     useGSAP(() => {
         if (isMobile === undefined || isMobile) return
@@ -115,12 +88,6 @@ export default function PhotographerDetails({ photographerData }: any) {
                                 className={styles.link}
                             >
                                 <Image
-                                    onMouseEnter={() =>
-                                        handleMouseEnter(projectIndex)
-                                    }
-                                    onMouseLeave={() =>
-                                        handleMouseLeave(projectIndex)
-                                    }
                                     src={project?.coverMedia?.url || null}
                                     alt={project?.title}
                                     width={isMobile ? 300 : 500}
