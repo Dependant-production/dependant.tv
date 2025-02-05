@@ -81,7 +81,7 @@ export default function Directors({ directorsData }: any) {
                 <ul className={styles.nameContainer}>
                     {directorsData.map((director: any, index: number) => {
                         const videoUrl =
-                            director?.videos?.[0]?.url[0]?.url ?? ''
+                            director?.videos?.[0]?.url?.[0]?.url ?? ''
                         return (
                             <Link
                                 key={index}
