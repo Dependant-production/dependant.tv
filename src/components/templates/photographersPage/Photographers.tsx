@@ -96,14 +96,16 @@ export default function Photographers({ photographersData }: any) {
                 </div>
             </section>
             <section className={styles.photoContainer}>
-                <Image
-                    width={isMobile ? 300 : 500}
-                    height={isMobile ? 200 : 600}
-                    layout="intrinsic"
-                    alt="background photo"
-                    className={styles.backgroundPhoto}
-                    src={currentPhoto as string}
-                />
+                {currentPhoto && (
+                    <Image
+                        width={isMobile ? 300 : 500}
+                        height={isMobile ? 200 : 600}
+                        layout="intrinsic"
+                        alt="background photo"
+                        className={styles.backgroundPhoto}
+                        src={currentPhoto as string}
+                    />
+                )}
             </section>
         </main>
     )

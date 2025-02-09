@@ -49,6 +49,7 @@
         color: white;
         @media screen and (min-width: $desktop) {
             font-size: 40px;
+            color: black;
         }
     }
 
@@ -82,6 +83,7 @@
     @media screen and (min-width: $desktop) {
         font-size: 30px;
         pointer-events: none;
+        color: black;
         transition:
             opacity 0.5s ease,
             transform 0.5s ease;

@@ -13,7 +13,9 @@ export default function Homepage({ homepageData }: any) {
     const [currentIndex, setCurrentIndex] = useState<number>(0)
 
     const sortedData = React.useMemo(() => {
-        return [...homepageData].sort((a, b) => a.order - b.order)
+        return (
+            homepageData && [...homepageData].sort((a, b) => a.order - b.order)
+        )
     }, [homepageData])
 
     const videoRef = useRef<HTMLVideoElement>(null)
@@ -57,7 +59,7 @@ export default function Homepage({ homepageData }: any) {
         const interval = setInterval(() => {
             const nextIndex = (currentIndex + 1) % sortedData.length
             setCurrentIndex(nextIndex)
-        }, 8000)
+        }, 15000)
 
         return () => clearInterval(interval)
     }, [currentIndex, sortedData, homepageData])
