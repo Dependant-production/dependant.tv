@@ -20,8 +20,8 @@ export default function CounterSlide({
     const containerRef = useRef<HTMLDivElement | null>(null)
     const currentNumberRef = useRef<HTMLDivElement | null>(null)
     const hoverContainerRef = useRef<HTMLDivElement | null>(null)
-    const numberOfVideos = data.length
-    const [currentOrder, setCurrentOrder] = useState(data[index]?.order || 0)
+    const numberOfVideos = data?.length
+    const [currentOrder, setCurrentOrder] = useState(data?.[index]?.order || 0)
     const [firstLoad, setFirstLoad] = useState(true)
     const [isHover, setIsHover] = useState(false)
 

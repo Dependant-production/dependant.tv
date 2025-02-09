@@ -13,7 +13,9 @@ export default function Homepage({ homepageData }: any) {
     const [currentIndex, setCurrentIndex] = useState<number>(0)
 
     const sortedData = React.useMemo(() => {
-        return [...homepageData].sort((a, b) => a.order - b.order)
+        return (
+            homepageData && [...homepageData].sort((a, b) => a.order - b.order)
+        )
     }, [homepageData])
 
     const videoRef = useRef<HTMLVideoElement>(null)
