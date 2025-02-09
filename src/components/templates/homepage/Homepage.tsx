@@ -59,7 +59,7 @@ export default function Homepage({ homepageData }: any) {
         const interval = setInterval(() => {
             const nextIndex = (currentIndex + 1) % sortedData.length
             setCurrentIndex(nextIndex)
-        }, 8000)
+        }, 15000)
 
         return () => clearInterval(interval)
     }, [currentIndex, sortedData, homepageData])

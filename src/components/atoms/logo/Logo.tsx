@@ -16,7 +16,7 @@ export const Logo = ({ isBlack }: LogoProps) => {
                         ? '/logoDpdBlack.png'
                         : '/logoDpdWhite.png'
                 }
-                alt="Dependant.tv"
+                alt="Dependant.tv logo"
                 width={150}
                 height={100}
                 layout="intrinsic"

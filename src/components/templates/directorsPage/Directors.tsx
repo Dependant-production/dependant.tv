@@ -109,14 +109,16 @@ export default function Directors({ directorsData }: any) {
             </section>
             <section className={styles.videoContainer}>
                 <div className={styles.overlay} ref={overlayRef}></div>
-                <video
-                    className={styles.backgroundVideo}
-                    src={currentVideo ?? null}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                />
+                {currentVideo && (
+                    <video
+                        className={styles.backgroundVideo}
+                        src={currentVideo}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                    />
+                )}
             </section>
         </main>
     )
