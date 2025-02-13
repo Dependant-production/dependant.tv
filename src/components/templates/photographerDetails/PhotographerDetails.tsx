@@ -8,7 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { useGSAP } from '@gsap/react'
 import useMobile from '@/hooks/useMobile'
-import SideNav from '@/components/molecules/sideNav/SideNav'
+// import SideNav from '@/components/molecules/sideNav/SideNav'
 import { Link } from '@/i18n/routing'
 
 export default function PhotographerDetails({ photographerData }: any) {
@@ -106,7 +106,7 @@ export default function PhotographerDetails({ photographerData }: any) {
                     ))}
                 </div>
             </main>
-            {photographerData[0]?.director && (
+            {/* {photographerData[0]?.director && (
                 <div>
                     <SideNav
                         className={styles.nav}
@@ -114,7 +114,7 @@ export default function PhotographerDetails({ photographerData }: any) {
                         srcPhotographer={`/photographers/${photographerData[0].name}`}
                     />
                 </div>
-            )}
+            )} */}
         </>
     )
 }
