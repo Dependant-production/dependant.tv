@@ -25,6 +25,7 @@
             }
             .name {
                 cursor: pointer;
+                max-height: 50px;
             }
             .name:hover {
                 font-family: 'customFont';
@@ -67,8 +68,12 @@
     font-weight: 400;
     text-transform: uppercase;
     font-size: 12px;
+    p {
+        font-family: 'customFont';
+        font-weight: 500;
+    }
     @media screen and (min-width: $desktop) {
-        font-size: 25px;
+        font-size: 20px;
         color: black;
     }
 }

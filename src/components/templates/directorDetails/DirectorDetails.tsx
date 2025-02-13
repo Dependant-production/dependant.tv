@@ -3,7 +3,7 @@
 
 import React, { useRef, useState } from 'react'
 import gsap from 'gsap'
-import SideNav from '@/components/molecules/sideNav/SideNav'
+// import SideNav from '@/components/molecules/sideNav/SideNav'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './DirectorDetails.module.scss'
@@ -140,7 +140,7 @@ export default function DirectorDetails({ directorData }: any) {
                     </div>
                 )}
 
-                {directorData[0]?.photographer && (
+                {/* {directorData[0]?.photographer && (
                     <div>
                         <SideNav
                             className={styles.nav}
@@ -148,7 +148,7 @@ export default function DirectorDetails({ directorData }: any) {
                             srcPhotographer={`/photographers/${directorData[0].photographer.name}`}
                         />
                     </div>
-                )}
+                )} */}
             </div>
         </main>
     )

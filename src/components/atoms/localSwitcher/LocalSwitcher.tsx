@@ -51,7 +51,7 @@ export default function LocalSwitcher() {
         if (locs && isHover) {
             gsap.fromTo(
                 locs,
-                { y: -100, opacity: 0 },
+                { y: -20, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
