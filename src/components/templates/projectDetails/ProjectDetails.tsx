@@ -50,7 +50,6 @@ function ProjectDetails({
                     end: `+=${scrollWidth}`,
                     scrub: 0.1,
                     pin: true,
-                    markers: true,
                     snap: 1 / (section.length - 1),
                 },
             })
