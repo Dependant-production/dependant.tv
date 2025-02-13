@@ -8,6 +8,7 @@
     height: 100dvh;
     justify-content: center;
     position: relative;
+    background-color: black;
 
     .textContainer {
         display: flex;
@@ -16,8 +17,8 @@
         gap: 5px;
         text-align: center;
         position: fixed;
-        bottom: 2rem;
-        left: 2rem;
+        bottom: 1rem;
+        left: 1rem;
         justify-content: flex-start;
     }
 
@@ -70,8 +71,8 @@
 
 .counter {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1rem;
+    right: 1rem;
     font-size: 20px;
     color: #fff;
     font-family: 'customFont';

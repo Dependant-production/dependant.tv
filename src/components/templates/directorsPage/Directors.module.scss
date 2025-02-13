@@ -26,6 +26,7 @@
             }
             .name {
                 cursor: pointer;
+                max-height: 50px;
             }
             .name:hover {
                 font-family: 'customFont';
@@ -59,6 +60,7 @@
     p {
         font-family: 'customFont';
         font-weight: 500;
+        white-space: nowrap;
     }
     @media screen and (min-width: $desktop) {
         font-size: 20px;

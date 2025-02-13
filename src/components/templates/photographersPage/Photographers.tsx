@@ -68,25 +68,22 @@ export default function Photographers({ photographersData }: any) {
                             const firstPhotographerPhoto =
                                 photographer?.photo?.url ?? null
                             return (
-                                <Link
+                                <li
                                     key={index}
-                                    href={`/photographers/${photographer.name}`}
+                                    className={styles.name}
+                                    onMouseEnter={() => {
+                                        setCurrentPhoto(firstPhotographerPhoto)
+                                        setCurrentTitle(
+                                            photographer?.titlePhoto as string
+                                        )
+                                    }}
                                 >
-                                    <li
-                                        key={index}
-                                        className={styles.name}
-                                        onMouseEnter={() => {
-                                            setCurrentPhoto(
-                                                firstPhotographerPhoto
-                                            )
-                                            setCurrentTitle(
-                                                photographer?.titlePhoto as string
-                                            )
-                                        }}
+                                    <Link
+                                        href={`/photographers/${photographer.name}`}
                                     >
                                         {photographer.name}
-                                    </li>
-                                </Link>
+                                    </Link>
+                                </li>
                             )
                         }
                     )}

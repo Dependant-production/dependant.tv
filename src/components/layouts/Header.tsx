@@ -46,20 +46,35 @@ export const Header = () => {
                 }
             )
         }
-    })
+    }, [isMobile])
 
-    return (
+    return isMobile ? (
+        <header className={styles.headerMobile} ref={headerRef}>
+            <div className={styles.headerMobileContainer}>
+                <Logo isBlack={color} />
+                <LocalSwitcher />
+            </div>
+            <Navbar
+                cat1={t('Navbar.directors')}
+                cat2={t('Navbar.photographers')}
+                cat3={t('Navbar.contact')}
+                color={color}
+            />
+        </header>
+    ) : (
         <header className={styles.header} ref={headerRef}>
             <div className={`${styles.headerItem}`}>
                 <Logo isBlack={color} />
             </div>
             <div className={`${styles.headerItem}`}>
-                <Navbar
-                    cat1={t('Navbar.directors')}
-                    cat2={t('Navbar.photographers')}
-                    cat3={t('Navbar.contact')}
-                    color={color}
-                />
+                <div className={`${styles.headerItem}`}>
+                    <Navbar
+                        cat1={t('Navbar.directors')}
+                        cat2={t('Navbar.photographers')}
+                        cat3={t('Navbar.contact')}
+                        color={color}
+                    />
+                </div>
             </div>
             <div className={`${styles.headerItem}`}>
                 <LocalSwitcher />

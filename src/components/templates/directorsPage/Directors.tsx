@@ -83,23 +83,23 @@ export default function Directors({ directorsData }: any) {
                         const videoUrl =
                             director?.videos?.[0]?.url?.[0]?.url ?? ''
                         return (
-                            <Link
+                            <li
                                 key={index}
-                                href={`/directors/${director.name}`}
+                                className={styles.name}
+                                onMouseEnter={() =>
+                                    handleMouseEnter(
+                                        videoUrl,
+                                        director?.videos[0]?.title
+                                    )
+                                }
                             >
-                                <li
-                                    key={index}
-                                    className={styles.name}
-                                    onMouseEnter={() =>
-                                        handleMouseEnter(
-                                            videoUrl,
-                                            director?.videos[0]?.title
-                                        )
-                                    }
+                                <Link
+                                    href={`/directors/${director.name}`}
+                                    className={styles.link}
                                 >
                                     {director.name}
-                                </li>
-                            </Link>
+                                </Link>
+                            </li>
                         )
                     })}
                 </ul>

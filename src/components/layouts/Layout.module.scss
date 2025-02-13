@@ -19,3 +19,21 @@
         }
     }
 }
+
+.headerMobile {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    padding: 1rem;
+    position: fixed;
+    gap: 0.5rem;
+    z-index: 3;
+    top: 0;
+    width: 100%;
+
+    .headerMobileContainer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
