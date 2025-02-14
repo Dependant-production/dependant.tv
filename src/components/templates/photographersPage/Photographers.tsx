@@ -6,13 +6,10 @@ import Image from 'next/image'
 
 import { Link } from '@/i18n/routing'
 import { useGSAP } from '@gsap/react'
-import useMobile from '@/hooks/useMobile'
 
 import styles from './Photographers.module.scss'
 
 export default function Photographers({ photographersData }: any) {
-    const isMobile = useMobile()
-
     const containerRef = useRef<HTMLDivElement | null>(null)
     const titleRef = useRef<HTMLParagraphElement | null>(null)
 
@@ -80,6 +77,7 @@ export default function Photographers({ photographersData }: any) {
                                 >
                                     <Link
                                         href={`/photographers/${photographer.name}`}
+                                        className={styles.link}
                                     >
                                         {photographer.name}
                                     </Link>
@@ -95,9 +93,7 @@ export default function Photographers({ photographersData }: any) {
             <section className={styles.photoContainer}>
                 {currentPhoto && (
                     <Image
-                        width={isMobile ? 300 : 500}
-                        height={isMobile ? 200 : 600}
-                        layout="intrinsic"
+                        fill
                         alt="background photo"
                         className={styles.backgroundPhoto}
                         src={currentPhoto as string}

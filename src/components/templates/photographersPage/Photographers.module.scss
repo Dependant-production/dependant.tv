@@ -20,6 +20,7 @@
             text-transform: uppercase;
             font-family: 'customFont';
             font-weight: 400;
+            color: white;
             @media screen and (min-width: $desktop) {
                 font-size: 50px;
             }
@@ -27,9 +28,9 @@
                 cursor: pointer;
                 max-height: 50px;
             }
-            .name:hover {
+            .link:hover {
                 font-family: 'customFont';
-                font-weight: 500;
+                font-weight: 700;
             }
         }
     }
@@ -45,19 +46,19 @@
         justify-content: center;
         align-items: center;
         position: relative;
-
+        width: 100%;
         top: 50%;
         left: 50%;
+        height: 100%;
+
         transform: translate(-50%, -50%);
         .backgroundPhoto {
             width: 100%;
-            height: 100% !important;
-            object-fit: contain;
-            vertical-align: top;
+            object-fit: cover;
 
-            @media screen and (min-width: $desktop) {
-                height: 600px !important;
-            }
+            // @media screen and (min-width: $desktop) {
+            //     height: 600px !important;
+            // }
         }
     }
 }
@@ -74,6 +75,5 @@
     }
     @media screen and (min-width: $desktop) {
         font-size: 20px;
-        color: black;
     }
 }
