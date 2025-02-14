@@ -17,15 +17,9 @@ export const Header = () => {
 
     const headerRef = useRef<HTMLDivElement | null>(null)
 
-    const blackRoutes = ['/photographers', '/contact']
+    const blackRoutes = ['/contact']
     const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
-    const isPhotographers = pathname.startsWith('/photographers')
-    const color =
-        isBlack && isMobile && isPhotographers
-            ? 'white'
-            : isBlack
-            ? 'black'
-            : 'white'
+    const color = isBlack && isMobile ? 'white' : isBlack ? 'black' : 'white'
 
     useGSAP(() => {
         const elements = headerRef.current?.querySelectorAll(
@@ -67,14 +61,12 @@ export const Header = () => {
                 <Logo isBlack={color} />
             </div>
             <div className={`${styles.headerItem}`}>
-                <div className={`${styles.headerItem}`}>
-                    <Navbar
-                        cat1={t('Navbar.directors')}
-                        cat2={t('Navbar.photographers')}
-                        cat3={t('Navbar.contact')}
-                        color={color}
-                    />
-                </div>
+                <Navbar
+                    cat1={t('Navbar.directors')}
+                    cat2={t('Navbar.photographers')}
+                    cat3={t('Navbar.contact')}
+                    color={color}
+                />
             </div>
             <div className={`${styles.headerItem}`}>
                 <LocalSwitcher />
