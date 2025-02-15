@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { Link } from '@/i18n/routing'
 import CounterSlide from '@/components/molecules/counterSlide/CounterSlide'
@@ -21,6 +21,7 @@ export default function Homepage({ homepageData }: any) {
     const videoRef = useRef<HTMLVideoElement>(null)
     const titleRef = useRef<HTMLParagraphElement>(null)
     const directorRef = useRef<HTMLParagraphElement>(null)
+    const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
 
     console.log('homepageData', homepageData)
 
@@ -63,6 +64,43 @@ export default function Homepage({ homepageData }: any) {
 
         return () => clearInterval(interval)
     }, [currentIndex, sortedData, homepageData])
+
+    const handleScroll = useCallback(
+        (event: WheelEvent) => {
+            event.preventDefault()
+
+            // Si un changement est déjà en cours, on ignore le scroll
+            if (scrollTimeout.current) return
+
+            // Détection de la direction du scroll
+            if (event.deltaY > 0) {
+                // Scroll vers le bas → Vidéo suivante
+                setCurrentIndex(
+                    (prevIndex) => (prevIndex + 1) % sortedData.length
+                )
+            } else if (event.deltaY < 0) {
+                // Scroll vers le haut → Vidéo précédente
+                setCurrentIndex(
+                    (prevIndex) =>
+                        (prevIndex - 1 + sortedData.length) % sortedData.length
+                )
+            }
+
+            // Ajoute un délai pour éviter le scroll trop rapide
+            scrollTimeout.current = setTimeout(() => {
+                scrollTimeout.current = null
+            }, 800) // 800ms de délai entre chaque scroll
+        },
+        [sortedData.length]
+    )
+
+    useEffect(() => {
+        window.addEventListener('wheel', handleScroll, { passive: false })
+
+        return () => {
+            window.removeEventListener('wheel', handleScroll)
+        }
+    }, [handleScroll])
 
     const getLinkDirectors = () => {
         let link

@@ -22,11 +22,10 @@ export default function LocalSwitcher() {
 
     const locales = routing.locales.filter((locale) => locale !== currentLocale)
 
-    const blackRoutes = ['/photographers', '/contact']
-    const isPhotographers = pathname.startsWith('/photographers')
+    const blackRoutes = ['/contact']
     const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
     const color =
-        isBlack && isMobile && isPhotographers
+        isBlack && isMobile
             ? styles.white
             : isBlack
             ? styles.black
