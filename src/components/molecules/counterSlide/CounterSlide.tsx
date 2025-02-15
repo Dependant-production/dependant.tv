@@ -14,9 +14,8 @@ interface CounterSlideProps {
 export default function CounterSlide({
     className,
     data,
-    index,
-} // setIndex,
-: CounterSlideProps) {
+    index, // setIndex,
+}: CounterSlideProps) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const currentNumberRef = useRef<HTMLDivElement | null>(null)
     // const hoverContainerRef = useRef<HTMLDivElement | null>(null)

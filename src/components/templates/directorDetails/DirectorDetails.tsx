@@ -14,7 +14,6 @@ export default function DirectorDetails({ directorData }: any) {
 
     const [isVideoOpen, setIsVideoOpen] = useState(false)
     const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null)
-    const [titleHovered, setTitleHovered] = useState(false)
 
     const containerRef = useRef<HTMLDivElement | null>(null)
     const nameRef = useRef<HTMLHeadingElement | null>(null)
@@ -36,7 +35,6 @@ export default function DirectorDetails({ directorData }: any) {
     }
 
     console.log('directorData', directorData)
-    console.log('titleHovered', titleHovered)
 
     useGSAP(() => {
         const sections = containerRef.current?.querySelectorAll(
@@ -94,8 +92,6 @@ export default function DirectorDetails({ directorData }: any) {
                                                 el
                                         }
                                     }}
-                                    onMouseEnter={() => setTitleHovered(true)}
-                                    onMouseLeave={() => setTitleHovered(false)}
                                 >
                                     {video?.title}
                                 </div>
