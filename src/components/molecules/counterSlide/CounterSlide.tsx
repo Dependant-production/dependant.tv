@@ -96,19 +96,6 @@ export default function CounterSlide({
 
     return (
         <div className={`${styles.counter} ${className}`} ref={containerRef}>
-            {/* {isHover && (
-                <div className={styles.counterHover} ref={hoverContainerRef}>
-                    {data.map((_: null, i: number) => (
-                        <div
-                            key={i}
-                            className={styles.counterHoverItem}
-                            onClick={() => handleNumberClick(i)}
-                        >
-                            {i + 1}.
-                        </div>
-                    ))}
-                </div>
-            )} */}
             <div ref={currentNumberRef}>{currentOrder}</div>
             <span>/{numberOfVideos}</span>
         </div>
