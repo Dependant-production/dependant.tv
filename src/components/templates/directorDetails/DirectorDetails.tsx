@@ -37,9 +37,9 @@ export default function DirectorDetails({ directorData }: any) {
     console.log('directorData', directorData)
 
     useGSAP(() => {
-        const sections = containerRef.current?.querySelectorAll(
-            `.${styles.section}`
-        )
+        // const sections = containerRef.current?.querySelectorAll(
+        //     `.${styles.section}`
+        // )
         gsap.fromTo(
             nameRef.current,
             {
@@ -48,17 +48,34 @@ export default function DirectorDetails({ directorData }: any) {
             { x: 0, duration: 1 }
         )
 
-        if (sections) {
-            gsap.utils.toArray(sections).forEach((section: any) => {
-                ScrollTrigger.create({
-                    trigger: section,
-                    start: 'top top',
-                    pin: true,
-                    pinSpacing: false,
-                })
-            })
-        }
+        // if (sections) {
+        //     gsap.utils.toArray(sections).forEach((section: any) => {
+        //         ScrollTrigger.create({
+        //             trigger: section,
+        //             start: 'top top',
+        //             pin: true,
+        //             pinSpacing: false,
+        //         })
+        //     })
+        // }
     })
+
+    useGSAP(() => {
+        gsap.utils.toArray<HTMLElement>('.section').forEach((section) => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top center',
+                end: 'bottom center',
+                onEnter: () => {
+                    gsap.to(window, {
+                        scrollTo: section,
+                        duration: 0.5,
+                        ease: 'power2.out',
+                    })
+                },
+            })
+        })
+    }, [])
 
     return (
         <main className={styles.directorDetails}>
