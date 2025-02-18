@@ -18,6 +18,7 @@ export default function DirectorDetails({ directorData }: any) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const nameRef = useRef<HTMLHeadingElement | null>(null)
     const videoTitleRef = useRef<(HTMLDivElement | null)[]>([])
+    const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
 
     const videos = directorData[0]?.videos
     const cutName = directorData[0]?.name.split(' ')
@@ -61,20 +62,36 @@ export default function DirectorDetails({ directorData }: any) {
     })
 
     useGSAP(() => {
-        gsap.utils.toArray<HTMLElement>('.section').forEach((section) => {
-            ScrollTrigger.create({
-                trigger: section,
-                start: 'top center',
-                end: 'bottom center',
-                onEnter: () => {
-                    gsap.to(window, {
-                        scrollTo: section,
-                        duration: 0.5,
-                        ease: 'power2.out',
-                    })
-                },
+        gsap.utils
+            .toArray<HTMLElement>('.section')
+            .forEach((section, index) => {
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: 'top center',
+                    end: 'bottom center',
+                    onEnter: () => {
+                        Object.values(videoRefs.current).forEach((video) => {
+                            if (video) {
+                                video.pause() // Stoppe les autres vidéos
+                            }
+                        })
+
+                        const video = videoRefs.current[`${index}-0`] // Vidéo de la section visible
+                        if (video) {
+                            video
+                                .play()
+                                .catch((err) =>
+                                    console.log('Autoplay bloqué : ', err)
+                                )
+                        }
+                    },
+                    onLeaveBack: () => {
+                        Object.values(videoRefs.current).forEach((video) => {
+                            if (video) video.pause()
+                        })
+                    },
+                })
             })
-        })
     }, [])
 
     return (
@@ -97,9 +114,22 @@ export default function DirectorDetails({ directorData }: any) {
                                     src={vid?.url}
                                     className={styles.video}
                                     muted
-                                    autoPlay
                                     loop
-                                    onClick={() => openVideo(vid.url)}
+                                    playsInline
+                                    disablePictureInPicture
+                                    webkit-playsinline="true"
+                                    autoPlay={true}
+                                    ref={(el) => {
+                                        if (el) {
+                                            videoRefs.current[
+                                                `${videoIndex}-${vidIndex}`
+                                            ] = el
+                                        }
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault() // Empêche l'ouverture du lecteur vidéo natif sur mobile
+                                        openVideo(vid.url)
+                                    }}
                                 />
                                 <div
                                     className={styles.videoTitle}
