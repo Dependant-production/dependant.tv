@@ -99,7 +99,7 @@ export default function PhotographerDetails({ photographerData }: any) {
                                     className={styles.projectTitle}
                                     ref={titleRef}
                                 >
-                                    <h3>{project?.title}</h3>
+                                    <p>{project?.title}</p>
                                 </div>
                             </Link>
                         </section>
