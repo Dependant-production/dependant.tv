@@ -8,13 +8,17 @@ import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './DirectorDetails.module.scss'
 import Image from 'next/image'
+// import CounterVideo from '@/components/molecules/counterVideo/CounterVideo'
 
 export default function DirectorDetails({ directorData }: any) {
     gsap.registerPlugin(ScrollTrigger)
 
     const [isVideoOpen, setIsVideoOpen] = useState(false)
     const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null)
+    const [currentIndex, setCurrentIndex] = useState(0)
+    // const [numberVideo, setNumberVideo] = useState(0)
 
+    console.log('currentIndex dans DirectorDetails', currentIndex)
     const containerRef = useRef<HTMLDivElement | null>(null)
     const nameRef = useRef<HTMLHeadingElement | null>(null)
     const videoTitleRef = useRef<(HTMLDivElement | null)[]>([])
@@ -34,8 +38,6 @@ export default function DirectorDetails({ directorData }: any) {
         setCurrentVideoUrl(null)
         setIsVideoOpen(false)
     }
-
-    console.log('directorData', directorData)
 
     useGSAP(() => {
         // const sections = containerRef.current?.querySelectorAll(
@@ -61,37 +63,42 @@ export default function DirectorDetails({ directorData }: any) {
         // }
     })
 
-    useGSAP(() => {
-        gsap.utils
-            .toArray<HTMLElement>('.section')
-            .forEach((section, index) => {
-                ScrollTrigger.create({
-                    trigger: section,
-                    start: 'top center',
-                    end: 'bottom center',
-                    onEnter: () => {
-                        Object.values(videoRefs.current).forEach((video) => {
-                            if (video) {
-                                video.pause() // Stoppe les autres vidéos
-                            }
-                        })
+    console.log('currentIndex', currentIndex)
 
-                        const video = videoRefs.current[`${index}-0`] // Vidéo de la section visible
+    useGSAP(() => {
+        const sections = gsap.utils.toArray<HTMLElement>('.section')
+        // setNumberVideo(sections?.length)
+        console.log('sections', sections)
+        sections.forEach((section, index) => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top center',
+                end: 'bottom center',
+                onEnter: () => {
+                    setCurrentIndex(index)
+                    // Met en pause les vids sauf celle active tu coco on économise
+                    Object.values(videoRefs.current).forEach((video) => {
                         if (video) {
-                            video
-                                .play()
-                                .catch((err) =>
-                                    console.log('Autoplay bloqué : ', err)
-                                )
+                            video.pause() // Stoppe les autres vidéos
                         }
-                    },
-                    onLeaveBack: () => {
-                        Object.values(videoRefs.current).forEach((video) => {
-                            if (video) video.pause()
-                        })
-                    },
-                })
+                    })
+
+                    const video = videoRefs.current[`${index}-0`] // Vidéo de la section visible
+                    if (video) {
+                        video
+                            .play()
+                            .catch((err) =>
+                                console.log('Autoplay bloqué : ', err)
+                            )
+                    }
+                },
+                onLeaveBack: () => {
+                    Object.values(videoRefs.current).forEach((video) => {
+                        if (video) video.pause()
+                    })
+                },
             })
+        })
     }, [])
 
     return (
@@ -108,7 +115,7 @@ export default function DirectorDetails({ directorData }: any) {
                         {video?.url?.map((vid: any, vidIndex: number) => (
                             <section
                                 key={`${videoIndex}-${vidIndex}`}
-                                className={styles.section}
+                                className={`${styles.section} section`}
                             >
                                 <video
                                     src={vid?.url}
@@ -182,16 +189,10 @@ export default function DirectorDetails({ directorData }: any) {
                         </div>
                     </div>
                 )}
-
-                {/* {directorData[0]?.photographer && (
-                    <div>
-                        <SideNav
-                            className={styles.nav}
-                            srcDirector={`/directors/${directorData[0].name}`}
-                            srcPhotographer={`/photographers/${directorData[0].photographer.name}`}
-                        />
-                    </div>
-                )} */}
+                {/* <CounterVideo
+                    numberOfVideos={numberVideo}
+                    currentIndex={currentIndex}
+                /> */}
             </div>
         </main>
     )

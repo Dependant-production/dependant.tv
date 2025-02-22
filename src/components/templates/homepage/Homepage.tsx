@@ -5,12 +5,14 @@ import { gsap } from 'gsap'
 import { Link } from '@/i18n/routing'
 import CounterSlide from '@/components/molecules/counterSlide/CounterSlide'
 import styles from './Homepage.module.scss'
+import useMobile from '@/hooks/useMobile'
 
 export default function Homepage({ homepageData }: any) {
     const [currentVideo, setCurrentVideo] = useState<string | null>(null)
     const [currentTitle, setCurrentTitle] = useState<string>('')
     const [currentDirector, setCurrentDirector] = useState<string>('')
     const [currentIndex, setCurrentIndex] = useState<number>(0)
+    const isMobile = useMobile()
 
     const sortedData = React.useMemo(() => {
         return (
@@ -65,9 +67,45 @@ export default function Homepage({ homepageData }: any) {
         return () => clearInterval(interval)
     }, [currentIndex, sortedData, homepageData])
 
+    const touchStartY = useRef<number | null>(null)
+
+    const handleTouchStart = useCallback((event: TouchEvent) => {
+        touchStartY.current = event.touches[0].clientY
+    }, [])
+
+    const handleTouchEnd = useCallback(
+        (event: TouchEvent) => {
+            if (!touchStartY.current) return
+
+            const deltaY = touchStartY.current - event.changedTouches[0].clientY
+
+            if (Math.abs(deltaY) > 50) {
+                // Seuil pour éviter les faux mouvements
+                if (deltaY > 0) {
+                    // Swipe vers le haut → Vidéo suivante
+                    setCurrentIndex(
+                        (prevIndex) => (prevIndex + 1) % sortedData.length
+                    )
+                } else {
+                    // Swipe vers le bas → Vidéo précédente
+                    setCurrentIndex(
+                        (prevIndex) =>
+                            (prevIndex - 1 + sortedData.length) %
+                            sortedData.length
+                    )
+                }
+            }
+
+            touchStartY.current = null // Reset pour la prochaine détection
+        },
+        [sortedData.length]
+    )
+
     const handleScroll = useCallback(
         (event: WheelEvent) => {
-            event.preventDefault()
+            if (!isMobile) {
+                event.preventDefault() // Empêcher le scroll SEULEMENT sur desktop
+            }
 
             // Si un changement est déjà en cours, on ignore le scroll
             if (scrollTimeout.current) return
@@ -91,7 +129,7 @@ export default function Homepage({ homepageData }: any) {
                 scrollTimeout.current = null
             }, 800) // 800ms de délai entre chaque scroll
         },
-        [sortedData.length]
+        [sortedData.length, isMobile]
     )
 
     useEffect(() => {
@@ -101,6 +139,16 @@ export default function Homepage({ homepageData }: any) {
             window.removeEventListener('wheel', handleScroll)
         }
     }, [handleScroll])
+
+    useEffect(() => {
+        window.addEventListener('touchstart', handleTouchStart)
+        window.addEventListener('touchend', handleTouchEnd)
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart)
+            window.removeEventListener('touchend', handleTouchEnd)
+        }
+    }, [handleTouchStart, handleTouchEnd])
 
     const getLinkDirectors = () => {
         let link
