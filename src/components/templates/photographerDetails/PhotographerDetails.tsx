@@ -39,7 +39,7 @@ export default function PhotographerDetails({ photographerData }: any) {
             { opacity: 1, duration: 0.5 }
         )
     }, [])
-
+    console.log('projects', projects)
     return (
         <main className={styles.photographerDetails} ref={containerRef}>
             <h2 className={styles.title} ref={nameRef}>

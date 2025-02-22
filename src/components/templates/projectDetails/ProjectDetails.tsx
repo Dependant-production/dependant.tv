@@ -41,7 +41,7 @@ function ProjectDetails({
                 </h2>
                 {!isMobile ? (
                     <Swiper
-                        modules={[Navigation, Mousewheel]} // Active les flèches de navigation
+                        modules={[Navigation, Mousewheel]} // Active le scroll horizontal
                         mousewheel={true}
                         navigation={{
                             // Configuration des flèches de navigation
@@ -67,6 +67,12 @@ function ProjectDetails({
                                 />
                             </SwiperSlide>
                         ))}
+                        <div
+                            className={`swiper-button-prev ${styles.arrowLeft}`}
+                        />
+                        <div
+                            className={`swiper-button-next ${styles.arrowRight}`}
+                        />
                     </Swiper>
                 ) : (
                     <div className={styles.horizontalScroll}>
