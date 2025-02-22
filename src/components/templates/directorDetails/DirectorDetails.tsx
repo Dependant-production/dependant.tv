@@ -1,14 +1,13 @@
 'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
-// import SideNav from '@/components/molecules/sideNav/SideNav'
+import Image from 'next/image'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import CounterVideo from '@/components/molecules/counterVideo/CounterVideo'
 import styles from './DirectorDetails.module.scss'
-import Image from 'next/image'
-// import CounterVideo from '@/components/molecules/counterVideo/CounterVideo'
 
 export default function DirectorDetails({ directorData }: any) {
     gsap.registerPlugin(ScrollTrigger)
@@ -16,13 +15,14 @@ export default function DirectorDetails({ directorData }: any) {
     const [isVideoOpen, setIsVideoOpen] = useState(false)
     const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null)
     const [currentIndex, setCurrentIndex] = useState(0)
-    // const [numberVideo, setNumberVideo] = useState(0)
 
     console.log('currentIndex dans DirectorDetails', currentIndex)
     const containerRef = useRef<HTMLDivElement | null>(null)
     const nameRef = useRef<HTMLHeadingElement | null>(null)
     const videoTitleRef = useRef<(HTMLDivElement | null)[]>([])
-    const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({})
+    const videoRefs = useRef<HTMLVideoElement[]>([])
+
+    console.log('videoRefs', videoRefs)
 
     const videos = directorData[0]?.videos
     const cutName = directorData[0]?.name.split(' ')
@@ -64,41 +64,68 @@ export default function DirectorDetails({ directorData }: any) {
     })
 
     console.log('currentIndex', currentIndex)
+    // useGSAP(() => {
+    //     const sections = gsap.utils.toArray<HTMLElement>('.section')
+    //     setNumberVideo(sections?.length)
+    //     console.log('sections', sections)
+    //     sections.forEach((section, index) => {
+    //         ScrollTrigger.create({
+    //             trigger: section,
+    //             start: 'top center',
+    //             end: 'bottom center',
+    //             onEnter: () => {
+    //                 setCurrentIndex(index)
+    //                 // Met en pause les vids sauf celle active tu coco on économise
+    //                 Object.values(videoRefs.current).forEach((video) => {
+    //                     if (video) {
+    //                         video.pause() // Stoppe les autres vidéos
+    //                     }
+    //                 })
 
-    useGSAP(() => {
-        const sections = gsap.utils.toArray<HTMLElement>('.section')
-        // setNumberVideo(sections?.length)
-        console.log('sections', sections)
-        sections.forEach((section, index) => {
-            ScrollTrigger.create({
-                trigger: section,
-                start: 'top center',
-                end: 'bottom center',
-                onEnter: () => {
-                    setCurrentIndex(index)
-                    // Met en pause les vids sauf celle active tu coco on économise
-                    Object.values(videoRefs.current).forEach((video) => {
-                        if (video) {
-                            video.pause() // Stoppe les autres vidéos
+    //                 const video = videoRefs.current[`${index}-0`] // Vidéo de la section visible
+    //                 if (video) {
+    //                     video
+    //                         .play()
+    //                         .catch((err) =>
+    //                             console.log('Autoplay bloqué : ', err)
+    //                         )
+    //                 }
+    //             },
+    //             onLeaveBack: () => {
+    //                 Object.values(videoRefs.current).forEach((video) => {
+    //                     if (video) video.pause()
+    //                 })
+    //             },
+    //         })
+    //     })
+    // }, [currentIndex])
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // Trouver l'index de la vidéo visible
+                        const index = videoRefs.current.findIndex(
+                            (video) => video === entry.target
+                        )
+                        if (index !== -1) {
+                            console.log('Vidéo visible:', index)
+                            setCurrentIndex(index)
                         }
-                    })
-
-                    const video = videoRefs.current[`${index}-0`] // Vidéo de la section visible
-                    if (video) {
-                        video
-                            .play()
-                            .catch((err) =>
-                                console.log('Autoplay bloqué : ', err)
-                            )
                     }
-                },
-                onLeaveBack: () => {
-                    Object.values(videoRefs.current).forEach((video) => {
-                        if (video) video.pause()
-                    })
-                },
-            })
+                })
+            },
+            { threshold: 0.6 } // On considère une vidéo visible si 60% de sa hauteur est à l'écran
+        )
+
+        // Observer chaque vidéo
+        videoRefs.current.forEach((video) => {
+            if (video) observer.observe(video)
         })
+
+        // Nettoyer l'observer quand le composant se démonte
+        return () => observer.disconnect()
     }, [])
 
     return (
@@ -128,9 +155,7 @@ export default function DirectorDetails({ directorData }: any) {
                                     autoPlay={true}
                                     ref={(el) => {
                                         if (el) {
-                                            videoRefs.current[
-                                                `${videoIndex}-${vidIndex}`
-                                            ] = el
+                                            videoRefs.current[videoIndex] = el // Référencer chaque vidéo
                                         }
                                     }}
                                     onClick={(e) => {
@@ -189,10 +214,10 @@ export default function DirectorDetails({ directorData }: any) {
                         </div>
                     </div>
                 )}
-                {/* <CounterVideo
-                    numberOfVideos={numberVideo}
+                <CounterVideo
+                    numberOfVideos={videos.length}
                     currentIndex={currentIndex}
-                /> */}
+                />
             </div>
         </main>
     )
