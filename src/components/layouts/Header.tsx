@@ -17,9 +17,9 @@ export const Header = () => {
 
     const headerRef = useRef<HTMLDivElement | null>(null)
 
-    const blackRoutes = ['/contact']
+    const blackRoutes = ['/contact', '/photographers/']
     const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
-    const color = isBlack && isMobile ? 'black' : 'white'
+    const color = isBlack && isMobile ? 'black' : isBlack ? 'black' : 'white'
 
     useGSAP(() => {
         const elements = headerRef.current?.querySelectorAll(
