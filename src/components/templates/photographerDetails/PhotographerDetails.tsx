@@ -1,15 +1,14 @@
 'use client'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useRef } from 'react'
-import styles from './PhotographerDetails.module.scss'
+import React, { useRef, useState } from 'react'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { useGSAP } from '@gsap/react'
-import useMobile from '@/hooks/useMobile'
-// import SideNav from '@/components/molecules/sideNav/SideNav'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from '@/i18n/routing'
+import useMobile from '@/hooks/useMobile'
+import styles from './PhotographerDetails.module.scss'
 
 export default function PhotographerDetails({ photographerData }: any) {
     gsap.registerPlugin(ScrollTrigger)
@@ -19,6 +18,7 @@ export default function PhotographerDetails({ photographerData }: any) {
     const horizontalScrollRef = useRef<HTMLDivElement | null>(null)
     const nameRef = useRef<HTMLHeadingElement | null>(null)
     const titleRef = useRef<HTMLDivElement | null>(null)
+    const [, setCurrentIndex] = useState(0)
 
     const projects = photographerData[0]?.projects
     const cutName = photographerData[0]?.name.split(' ')
@@ -26,45 +26,45 @@ export default function PhotographerDetails({ photographerData }: any) {
     const secondPart = cutName?.slice(1).join(' ') || ''
 
     useGSAP(() => {
-        if (isMobile === undefined || isMobile) return
-        const container = containerRef.current
-        const horizontalScroll = horizontalScrollRef.current
-        const sections = containerRef.current?.querySelectorAll(
-            `.${styles.section}`
-        )
-
-        if (!container || !horizontalScroll) return null
-
-        const scrollWidth = horizontalScroll.scrollWidth - window.innerWidth
-
-        gsap.fromTo(
-            nameRef.current,
-            {
-                x: -400,
-            },
-            { x: 0, duration: 0.5 }
-        )
+        gsap.fromTo(nameRef.current, { x: -400 }, { x: 0, duration: 1 })
 
         gsap.fromTo(
             titleRef.current,
             { opacity: 0 },
             { opacity: 1, duration: 0.5 }
         )
+    }, [])
+    useGSAP(() => {
+        if (isMobile === undefined || isMobile) return
+        const container = containerRef.current
+        const horizontalScroll = horizontalScrollRef.current
+        const sections = gsap.utils.toArray<HTMLElement>(`.${styles.section}`)
 
-        if (sections && !isMobile) {
-            const section = gsap.utils.toArray(sections)
-            gsap.to(section, {
-                xPercent: -100 * (section.length - 1),
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    end: `+=${scrollWidth}`,
-                    scrub: 0.1,
-                    pin: true,
-                    snap: 1 / (section.length - 1),
+        if (!container || !horizontalScroll || !sections.length) return
+
+        // Animation pour le scroll horizontal
+        gsap.to(sections, {
+            xPercent: -100 * (sections.length - 1), // Déplace toutes les sections horizontalement
+            ease: 'none',
+            scrollTrigger: {
+                trigger: container,
+                start: 'top top', // Déclencheur au début du conteneur
+                end: () => `+=${container.offsetWidth * (sections.length - 1)}`, // Définit la fin du scrollTrigger
+                scrub: 0.1, // Rend l'animation fluide
+                pin: true, // Épingle le conteneur pendant le scroll
+                snap: {
+                    snapTo: 1 / (sections.length - 1), // Effet de magnétisme
+                    duration: { min: 0.1, max: 0.3 }, // Durée du snap
+                    ease: 'power1.inOut', // Effet d'easing
                 },
-            })
-        }
+                onUpdate: (self) => {
+                    // Met à jour l'index actif
+                    setCurrentIndex(
+                        Math.round(self.progress * (sections.length - 1))
+                    )
+                },
+            },
+        })
     }, [isMobile])
 
     const formattedSlug = photographerData[0]?.slug.replace(/-/g, '%20')
@@ -106,15 +106,6 @@ export default function PhotographerDetails({ photographerData }: any) {
                     ))}
                 </div>
             </main>
-            {/* {photographerData[0]?.director && (
-                <div>
-                    <SideNav
-                        className={styles.nav}
-                        srcDirector={`/directors/${photographerData[0].director.name}`}
-                        srcPhotographer={`/photographers/${photographerData[0].name}`}
-                    />
-                </div>
-            )} */}
         </>
     )
 }

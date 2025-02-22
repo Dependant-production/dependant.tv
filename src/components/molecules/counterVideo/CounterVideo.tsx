@@ -13,14 +13,17 @@ export default function CounterVideo({
     console.log('currentIndex dans CounterVideo', currentIndex)
     return (
         <div className={styles.counterContainer}>
-            {Array.from({ length: numberOfVideos }).map((_, index) => (
-                <span
-                    key={index}
-                    className={`${styles.round} ${
-                        index === currentIndex ? styles.active : ''
-                    }`}
-                />
-            ))}
+            {Array.from({ length: numberOfVideos }).map((_, index) => {
+                console.log('index', index)
+                return (
+                    <span
+                        key={index}
+                        className={`${styles.round} ${
+                            index === currentIndex ? styles.active : ''
+                        }`}
+                    />
+                )
+            })}
         </div>
     )
 }

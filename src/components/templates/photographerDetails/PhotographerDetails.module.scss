@@ -15,6 +15,9 @@
             height: 100%;
             flex-direction: row;
             flex-wrap: nowrap;
+            overflow-x: scroll; // Active le scroll horizontal
+            scroll-snap-type: x mandatory; // Active le snap horizontal
+            scroll-behavior: smooth;
         }
     }
 
@@ -27,6 +30,7 @@
             align-items: center;
             justify-content: center;
             flex: 0 0 100vw;
+            scroll-snap-align: start;
         }
     }
 

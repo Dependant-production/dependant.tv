@@ -19,7 +19,7 @@ export const Header = () => {
 
     const blackRoutes = ['/contact']
     const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
-    const color = isBlack && isMobile ? 'white' : isBlack ? 'black' : 'white'
+    const color = isBlack && isMobile ? 'black' : 'white'
 
     useGSAP(() => {
         const elements = headerRef.current?.querySelectorAll(

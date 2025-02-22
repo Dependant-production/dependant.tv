@@ -40,7 +40,7 @@ export default function Navbar({
             </Link>
             <Link
                 href="/contact"
-                className={`${styles.link} ${
+                className={`${styles.link} ${styles.padding} ${
                     isActive('/contact') ? styles.active : ''
                 }`}
             >

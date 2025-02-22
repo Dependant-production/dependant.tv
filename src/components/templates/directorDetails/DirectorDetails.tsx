@@ -8,7 +8,7 @@ import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './DirectorDetails.module.scss'
 import Image from 'next/image'
-import CounterVideo from '@/components/molecules/counterVideo/CounterVideo'
+// import CounterVideo from '@/components/molecules/counterVideo/CounterVideo'
 
 export default function DirectorDetails({ directorData }: any) {
     gsap.registerPlugin(ScrollTrigger)
@@ -16,7 +16,7 @@ export default function DirectorDetails({ directorData }: any) {
     const [isVideoOpen, setIsVideoOpen] = useState(false)
     const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null)
     const [currentIndex, setCurrentIndex] = useState(0)
-    const [numberVideo, setNumberVideo] = useState(0)
+    // const [numberVideo, setNumberVideo] = useState(0)
 
     console.log('currentIndex dans DirectorDetails', currentIndex)
     const containerRef = useRef<HTMLDivElement | null>(null)
@@ -67,7 +67,7 @@ export default function DirectorDetails({ directorData }: any) {
 
     useGSAP(() => {
         const sections = gsap.utils.toArray<HTMLElement>('.section')
-        setNumberVideo(sections?.length)
+        // setNumberVideo(sections?.length)
         console.log('sections', sections)
         sections.forEach((section, index) => {
             ScrollTrigger.create({
@@ -189,10 +189,10 @@ export default function DirectorDetails({ directorData }: any) {
                         </div>
                     </div>
                 )}
-                <CounterVideo
+                {/* <CounterVideo
                     numberOfVideos={numberVideo}
                     currentIndex={currentIndex}
-                />
+                /> */}
             </div>
         </main>
     )

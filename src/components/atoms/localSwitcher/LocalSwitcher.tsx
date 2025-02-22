@@ -26,7 +26,7 @@ export default function LocalSwitcher() {
     const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
     const color =
         isBlack && isMobile
-            ? styles.white
+            ? styles.black
             : isBlack
             ? styles.black
             : styles.white

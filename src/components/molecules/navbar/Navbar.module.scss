@@ -50,3 +50,9 @@
         color: #000;
     }
 }
+
+.padding {
+    @media screen and (min-width: $desktop) {
+        padding-right: 0px;
+    }
+}
