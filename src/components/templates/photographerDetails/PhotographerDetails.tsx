@@ -67,9 +67,6 @@ export default function PhotographerDetails({
                     }}
                     spaceBetween={0} // Espace entre les slides
                     slidesPerView={1} // Nombre de slides visibles à la fois
-                    onSlideChange={(swiper) => {
-                        console.log('Slide actuel :', swiper.activeIndex)
-                    }}
                     className={styles.horizontalScroll}
                 >
                     {projects?.map(

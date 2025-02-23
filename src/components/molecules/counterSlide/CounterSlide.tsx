@@ -1,6 +1,6 @@
-import { useGSAP } from '@gsap/react'
 import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 import styles from './CounterSlide.module.scss'
 
 interface CounterSlideProps {
@@ -17,7 +17,9 @@ export default function CounterSlide({
 }: CounterSlideProps) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const currentNumberRef = useRef<HTMLDivElement | null>(null)
+
     const numberOfVideos = data?.length
+
     const [currentOrder, setCurrentOrder] = useState(data?.[index]?.order || 0)
     const [firstLoad, setFirstLoad] = useState(true)
 
@@ -30,7 +32,6 @@ export default function CounterSlide({
     useGSAP(() => {
         if (firstLoad) return
         const current = currentNumberRef.current
-        console.log('current', current)
 
         if (current) {
             // Timeline pour synchroniser les animations

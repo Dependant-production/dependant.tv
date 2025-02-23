@@ -134,7 +134,6 @@ export default function Homepage({ homepageData }: HomepageProps) {
             duration: 1,
             onComplete: () => {
                 const video = sortedVideos[currentIndex]
-                console.log('video', video)
                 const videoUrl = video?.url?.[0]?.url
                 setCurrentVideo(videoUrl as string)
                 setCurrentTitle(video?.title || '')

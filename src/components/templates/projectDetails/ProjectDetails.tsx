@@ -30,8 +30,6 @@ function ProjectDetails({
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
 
-    console.log('projectDetails', projectDetails)
-
     return (
         <>
             <main className={styles.projectDetails} ref={containerRef}>
@@ -55,9 +53,6 @@ function ProjectDetails({
                         }}
                         spaceBetween={0} // Espace entre les slides
                         slidesPerView={1} // Nombre de slides visibles à la fois
-                        onSlideChange={(swiper) => {
-                            console.log('Slide actuel :', swiper.activeIndex)
-                        }}
                         className={styles.horizontalScroll}
                     >
                         {images?.map((image: MediaType, index: number) => (

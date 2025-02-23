@@ -59,7 +59,6 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                             (video) => video === entry.target
                         )
                         if (index !== -1) {
-                            console.log('Vidéo visible:', index)
                             setCurrentIndex(index)
                         }
                     }

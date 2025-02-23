@@ -48,7 +48,6 @@ export default function Photographers({
                 photographersData[0]?.photo?.url ?? null
             const firstPhotographerTitle =
                 photographersData[0]?.titlePhoto ?? ''
-            console.log('firstPhotographerTitle', firstPhotographerTitle)
             setCurrentPhoto(firstPhotographerPhoto)
             setCurrentTitle(firstPhotographerTitle)
         }
