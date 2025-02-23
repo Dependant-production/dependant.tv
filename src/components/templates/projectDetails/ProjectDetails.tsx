@@ -1,5 +1,4 @@
 'use client'
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef } from 'react'
 import gsap from 'gsap'
 import Image from 'next/image'
@@ -14,7 +13,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/mousewheel'
 
 interface ProjectDetailsProps {
-    projectDetails: any
+    projectDetails: ProjectType
     photographerName: string
 }
 
@@ -54,17 +53,14 @@ function ProjectDetails({
                         }}
                         spaceBetween={0} // Espace entre les slides
                         slidesPerView={1} // Nombre de slides visibles à la fois
-                        onSlideChange={(swiper) => {
-                            console.log('Slide actuel :', swiper.activeIndex)
-                        }}
                         className={styles.horizontalScroll}
                     >
-                        {images?.map((image: any, index: number) => (
+                        {images?.map((image: MediaType, index: number) => (
                             <SwiperSlide key={index} className={styles.section}>
                                 <Image
                                     className={styles.image}
                                     src={image.url}
-                                    alt={image.title}
+                                    alt={image.name}
                                     width={500}
                                     height={600}
                                     layout="intrinsic"
@@ -80,12 +76,12 @@ function ProjectDetails({
                     </Swiper>
                 ) : (
                     <div className={styles.horizontalScroll}>
-                        {images?.map((image: any, index: number) => (
+                        {images?.map((image: MediaType, index: number) => (
                             <section key={index} className={styles.section}>
                                 <Image
                                     className={styles.image}
                                     src={image.url}
-                                    alt={image.title}
+                                    alt={image.name}
                                     width={300}
                                     height={200}
                                     layout="intrinsic"

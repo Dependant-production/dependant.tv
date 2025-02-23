@@ -1,5 +1,4 @@
 'use client'
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { useTranslations } from 'next-intl'
 import styles from './AboutUs.module.scss'

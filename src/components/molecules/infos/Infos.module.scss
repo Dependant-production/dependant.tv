@@ -21,8 +21,22 @@
         align-items: flex-start;
         gap: 5px;
         margin-bottom: 20px;
+
+        > * {
+            background-color: white;
+        }
+    }
+    .container2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        margin-bottom: 20px;
     }
 
+    .container2 h3 {
+        background-color: white;
+    }
     .infosTitle {
         font-family: 'customFont';
         font-weight: 500;
@@ -33,22 +47,30 @@
     .infosContainer {
         display: flex;
         flex-direction: column;
-        @media screen and (min-width: $desktop) {
-            display: flex;
-            flex-direction: column;
-        }
+        gap: 5px;
     }
 
     .creditContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
         @media screen and (min-width: $desktop) {
             position: fixed;
             bottom: 1rem;
             right: 1rem;
         }
     }
+
+    .creditContainer h3 {
+        background-color: white;
+    }
 }
 
 .flexInfos {
     display: flex;
     gap: 1rem;
+    > * {
+        background-color: white;
+    }
 }

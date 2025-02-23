@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import ProjectDetails from '@/components/templates/projectDetails/ProjectDetails'
 import axiosInstance from '@/helpers/axiosInstance'
+import ProjectDetails from '@/components/templates/projectDetails/ProjectDetails'
 
 type tParamsSlug = Promise<{
     locale: string
@@ -12,8 +11,6 @@ export default async function ProjectDetailPage(props: {
 }) {
     const { slug, projectSlug } = await props.params
 
-    console.log('slug', slug)
-
     try {
         const formattedSlug = slug.replace(/%20/g, '-')
         const proSlug = projectSlug.replace(/%20/g, '-').toLowerCase()
@@ -23,9 +20,8 @@ export default async function ProjectDetailPage(props: {
         )
 
         const projectsData = response?.data?.data[0]
-        console.log('projectData', projectsData)
         const projectDetails = projectsData.projects.find(
-            (project: any) => project.projectSlug === projectSlug
+            (project: ProjectType) => project.projectSlug === projectSlug
         )
         return (
             <ProjectDetails

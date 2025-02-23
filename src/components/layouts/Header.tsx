@@ -1,14 +1,14 @@
 'use client'
 import React, { useRef } from 'react'
 import gsap from 'gsap'
-import { Logo } from '../atoms/logo/Logo'
-import styles from './Layout.module.scss'
-import { useGSAP } from '@gsap/react'
 import { useTranslations } from 'next-intl'
+import { usePathname } from '@/i18n/routing'
+import { useGSAP } from '@gsap/react'
+import useMobile from '@/hooks/useMobile'
+import { Logo } from '../atoms/logo/Logo'
 import LocalSwitcher from '../atoms/localSwitcher/LocalSwitcher'
 import Navbar from '../molecules/navbar/Navbar'
-import { usePathname } from '@/i18n/routing'
-import useMobile from '@/hooks/useMobile'
+import styles from './Layout.module.scss'
 
 export const Header = () => {
     const t = useTranslations()
@@ -28,13 +28,11 @@ export const Header = () => {
         color = isMobile ? 'white' : 'black'
     }
 
-    console.log('color', color)
     useGSAP(() => {
         const elements = headerRef.current?.querySelectorAll(
             `.${styles.headerItem}`
         )
 
-        console.log('elements', elements)
         if (elements) {
             gsap.fromTo(
                 elements,

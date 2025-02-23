@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
@@ -52,7 +51,7 @@ export function generateStaticParams() {
 export default async function HomeLayout({ children, params }: LayoutProps) {
     const { locale } = await params
 
-    if (!routing.locales.includes(locale as any)) {
+    if (!routing.locales.includes(locale as Locale)) {
         notFound()
     }
 

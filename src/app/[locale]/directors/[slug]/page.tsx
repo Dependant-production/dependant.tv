@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import DirectorDetails from '@/components/templates/directorDetails/DirectorDetails'
 import axiosInstance from '@/helpers/axiosInstance'
 

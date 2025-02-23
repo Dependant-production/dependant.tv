@@ -1,9 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import Infos from '@/components/molecules/infos/Infos'
 import styles from './Contact.module.scss'
 
-export default function Contact({ contactData }: any) {
+interface ContactProps {
+    contactData: {
+        id: number
+        documentId: string
+        instagram: string
+        mail: string
+        address: string
+        createdAt: string
+        updatedAt: string
+        publishedAt: string
+    }
+}
+
+export default function Contact({ contactData }: ContactProps) {
     return (
         <main className={styles.contact}>
             <Infos

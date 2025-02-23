@@ -1,22 +1,45 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import Image from 'next/image'
-
 import { Link } from '@/i18n/routing'
 import { useGSAP } from '@gsap/react'
-
 import styles from './Photographers.module.scss'
 
-export default function Photographers({ photographersData }: any) {
-    const containerRef = useRef<HTMLDivElement | null>(null)
-    const titleRef = useRef<HTMLParagraphElement | null>(null)
+interface PhotographerProps {
+    photographersData: PhotographerDataType
+}
 
+export default function Photographers({
+    photographersData,
+}: PhotographerProps) {
     const [currentPhoto, setCurrentPhoto] = useState<string | null>(null)
     const [currentTitle, setCurrentTitle] = useState<string>('')
 
-    console.log('currentTitle', currentTitle)
+    const containerRef = useRef<HTMLDivElement | null>(null)
+    const titleRef = useRef<HTMLParagraphElement | null>(null)
+
+    useGSAP(() => {
+        const names = containerRef.current?.querySelectorAll(`.${styles.name}`)
+        if (names) {
+            gsap.fromTo(
+                names,
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    stagger: 0.3,
+                }
+            )
+        }
+
+        gsap.fromTo(
+            titleRef.current,
+            { opacity: 0 },
+            { opacity: 1, duration: 1, ease: 'power2.out' }
+        )
+    })
 
     // For the first photographer, set the first phoro as the current photo
     useEffect(() => {
@@ -25,43 +48,17 @@ export default function Photographers({ photographersData }: any) {
                 photographersData[0]?.photo?.url ?? null
             const firstPhotographerTitle =
                 photographersData[0]?.titlePhoto ?? ''
-            console.log('firstPhotographerTitle', firstPhotographerTitle)
             setCurrentPhoto(firstPhotographerPhoto)
             setCurrentTitle(firstPhotographerTitle)
         }
     }, [photographersData])
-
-    console.log('photographersData', photographersData)
-
-    useGSAP(() => {
-        const names = containerRef.current?.querySelectorAll(`.${styles.name}`)
-        if (names) {
-            gsap.fromTo(
-                names,
-                { y: 100, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: 'back.out(1.7)',
-                    stagger: 0.2,
-                }
-            )
-        }
-
-        gsap.fromTo(
-            titleRef.current,
-            { y: 100, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' }
-        )
-    })
 
     return (
         <main className={styles.photographerContainer} ref={containerRef}>
             <section className={styles.textContainer}>
                 <ul className={styles.nameContainer}>
                     {photographersData.map(
-                        (photographer: any, index: number) => {
+                        (photographer: PhotographerType, index: number) => {
                             const firstPhotographerPhoto =
                                 photographer?.photo?.url ?? null
                             return (
