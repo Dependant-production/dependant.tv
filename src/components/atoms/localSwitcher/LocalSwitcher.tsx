@@ -22,14 +22,16 @@ export default function LocalSwitcher() {
 
     const locales = routing.locales.filter((locale) => locale !== currentLocale)
 
-    const blackRoutes = ['/contact', '/photographers/']
-    const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
-    const color =
-        isBlack && isMobile
-            ? styles.black
-            : isBlack
-            ? styles.black
-            : styles.white
+    const isContactPage = pathname.startsWith('/contact')
+    const isPhotographersPage = pathname.startsWith('/photographers/')
+
+    let color = styles.white
+
+    if (isContactPage) {
+        color = styles.black
+    } else if (isPhotographersPage) {
+        color = isMobile ? styles.white : styles.black
+    }
 
     const handleLocaleChange = (locale: string) => {
         startTransition(() => {

@@ -17,10 +17,18 @@ export const Header = () => {
 
     const headerRef = useRef<HTMLDivElement | null>(null)
 
-    const blackRoutes = ['/contact', '/photographers/']
-    const isBlack = blackRoutes.some((route) => pathname.startsWith(route))
-    const color = isBlack && isMobile ? 'black' : isBlack ? 'black' : 'white'
+    const isContactPage = pathname.startsWith('/contact')
+    const isPhotographersPage = pathname.startsWith('/photographers/')
 
+    let color: 'white' | 'black' = 'white'
+
+    if (isContactPage) {
+        color = 'black'
+    } else if (isPhotographersPage) {
+        color = isMobile ? 'white' : 'black'
+    }
+
+    console.log('color', color)
     useGSAP(() => {
         const elements = headerRef.current?.querySelectorAll(
             `.${styles.headerItem}`

@@ -42,7 +42,11 @@ function ProjectDetails({
                 {!isMobile ? (
                     <Swiper
                         modules={[Navigation, Mousewheel]} // Active le scroll horizontal
-                        mousewheel={true}
+                        mousewheel={{
+                            thresholdDelta: 30, // Réduit la sensibilité du trackpad (valeur par défaut : 0)
+                            thresholdTime: 100, // Augmente le temps entre chaque scroll (valeur par défaut : 0)
+                            sensitivity: 0.7, // Diminue la vitesse du scroll (0.5 à 1 fonctionne bien)
+                        }}
                         navigation={{
                             // Configuration des flèches de navigation
                             nextEl: '.swiper-button-next',
