@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import ProjectDetails from '@/components/templates/projectDetails/ProjectDetails'
 import axiosInstance from '@/helpers/axiosInstance'
 
@@ -25,7 +24,7 @@ export default async function ProjectDetailPage(props: {
         const projectsData = response?.data?.data[0]
         console.log('projectData', projectsData)
         const projectDetails = projectsData.projects.find(
-            (project: any) => project.projectSlug === projectSlug
+            (project: ProjectType) => project.projectSlug === projectSlug
         )
         return (
             <ProjectDetails

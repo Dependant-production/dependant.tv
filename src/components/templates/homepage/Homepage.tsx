@@ -24,7 +24,7 @@ export default function Homepage({ homepageData }: HomepageProps) {
     const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
     const touchStartY = useRef<number | null>(null)
 
-    const sortedData = React.useMemo(() => {
+    const sortedVideos = React.useMemo(() => {
         if (!Array.isArray(homepageData)) {
             console.error('homepageData is not an array :', homepageData)
             return []
@@ -56,21 +56,21 @@ export default function Homepage({ homepageData }: HomepageProps) {
                 if (deltaY > 0) {
                     // Swipe vers le haut → Vidéo suivante
                     setCurrentIndex(
-                        (prevIndex) => (prevIndex + 1) % sortedData.length
+                        (prevIndex) => (prevIndex + 1) % sortedVideos.length
                     )
                 } else {
                     // Swipe vers le bas → Vidéo précédente
                     setCurrentIndex(
                         (prevIndex) =>
-                            (prevIndex - 1 + sortedData.length) %
-                            sortedData.length
+                            (prevIndex - 1 + sortedVideos.length) %
+                            sortedVideos.length
                     )
                 }
             }
 
             touchStartY.current = null // Reset pour la prochaine détection
         },
-        [sortedData.length]
+        [sortedVideos.length]
     )
 
     const handleScroll = useCallback(
@@ -89,13 +89,14 @@ export default function Homepage({ homepageData }: HomepageProps) {
             if (event.deltaY > 0) {
                 // Scroll vers le bas → Vidéo suivante
                 setCurrentIndex(
-                    (prevIndex) => (prevIndex + 1) % sortedData.length
+                    (prevIndex) => (prevIndex + 1) % sortedVideos.length
                 )
             } else if (event.deltaY < 0) {
                 // Scroll vers le haut → Vidéo précédente
                 setCurrentIndex(
                     (prevIndex) =>
-                        (prevIndex - 1 + sortedData.length) % sortedData.length
+                        (prevIndex - 1 + sortedVideos.length) %
+                        sortedVideos.length
                 )
             }
 
@@ -104,7 +105,7 @@ export default function Homepage({ homepageData }: HomepageProps) {
                 scrollTimeout.current = null
             }, 800) // 800ms de délai entre chaque scroll
         },
-        [sortedData.length, isMobile]
+        [sortedVideos.length, isMobile]
     )
 
     useEffect(() => {
@@ -126,13 +127,13 @@ export default function Homepage({ homepageData }: HomepageProps) {
     }, [handleTouchStart, handleTouchEnd])
 
     useEffect(() => {
-        if (!homepageData || sortedData.length === 0) return
+        if (!homepageData || sortedVideos.length === 0) return
 
         gsap.to(videoRef.current, {
             opacity: 0,
             duration: 1,
             onComplete: () => {
-                const video = sortedData[currentIndex]
+                const video = sortedVideos[currentIndex]
                 console.log('video', video)
                 const videoUrl = video?.url?.[0]?.url
                 setCurrentVideo(videoUrl as string)
@@ -161,12 +162,12 @@ export default function Homepage({ homepageData }: HomepageProps) {
         })
 
         const interval = setInterval(() => {
-            const nextIndex = (currentIndex + 1) % sortedData.length
+            const nextIndex = (currentIndex + 1) % sortedVideos.length
             setCurrentIndex(nextIndex)
         }, 15000)
 
         return () => clearInterval(interval)
-    }, [currentIndex, sortedData, homepageData])
+    }, [currentIndex, sortedVideos, homepageData])
 
     return (
         <main className={styles.homepage}>
@@ -197,7 +198,7 @@ export default function Homepage({ homepageData }: HomepageProps) {
             </section>
             <CounterSlide
                 className={styles.counter}
-                data={sortedData}
+                data={sortedVideos}
                 index={currentIndex}
                 setIndex={setCurrentIndex}
             />

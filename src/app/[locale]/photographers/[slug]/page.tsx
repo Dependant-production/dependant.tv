@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import PhotographerDetails from '@/components/templates/photographerDetails/PhotographerDetails'
 import axiosInstance from '@/helpers/axiosInstance'
 

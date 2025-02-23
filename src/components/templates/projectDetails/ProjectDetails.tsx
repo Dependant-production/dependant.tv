@@ -1,5 +1,4 @@
 'use client'
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef } from 'react'
 import gsap from 'gsap'
 import Image from 'next/image'
@@ -14,7 +13,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/mousewheel'
 
 interface ProjectDetailsProps {
-    projectDetails: any
+    projectDetails: ProjectType
     photographerName: string
 }
 
@@ -30,6 +29,8 @@ function ProjectDetails({
     const cutName = photographerName.split(' ')
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
+
+    console.log('projectDetails', projectDetails)
 
     return (
         <>
@@ -59,12 +60,12 @@ function ProjectDetails({
                         }}
                         className={styles.horizontalScroll}
                     >
-                        {images?.map((image: any, index: number) => (
+                        {images?.map((image: MediaType, index: number) => (
                             <SwiperSlide key={index} className={styles.section}>
                                 <Image
                                     className={styles.image}
                                     src={image.url}
-                                    alt={image.title}
+                                    alt={image.name}
                                     width={500}
                                     height={600}
                                     layout="intrinsic"
@@ -80,12 +81,12 @@ function ProjectDetails({
                     </Swiper>
                 ) : (
                     <div className={styles.horizontalScroll}>
-                        {images?.map((image: any, index: number) => (
+                        {images?.map((image: MediaType, index: number) => (
                             <section key={index} className={styles.section}>
                                 <Image
                                     className={styles.image}
                                     src={image.url}
-                                    alt={image.title}
+                                    alt={image.name}
                                     width={300}
                                     height={200}
                                     layout="intrinsic"

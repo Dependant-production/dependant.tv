@@ -1,20 +1,22 @@
 interface LocaleParams {
     params: { locale: string }
 }
-
 type Locale = 'en' | 'fr'
-
 type tParams = Promise<{ locale: string }>
 
-interface DirectorType {
+interface HomepageItem {
     createdAt: string
+    director?: DirectorType
+    directorNameBIS?: string | null
     documentId: string
     id: number
-    name: string
+    order: number
     publishedAt: string
-    slug: string
+    title: string
     updatedAt: string
+    url: MediaType[]
 }
+type HomepageData = HomepageItem[]
 
 interface MediaType {
     alternativeText: string | null
@@ -22,7 +24,7 @@ interface MediaType {
     createdAt: string
     documentId: string
     ext: string
-    formats: null | Record<string, unknown>
+    formats?: Record<string, unknown>
     hash: string
     height: number | null
     id: number
@@ -38,17 +40,47 @@ interface MediaType {
     width: number | null
 }
 
-interface HomepageItem {
-    createdAt: string
-    director?: DirectorType // Peut être undefined
-    directorNameBIS?: string | null // Peut être une string ou null
+interface VideoType {
     documentId: string
     id: number
-    order: number
-    publishedAt: string
-    title: string
+    createdAt: string
     updatedAt: string
-    url: MediaType[] // Un tableau de médias (vidéos/images)
+    title: string
+    url: MediaType[]
 }
+interface DirectorType {
+    createdAt: string
+    documentId: string
+    id: number
+    name: string
+    publishedAt: string
+    slug: string
+    updatedAt: string
+    videos: VideoType[]
+}
+type DirectorsDataType = DirectorType[]
 
-type HomepageData = HomepageItem[]
+interface PhotographerType {
+    id: number
+    documentId: string
+    name: string
+    slug: string
+    createdAt: string
+    updatedAt: string
+    publishedAt: string
+    titlePhoto?: string
+    photo?: MediaType
+    projects?: ProjectType[]
+}
+type PhotographerDataType = PhotographerType[]
+interface ProjectType {
+    id: number
+    documentId: string
+    title: string
+    projectSlug: string
+    createdAt: string
+    updatedAt: string
+    publishedAt: string
+    coverMedia?: MediaType
+    media?: MediaType[]
+}
