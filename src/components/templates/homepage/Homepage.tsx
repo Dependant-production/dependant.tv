@@ -35,10 +35,13 @@ export default function Homepage({ homepageData }: any) {
             duration: 1,
             onComplete: () => {
                 const video = sortedData[currentIndex]
+                console.log('video', video)
                 const videoUrl = video?.url?.[0]?.url
                 setCurrentVideo(videoUrl as string)
                 setCurrentTitle(video?.title || '')
-                setCurrentDirector(video?.director?.name || '')
+                setCurrentDirector(
+                    video?.director?.name || video?.directorNameBIS || ''
+                )
 
                 gsap.to(videoRef.current, {
                     opacity: 1,
