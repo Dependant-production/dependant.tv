@@ -1,31 +1,129 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { Link } from '@/i18n/routing'
+import useMobile from '@/hooks/useMobile'
 import CounterSlide from '@/components/molecules/counterSlide/CounterSlide'
 import styles from './Homepage.module.scss'
-import useMobile from '@/hooks/useMobile'
 
-export default function Homepage({ homepageData }: any) {
+interface HomepageProps {
+    homepageData: HomepageData
+}
+
+export default function Homepage({ homepageData }: HomepageProps) {
+    const isMobile = useMobile()
+
     const [currentVideo, setCurrentVideo] = useState<string | null>(null)
     const [currentTitle, setCurrentTitle] = useState<string>('')
     const [currentDirector, setCurrentDirector] = useState<string>('')
     const [currentIndex, setCurrentIndex] = useState<number>(0)
-    const isMobile = useMobile()
-
-    const sortedData = React.useMemo(() => {
-        return (
-            homepageData && [...homepageData].sort((a, b) => a.order - b.order)
-        )
-    }, [homepageData])
 
     const videoRef = useRef<HTMLVideoElement>(null)
     const titleRef = useRef<HTMLParagraphElement>(null)
     const directorRef = useRef<HTMLParagraphElement>(null)
     const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
+    const touchStartY = useRef<number | null>(null)
 
-    console.log('homepageData', homepageData)
+    const sortedData = React.useMemo(() => {
+        if (!Array.isArray(homepageData)) {
+            console.error('homepageData is not an array :', homepageData)
+            return []
+        }
+
+        return [...homepageData].sort((a, b) => a.order - b.order)
+    }, [homepageData])
+
+    const getLinkDirectors = () => {
+        let link
+        if (currentDirector) {
+            link = `directors/${currentDirector.toLowerCase()}`
+        }
+        return link
+    }
+
+    const handleTouchStart = useCallback((event: TouchEvent) => {
+        touchStartY.current = event.touches[0].clientY
+    }, [])
+
+    const handleTouchEnd = useCallback(
+        (event: TouchEvent) => {
+            if (!touchStartY.current) return
+
+            const deltaY = touchStartY.current - event.changedTouches[0].clientY
+
+            if (Math.abs(deltaY) > 50) {
+                // Seuil pour éviter les faux mouvements
+                if (deltaY > 0) {
+                    // Swipe vers le haut → Vidéo suivante
+                    setCurrentIndex(
+                        (prevIndex) => (prevIndex + 1) % sortedData.length
+                    )
+                } else {
+                    // Swipe vers le bas → Vidéo précédente
+                    setCurrentIndex(
+                        (prevIndex) =>
+                            (prevIndex - 1 + sortedData.length) %
+                            sortedData.length
+                    )
+                }
+            }
+
+            touchStartY.current = null // Reset pour la prochaine détection
+        },
+        [sortedData.length]
+    )
+
+    const handleScroll = useCallback(
+        (event: WheelEvent) => {
+            if (!isMobile) {
+                event.preventDefault() // Empêcher le scroll SEULEMENT sur desktop
+            }
+
+            if (scrollTimeout.current) return
+
+            // 🔥 Ignorer les petits scrolls (réduit la sensibilité du trackpad)
+            const SCROLL_THRESHOLD = 10 // Seulement si deltaY > 50 ou < -50
+            if (Math.abs(event.deltaY) < SCROLL_THRESHOLD) return
+
+            // Détection de la direction du scroll
+            if (event.deltaY > 0) {
+                // Scroll vers le bas → Vidéo suivante
+                setCurrentIndex(
+                    (prevIndex) => (prevIndex + 1) % sortedData.length
+                )
+            } else if (event.deltaY < 0) {
+                // Scroll vers le haut → Vidéo précédente
+                setCurrentIndex(
+                    (prevIndex) =>
+                        (prevIndex - 1 + sortedData.length) % sortedData.length
+                )
+            }
+
+            // Ajoute un délai pour éviter le scroll trop rapide
+            scrollTimeout.current = setTimeout(() => {
+                scrollTimeout.current = null
+            }, 800) // 800ms de délai entre chaque scroll
+        },
+        [sortedData.length, isMobile]
+    )
+
+    useEffect(() => {
+        window.addEventListener('wheel', handleScroll, { passive: false })
+
+        return () => {
+            window.removeEventListener('wheel', handleScroll)
+        }
+    }, [handleScroll])
+
+    useEffect(() => {
+        window.addEventListener('touchstart', handleTouchStart)
+        window.addEventListener('touchend', handleTouchEnd)
+
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart)
+            window.removeEventListener('touchend', handleTouchEnd)
+        }
+    }, [handleTouchStart, handleTouchEnd])
 
     useEffect(() => {
         if (!homepageData || sortedData.length === 0) return
@@ -70,97 +168,6 @@ export default function Homepage({ homepageData }: any) {
         return () => clearInterval(interval)
     }, [currentIndex, sortedData, homepageData])
 
-    const touchStartY = useRef<number | null>(null)
-
-    const handleTouchStart = useCallback((event: TouchEvent) => {
-        touchStartY.current = event.touches[0].clientY
-    }, [])
-
-    const handleTouchEnd = useCallback(
-        (event: TouchEvent) => {
-            if (!touchStartY.current) return
-
-            const deltaY = touchStartY.current - event.changedTouches[0].clientY
-
-            if (Math.abs(deltaY) > 50) {
-                // Seuil pour éviter les faux mouvements
-                if (deltaY > 0) {
-                    // Swipe vers le haut → Vidéo suivante
-                    setCurrentIndex(
-                        (prevIndex) => (prevIndex + 1) % sortedData.length
-                    )
-                } else {
-                    // Swipe vers le bas → Vidéo précédente
-                    setCurrentIndex(
-                        (prevIndex) =>
-                            (prevIndex - 1 + sortedData.length) %
-                            sortedData.length
-                    )
-                }
-            }
-
-            touchStartY.current = null // Reset pour la prochaine détection
-        },
-        [sortedData.length]
-    )
-
-    const handleScroll = useCallback(
-        (event: WheelEvent) => {
-            if (!isMobile) {
-                event.preventDefault() // Empêcher le scroll SEULEMENT sur desktop
-            }
-
-            // Si un changement est déjà en cours, on ignore le scroll
-            if (scrollTimeout.current) return
-
-            // Détection de la direction du scroll
-            if (event.deltaY > 0) {
-                // Scroll vers le bas → Vidéo suivante
-                setCurrentIndex(
-                    (prevIndex) => (prevIndex + 1) % sortedData.length
-                )
-            } else if (event.deltaY < 0) {
-                // Scroll vers le haut → Vidéo précédente
-                setCurrentIndex(
-                    (prevIndex) =>
-                        (prevIndex - 1 + sortedData.length) % sortedData.length
-                )
-            }
-
-            // Ajoute un délai pour éviter le scroll trop rapide
-            scrollTimeout.current = setTimeout(() => {
-                scrollTimeout.current = null
-            }, 800) // 800ms de délai entre chaque scroll
-        },
-        [sortedData.length, isMobile]
-    )
-
-    useEffect(() => {
-        window.addEventListener('wheel', handleScroll, { passive: false })
-
-        return () => {
-            window.removeEventListener('wheel', handleScroll)
-        }
-    }, [handleScroll])
-
-    useEffect(() => {
-        window.addEventListener('touchstart', handleTouchStart)
-        window.addEventListener('touchend', handleTouchEnd)
-
-        return () => {
-            window.removeEventListener('touchstart', handleTouchStart)
-            window.removeEventListener('touchend', handleTouchEnd)
-        }
-    }, [handleTouchStart, handleTouchEnd])
-
-    const getLinkDirectors = () => {
-        let link
-        if (currentDirector) {
-            link = `directors/${currentDirector.toLowerCase()}`
-        }
-        return link
-    }
-
     return (
         <main className={styles.homepage}>
             <section className={styles.textContainer}>
@@ -172,7 +179,7 @@ export default function Homepage({ homepageData }: any) {
                         {currentDirector}
                     </p>
                     <p ref={titleRef} className={styles.title}>
-                        {currentTitle ? `« ${currentTitle} »` : ''}
+                        {currentTitle ? `" ${currentTitle} "` : ''}
                     </p>
                 </Link>
             </section>

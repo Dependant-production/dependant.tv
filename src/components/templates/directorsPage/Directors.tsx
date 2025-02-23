@@ -104,7 +104,7 @@ export default function Directors({ directorsData }: any) {
                     })}
                 </ul>
                 <div className={styles.titleVideo} ref={titleRef}>
-                    <p>« {currentTitle} »</p>
+                    <p>{`" ${currentTitle} "`}</p>
                 </div>
             </section>
             <section className={styles.videoContainer}>

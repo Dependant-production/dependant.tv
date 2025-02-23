@@ -19,6 +19,6 @@ export default async function Home() {
         return <Homepage homepageData={homepageData} />
     } catch (error) {
         console.error('Erreur lors de la récupération des articles :', error)
+        return <Homepage homepageData={[]} />
     }
-    return <Homepage />
 }
