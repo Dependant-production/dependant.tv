@@ -45,7 +45,7 @@ export default function Infos({ insta, mail, address }: InfosProps) {
                 <Link href={`mailto:${mail}`}>{mail}</Link>
                 <p>{address}</p>
             </div>
-            <div className={styles.container}>
+            <div className={styles.container2}>
                 <h3 className={styles.infosTitle}>
                     {t('Contact.Infos.titleServices')}
                 </h3>
