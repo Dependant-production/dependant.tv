@@ -1,6 +1,12 @@
+@import '../../../app/[locale]/variables.scss';
+
 .loader {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100dvh;
+    padding: 2rem;
+    @media screen and (min-width: $desktop) {
+        padding: 0;
+    }
 }
