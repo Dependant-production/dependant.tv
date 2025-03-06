@@ -2,8 +2,8 @@
 import React, { useRef } from 'react'
 import gsap from 'gsap'
 import Image from 'next/image'
-import styles from './Loader.module.scss'
 import { useGSAP } from '@gsap/react'
+import styles from './Loader.module.scss'
 
 export default function Loader() {
     const containerRef = useRef<HTMLDivElement | null>(null)

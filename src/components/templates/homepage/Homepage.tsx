@@ -33,6 +33,7 @@ export default function Homepage({ homepageData }: HomepageProps) {
         return [...homepageData].sort((a, b) => a.order - b.order)
     }, [homepageData])
 
+    const video = sortedVideos[currentIndex]
     const getLinkDirectors = () => {
         let link
         if (currentDirector) {
@@ -171,17 +172,28 @@ export default function Homepage({ homepageData }: HomepageProps) {
     return (
         <main className={styles.homepage}>
             <section className={styles.textContainer}>
-                <Link
-                    className={styles.linkName}
-                    href={getLinkDirectors() as string}
-                >
-                    <p ref={directorRef} className={styles.directorName}>
-                        {currentDirector}
-                    </p>
-                    <p ref={titleRef} className={styles.title}>
-                        {currentTitle ? `" ${currentTitle} "` : ''}
-                    </p>
-                </Link>
+                {currentDirector !== video?.directorNameBIS ? (
+                    <Link
+                        className={styles.linkName}
+                        href={getLinkDirectors() as string}
+                    >
+                        <p ref={directorRef} className={styles.directorName}>
+                            {currentDirector}
+                        </p>
+                        <p ref={titleRef} className={styles.title}>
+                            {currentTitle ? `" ${currentTitle} "` : ''}
+                        </p>
+                    </Link>
+                ) : (
+                    <div className={styles.linkName}>
+                        <p ref={directorRef} className={styles.directorName}>
+                            {currentDirector}
+                        </p>
+                        <p ref={titleRef} className={styles.title}>
+                            {currentTitle ? `" ${currentTitle} "` : ''}
+                        </p>
+                    </div>
+                )}
             </section>
 
             <section className={styles.videoContainer}>

@@ -43,9 +43,9 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
         gsap.fromTo(
             nameRef.current,
             {
-                x: -400,
+                opacity: 0,
             },
-            { x: 0, duration: 1 }
+            { opacity: 1, duration: 1, ease: 'power2.out' }
         )
     })
 
@@ -163,7 +163,7 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                     </div>
                 )}
                 <CounterVideo
-                    numberOfVideos={videos.length}
+                    numberOfVideos={videos?.length}
                     currentIndex={currentIndex}
                 />
             </div>

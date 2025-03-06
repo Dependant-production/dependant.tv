@@ -65,14 +65,18 @@ export default function Directors({ directorsData }: DirectorProps) {
     useEffect(() => {
         if (directorsData.length > 0) {
             const firstDirectorVideo =
-                directorsData[0]?.videos?.[0]?.url?.[0]?.url ?? ''
-            const firstTitleVideo = directorsData[0]?.videos?.[0]?.title
+                directorsData[0]?.coverVideo?.url ??
+                directorsData[0]?.videos?.[0]?.url?.[0]?.url
+            const firstTitleVideo =
+                directorsData[0]?.titleVideo ??
+                directorsData[0]?.videos?.[0]?.title
 
             setCurrentVideo(firstDirectorVideo)
             setCurrentTitle(firstTitleVideo)
         }
     }, [directorsData])
 
+    console.log('directorsData', directorsData)
     return (
         <main className={styles.directorContainer} ref={containerRef}>
             <section className={styles.textContainer}>
@@ -80,7 +84,8 @@ export default function Directors({ directorsData }: DirectorProps) {
                     {directorsData.map(
                         (director: DirectorType, index: number) => {
                             const videoUrl =
-                                director?.videos?.[0]?.url?.[0]?.url ?? ''
+                                director?.coverVideo?.url ??
+                                director?.videos?.[0]?.url?.[0]?.url
                             return (
                                 <li
                                     key={index}
@@ -88,7 +93,8 @@ export default function Directors({ directorsData }: DirectorProps) {
                                     onMouseEnter={() =>
                                         handleMouseEnter(
                                             videoUrl,
-                                            director?.videos[0]?.title
+                                            director?.titleVideo ??
+                                                director?.videos[0]?.title
                                         )
                                     }
                                 >

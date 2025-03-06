@@ -56,7 +56,9 @@ interface DirectorType {
     publishedAt: string
     slug: string
     updatedAt: string
+    titleVideo: string
     videos: VideoType[]
+    coverVideo: MediaType
 }
 type DirectorsDataType = DirectorType[]
 

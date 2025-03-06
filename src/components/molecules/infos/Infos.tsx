@@ -64,7 +64,7 @@ export default function Infos({ insta, mail, address }: InfosProps) {
                 <h3 className={styles.infosTitle}>
                     {t('Contact.Infos.titleCredits')}
                 </h3>
-                <div className={styles.infosContainer}>
+                <div className={styles.infosContainerCredits}>
                     <div className={styles.flexInfos}>
                         <p>{t('Contact.Infos.designed')}</p>
                         <p>{t('Contact.Infos.designer')}</p>
