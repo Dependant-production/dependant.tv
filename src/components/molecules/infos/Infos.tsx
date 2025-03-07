@@ -10,9 +10,10 @@ interface InfosProps {
     insta: string
     mail: string
     address: string
+    className: string
 }
 
-export default function Infos({ insta, mail, address }: InfosProps) {
+export default function Infos({ insta, mail, address, className }: InfosProps) {
     const t = useTranslations()
     const containerRef = React.useRef<HTMLDivElement | null>(null)
 
@@ -34,7 +35,7 @@ export default function Infos({ insta, mail, address }: InfosProps) {
     })
 
     return (
-        <div className={styles.infos} ref={containerRef}>
+        <div className={`${styles.infos} ${className}`} ref={containerRef}>
             <div className={styles.container}>
                 <h3 className={styles.infosTitle}>
                     {t('Contact.Infos.title')}

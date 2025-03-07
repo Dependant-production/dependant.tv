@@ -17,10 +17,11 @@
         font-family: 'customFont';
         font-weight: 700;
         text-align: start;
+        line-height: 0.9;
         color: white;
         text-transform: uppercase;
         @media screen and (min-width: $desktop) {
-            font-size: 40px;
+            font-size: 50px;
         }
     }
 
