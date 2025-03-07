@@ -53,6 +53,12 @@
 
 .padding {
     @media screen and (min-width: $desktop) {
+        margin-right: 7px;
+    }
+}
+
+.margin {
+    @media screen and (min-width: $desktop) {
         margin-right: -13px;
     }
 }
