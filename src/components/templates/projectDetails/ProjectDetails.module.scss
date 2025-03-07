@@ -3,7 +3,6 @@
 .projectDetails {
     transform: none !important;
     height: 100dvh;
-    cursor: url('/arrowLeft.png'), auto;
     @media screen and (min-width: $desktop) {
         overflow: hidden;
     }
