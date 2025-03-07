@@ -22,20 +22,24 @@
         gap: 5px;
         margin-bottom: 20px;
 
-        > * {
-            background-color: white;
-        }
+        // > * {
+        //     background-color: white;
+        // }
     }
     .container2 {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 5px;
+        margin-bottom: 20px;
+        @media screen and (min-width: $desktop) {
+            margin-bottom: 0;
+        }
     }
 
-    .container2 h3 {
-        background-color: white;
-    }
+    // .container2 h3 {
+    //     background-color: white;
+    // }
     .infosTitle {
         font-family: 'customFont';
         font-weight: 500;
@@ -69,15 +73,15 @@
         }
     }
 
-    .creditContainer h3 {
-        background-color: white;
-    }
+    // .creditContainer h3 {
+    //     background-color: white;
+    // }
 }
 
 .flexInfos {
     display: flex;
     gap: 1rem;
-    > * {
-        background-color: white;
-    }
+    // > * {
+    //     background-color: white;
+    // }
 }

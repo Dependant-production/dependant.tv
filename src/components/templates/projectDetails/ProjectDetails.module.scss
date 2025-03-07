@@ -43,7 +43,7 @@
         left: 1rem;
         color: white;
         @media screen and (min-width: $desktop) {
-            font-size: 40px;
+            font-size: 50px;
             color: black;
         }
     }
@@ -77,4 +77,27 @@
 .imageContainer {
     display: inline-block;
     width: 100%;
+}
+
+.arrowLeft,
+.arrowRight {
+    pointer-events: all; // Permet de cliquer sur les boutons
+    border: none;
+    color: black !important;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    width: 17px !important; // Réduction de la taille
+    height: 15px !important;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.arrowLeft {
+    margin-left: 7px;
+}
+
+.arrowRight {
+    margin-right: 7px;
 }
