@@ -39,6 +39,7 @@
         font-weight: 700;
         text-transform: uppercase;
         bottom: 1rem;
+        line-height: 0.9;
         left: 1rem;
         color: white;
         @media screen and (min-width: $desktop) {
@@ -48,9 +49,9 @@
     }
 
     .image {
-        width: 100%;
         height: auto !important;
         object-fit: contain;
+        width: 100%;
         vertical-align: top;
         @media screen and (min-width: $desktop) {
             height: 600px !important;
@@ -71,28 +72,6 @@
             color: black;
         }
     }
-}
-
-.arrowLeft,
-.arrowRight {
-    pointer-events: all; // Permet de cliquer sur les boutons
-    border: none;
-    color: black !important;
-    font-size: 24px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-
-    &:hover {
-        transform: scale(1.2);
-    }
-}
-
-.arrowLeft {
-    margin-left: 7px;
-}
-
-.arrowRight {
-    margin-right: 7px;
 }
 
 .imageContainer {

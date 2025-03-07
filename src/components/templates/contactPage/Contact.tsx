@@ -22,6 +22,7 @@ export default function Contact({ contactData }: ContactProps) {
                 insta={contactData?.instagram}
                 mail={contactData?.mail}
                 address={contactData?.address}
+                className={styles.infos}
             />
         </main>
     )

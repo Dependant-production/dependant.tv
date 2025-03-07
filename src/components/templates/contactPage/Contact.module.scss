@@ -1,9 +1,13 @@
 .contact {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 100dvh;
     width: 100%;
-    background-image: url('/TEX_BACK_CONTACT.png');
+    background-image: url('/contact.png');
+    background-color: white;
+}
+
+.infos {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
 }

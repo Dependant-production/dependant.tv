@@ -32,7 +32,7 @@ export default function Navbar({
             </Link>
             <Link
                 href="/photographers"
-                className={`${styles.link} ${
+                className={`${styles.link} ${styles.padding} ${
                     isActive('/photographers') ? styles.active : ''
                 }`}
             >
@@ -40,7 +40,7 @@ export default function Navbar({
             </Link>
             <Link
                 href="/contact"
-                className={`${styles.link} ${styles.padding} ${
+                className={`${styles.link}  ${
                     isActive('/contact') ? styles.active : ''
                 }`}
             >
