@@ -132,6 +132,7 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                             playbackId={currentVideoId}
                             streamType="on-demand"
                             autoPlay={true}
+                            accentColor="grey"
                             className={styles.player}
                         />
                     </div>
