@@ -22,11 +22,14 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
     const [currentVideoId, setCurrentVideoId] = useState<string | null>(null)
     const [currentIndex, setCurrentIndex] = useState(0)
 
+    console.log('currentIndex', currentIndex)
+
     console.log('currentVideoId', currentVideoId)
 
     const containerRef = useRef<HTMLDivElement | null>(null)
     const nameRef = useRef<HTMLHeadingElement | null>(null)
-    const videoRefs = useRef<HTMLVideoElement[]>([])
+    const videoRefs = useRef<HTMLElement[]>([])
+    const videoTitleRef = useRef<(HTMLDivElement | null)[]>([])
 
     const videos = directorData[0]?.mux_video_uploader_mux_assets
     const cutName = directorData[0]?.name.split(' ')
@@ -62,7 +65,7 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                     if (entry.isIntersecting) {
                         // Trouver l'index de la vidéo visible
                         const index = videoRefs.current.findIndex(
-                            (video) => video === entry.target
+                            (section) => section === entry.target
                         )
                         if (index !== -1) {
                             setCurrentIndex(index)
@@ -74,8 +77,8 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
         )
 
         // Observer chaque vidéo
-        videoRefs.current.forEach((video) => {
-            if (video) observer.observe(video)
+        videoRefs.current.forEach((section) => {
+            if (section) observer.observe(section)
         })
 
         // Nettoyer l'observer quand le composant se démonte
@@ -95,11 +98,27 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                     <section
                         key={videoIndex}
                         className={`${styles.section} section`}
+                        ref={(el) => {
+                            if (el) {
+                                videoRefs.current[videoIndex] = el
+                            }
+                        }}
                     >
                         <MuxSnippet
                             playbackId={video.playback_id}
                             onClick={() => openVideo(video.playback_id)}
                         />
+
+                        <div
+                            className={styles.videoTitle}
+                            ref={(el) => {
+                                if (el) {
+                                    videoTitleRef.current[videoIndex] = el
+                                }
+                            }}
+                        >
+                            {video?.title}
+                        </div>
                     </section>
                 ))}
             </div>
