@@ -160,6 +160,7 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                                     controls
                                     autoPlay={isVideoOpen && !isMobile}
                                     playsInline
+                                    preload="metadata"
                                     className={styles.videoPlayer}
                                 />
                             </div>
