@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface LocaleParams {
     params: { locale: string }
 }
@@ -59,6 +60,7 @@ interface DirectorType {
     titleVideo: string
     videos: VideoType[]
     coverVideo: MediaType
+    mux_video_uploader_mux_assets: any
 }
 type DirectorsDataType = DirectorType[]
 

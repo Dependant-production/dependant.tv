@@ -9,7 +9,7 @@ export default async function DirectorsPage(props: { params: tParamsSlug }) {
         const formattedSlug = slug.replace(/%20/g, '-').toLowerCase()
 
         const response = await axiosInstance.get(
-            `/api/directors?filters[slug][$eq]=${formattedSlug}&locale=${locale}&populate=videos.url`
+            `/api/directors?filters[slug][$eq]=${formattedSlug}&locale=${locale}&populate=mux_video_uploader_mux_assets`
         )
 
         const directorData = response?.data?.data
