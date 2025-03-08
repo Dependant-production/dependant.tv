@@ -1,0 +1,10 @@
+.muxContainer {
+    width: 100%;
+    height: 100dvh;
+
+    .mux {
+        width: 100%;
+        height: 100dvh;
+        --controls: none;
+    }
+}
