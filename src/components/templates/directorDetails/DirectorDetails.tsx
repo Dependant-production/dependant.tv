@@ -7,6 +7,7 @@ import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import CounterVideo from '@/components/molecules/counterVideo/CounterVideo'
 import styles from './DirectorDetails.module.scss'
+import useMobile from '@/hooks/useMobile'
 
 interface DirectorProps {
     directorData: DirectorsDataType
@@ -14,6 +15,8 @@ interface DirectorProps {
 
 export default function DirectorDetails({ directorData }: DirectorProps) {
     gsap.registerPlugin(ScrollTrigger)
+
+    const isMobile = useMobile()
 
     const [isVideoOpen, setIsVideoOpen] = useState(false)
     const [currentVideoUrl, setCurrentVideoUrl] = useState<string | null>(null)
@@ -151,14 +154,15 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                                     className={styles.closeButton}
                                 />
                             </div>
-
-                            <video
-                                src={currentVideoUrl}
-                                controls
-                                autoPlay={isVideoOpen}
-                                controlsList="nodownload"
-                                className={styles.videoPlayer}
-                            />
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <video
+                                    src={currentVideoUrl}
+                                    controls
+                                    autoPlay={isVideoOpen && !isMobile}
+                                    playsInline
+                                    className={styles.videoPlayer}
+                                />
+                            </div>
                         </div>
                     </div>
                 )}
