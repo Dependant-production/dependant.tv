@@ -72,7 +72,6 @@ export default function Directors({ directorsData }: DirectorProps) {
         }
     }, [directorsData])
 
-    console.log('directorsData', directorsData)
     return (
         <main className={styles.directorContainer} ref={containerRef}>
             <section className={styles.textContainer}>

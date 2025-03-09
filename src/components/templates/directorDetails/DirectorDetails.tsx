@@ -22,10 +22,6 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
     const [currentVideoId, setCurrentVideoId] = useState<string | null>(null)
     const [currentIndex, setCurrentIndex] = useState(0)
 
-    console.log('currentIndex', currentIndex)
-
-    console.log('currentVideoId', currentVideoId)
-
     const containerRef = useRef<HTMLDivElement | null>(null)
     const nameRef = useRef<HTMLHeadingElement | null>(null)
     const videoRefs = useRef<HTMLElement[]>([])
@@ -34,8 +30,6 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
     const cutName = directorData[0]?.name.split(' ')
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
-
-    console.log('directorData', directorData)
 
     const totalVideos = projectVideos?.reduce((acc: number, project: any) => {
         return acc + (project.mux_video_uploader_mux_assets?.length || 0)
@@ -130,7 +124,7 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                                         />
 
                                         <div className={styles.videoTitle}>
-                                            {video?.title}
+                                            {project?.title}
                                         </div>
                                     </section>
                                 )

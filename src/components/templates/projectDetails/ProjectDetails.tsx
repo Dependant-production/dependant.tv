@@ -12,6 +12,7 @@ import { Navigation, Mousewheel } from 'swiper/modules'
 import 'swiper/swiper-bundle.css'
 import 'swiper/css/navigation'
 import 'swiper/css/mousewheel'
+import { useGSAP } from '@gsap/react'
 
 interface ProjectDetailsProps {
     projectDetails: ProjectType
@@ -25,6 +26,8 @@ function ProjectDetails({
     gsap.registerPlugin(ScrollTrigger)
     const isMobile = useMobile()
     const containerRef = useRef<HTMLDivElement | null>(null)
+    const nameRef = useRef<HTMLHeadingElement | null>(null)
+
     const swiperRef = useRef<any | null>(null)
     const images = projectDetails?.media
 
@@ -46,10 +49,20 @@ function ProjectDetails({
         }
     }
 
+    useGSAP(() => {
+        gsap.fromTo(
+            nameRef.current,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.5 }
+        )
+    }, [])
+
     return (
         <>
             <main className={styles.projectDetails} ref={containerRef}>
-                <h2 className={styles.name}>{projectDetails?.title}</h2>
+                <h2 className={styles.name} ref={nameRef}>
+                    {projectDetails?.title}
+                </h2>
                 {!isMobile ? (
                     <Swiper
                         modules={[Navigation, Mousewheel]} // Active le scroll horizontal

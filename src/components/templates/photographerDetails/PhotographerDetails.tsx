@@ -36,7 +36,11 @@ export default function PhotographerDetails({
     const formattedSlug = photographerData[0]?.slug.replace(/-/g, '%20')
 
     useGSAP(() => {
-        gsap.fromTo(nameRef.current, { x: -400 }, { x: 0, duration: 1 })
+        gsap.fromTo(
+            nameRef.current,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.5 }
+        )
 
         gsap.fromTo(
             titleRef.current,
