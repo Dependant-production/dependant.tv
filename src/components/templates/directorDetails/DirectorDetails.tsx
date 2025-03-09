@@ -29,14 +29,17 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const nameRef = useRef<HTMLHeadingElement | null>(null)
     const videoRefs = useRef<HTMLElement[]>([])
-    const videoTitleRef = useRef<(HTMLDivElement | null)[]>([])
 
-    const videos = directorData[0]?.mux_video_uploader_mux_assets
+    const projectVideos = directorData[0]?.project_videos
     const cutName = directorData[0]?.name.split(' ')
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
 
-    console.log('videos', videos)
+    console.log('directorData', directorData)
+
+    const totalVideos = projectVideos?.reduce((acc: number, project: any) => {
+        return acc + (project.mux_video_uploader_mux_assets?.length || 0)
+    }, 0)
 
     const openVideo = (id: string) => {
         setCurrentVideoId(id)
@@ -63,25 +66,23 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        // Trouver l'index de la vidéo visible
-                        const index = videoRefs.current.findIndex(
+                        // 🔹 Trouver l'index de la vidéo visible
+                        const videoIndex = videoRefs.current.findIndex(
                             (section) => section === entry.target
                         )
-                        if (index !== -1) {
-                            setCurrentIndex(index)
+                        if (videoIndex !== -1) {
+                            setCurrentIndex(videoIndex) // 🔹 On met directement l’index de la vidéo
                         }
                     }
                 })
             },
-            { threshold: 0.6 } // On considère une vidéo visible si 60% de sa hauteur est à l'écran
+            { threshold: 0.6 } // 🔹 Change de vidéo quand 60% de la vidéo est visible
         )
 
-        // Observer chaque vidéo
         videoRefs.current.forEach((section) => {
             if (section) observer.observe(section)
         })
 
-        // Nettoyer l'observer quand le composant se démonte
         return () => observer.disconnect()
     }, [])
 
@@ -94,34 +95,50 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
             </h2>
 
             <div className={styles.videosContainer} ref={containerRef}>
-                {videos?.map((video: any, videoIndex: number) => (
-                    <section
-                        key={videoIndex}
-                        className={`${styles.section} section`}
-                        ref={(el) => {
-                            if (el) {
-                                videoRefs.current[videoIndex] = el
-                            }
-                        }}
-                    >
-                        <MuxSnippet
-                            playbackId={video.playback_id}
-                            onClick={() => openVideo(video.playback_id)}
-                        />
+                {projectVideos?.map(
+                    (project: any, projectIndex: number) =>
+                        project.mux_video_uploader_mux_assets?.map(
+                            (video: any, videoIndex: number) => {
+                                const globalIndex =
+                                    projectVideos
+                                        .slice(0, projectIndex) // 🔹 On prend les projets précédents
+                                        .reduce(
+                                            (acc, proj) =>
+                                                acc +
+                                                (proj
+                                                    .mux_video_uploader_mux_assets
+                                                    ?.length || 0),
+                                            0
+                                        ) + videoIndex
 
-                        <div
-                            className={styles.videoTitle}
-                            ref={(el) => {
-                                if (el) {
-                                    videoTitleRef.current[videoIndex] = el
-                                }
-                            }}
-                        >
-                            {video?.title}
-                        </div>
-                    </section>
-                ))}
+                                return (
+                                    <section
+                                        key={`${projectIndex}-${videoIndex}`}
+                                        className={`${styles.section} section`}
+                                        ref={(el) => {
+                                            if (el) {
+                                                videoRefs.current[globalIndex] =
+                                                    el // 🔹 On stocke l’index global de la vidéo
+                                            }
+                                        }}
+                                    >
+                                        <MuxSnippet
+                                            playbackId={video.playback_id}
+                                            onClick={() =>
+                                                openVideo(video.playback_id)
+                                            }
+                                        />
+
+                                        <div className={styles.videoTitle}>
+                                            {video?.title}
+                                        </div>
+                                    </section>
+                                )
+                            }
+                        )
+                )}
             </div>
+
             {isVideoOpen && currentVideoId && (
                 <div className={styles.videoLightbox} onClick={closeVideo}>
                     <div
@@ -148,7 +165,7 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                 </div>
             )}
             <CounterVideo
-                numberOfVideos={videos?.length}
+                numberOfVideos={totalVideos}
                 currentIndex={currentIndex}
             />
         </main>

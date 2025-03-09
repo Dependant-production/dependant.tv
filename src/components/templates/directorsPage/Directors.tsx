@@ -64,12 +64,8 @@ export default function Directors({ directorsData }: DirectorProps) {
     // For the first director, set the first video as the current video
     useEffect(() => {
         if (directorsData.length > 0) {
-            const firstDirectorVideo =
-                directorsData[0]?.coverVideo?.url ??
-                directorsData[0]?.videos?.[0]?.url?.[0]?.url
-            const firstTitleVideo =
-                directorsData[0]?.titleVideo ??
-                directorsData[0]?.videos?.[0]?.title
+            const firstDirectorVideo = directorsData[0]?.coverVideo?.url ?? ''
+            const firstTitleVideo = directorsData[0]?.titleVideo ?? ''
 
             setCurrentVideo(firstDirectorVideo)
             setCurrentTitle(firstTitleVideo)
@@ -83,9 +79,7 @@ export default function Directors({ directorsData }: DirectorProps) {
                 <ul className={styles.nameContainer}>
                     {directorsData.map(
                         (director: DirectorType, index: number) => {
-                            const videoUrl =
-                                director?.coverVideo?.url ??
-                                director?.videos?.[0]?.url?.[0]?.url
+                            const videoUrl = director?.coverVideo?.url ?? ''
                             return (
                                 <li
                                     key={index}
@@ -93,8 +87,7 @@ export default function Directors({ directorsData }: DirectorProps) {
                                     onMouseEnter={() =>
                                         handleMouseEnter(
                                             videoUrl,
-                                            director?.titleVideo ??
-                                                director?.videos[0]?.title
+                                            director?.titleVideo ?? ''
                                         )
                                     }
                                 >

@@ -12,7 +12,7 @@ export default async function DirectorsPage(props: { params: tParams }) {
 
     try {
         const response = await axiosInstance.get(
-            `/api/directors?locale=${locale}&populate=videos.url&populate=coverVideo`
+            `/api/directors?locale=${locale}&populate=coverVideo`
         )
         if (
             !response.data ||

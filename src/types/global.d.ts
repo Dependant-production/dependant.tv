@@ -55,12 +55,11 @@ interface DirectorType {
     id: number
     name: string
     publishedAt: string
+    project_videos: any[]
     slug: string
     updatedAt: string
     titleVideo: string
-    videos: VideoType[]
     coverVideo: MediaType
-    mux_video_uploader_mux_assets: any
 }
 type DirectorsDataType = DirectorType[]
 
