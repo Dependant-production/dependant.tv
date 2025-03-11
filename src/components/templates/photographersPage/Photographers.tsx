@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
@@ -18,6 +18,18 @@ export default function Photographers({
 
     const containerRef = useRef<HTMLDivElement | null>(null)
     const titleRef = useRef<HTMLParagraphElement | null>(null)
+
+    const sortedPhotographers = useMemo(() => {
+        if (!Array.isArray(photographersData)) {
+            console.error(
+                'photographersData is not an array :',
+                photographersData
+            )
+            return []
+        }
+
+        return [...photographersData].sort((a, b) => a.order - b.order)
+    }, [photographersData])
 
     useGSAP(() => {
         const names = containerRef.current?.querySelectorAll(`.${styles.name}`)
@@ -45,19 +57,19 @@ export default function Photographers({
     useEffect(() => {
         if (photographersData.length > 0) {
             const firstPhotographerPhoto =
-                photographersData[0]?.photo?.url ?? null
+                sortedPhotographers[0]?.photo?.url ?? null
             const firstPhotographerTitle =
-                photographersData[0]?.titlePhoto ?? ''
+                sortedPhotographers[0]?.titlePhoto ?? ''
             setCurrentPhoto(firstPhotographerPhoto)
             setCurrentTitle(firstPhotographerTitle)
         }
-    }, [photographersData])
+    }, [photographersData, sortedPhotographers])
 
     return (
         <main className={styles.photographerContainer} ref={containerRef}>
             <section className={styles.textContainer}>
                 <ul className={styles.nameContainer}>
-                    {photographersData.map(
+                    {sortedPhotographers.map(
                         (photographer: PhotographerType, index: number) => {
                             const firstPhotographerPhoto =
                                 photographer?.photo?.url ?? null

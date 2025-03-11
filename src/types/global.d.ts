@@ -60,6 +60,7 @@ interface DirectorType {
     updatedAt: string
     titleVideo: string
     coverVideo: MediaType
+    order: number
 }
 type DirectorsDataType = DirectorType[]
 
@@ -72,6 +73,7 @@ interface PhotographerType {
     updatedAt: string
     publishedAt: string
     titlePhoto?: string
+    order: number
     photo?: MediaType
     projects?: ProjectType[]
 }
