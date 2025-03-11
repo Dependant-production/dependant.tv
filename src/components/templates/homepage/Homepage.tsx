@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import { gsap } from 'gsap'
 import { Link } from '@/i18n/routing'
 import useMobile from '@/hooks/useMobile'
@@ -24,7 +24,7 @@ export default function Homepage({ homepageData }: HomepageProps) {
     const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
     const touchStartY = useRef<number | null>(null)
 
-    const sortedVideos = React.useMemo(() => {
+    const sortedVideos = useMemo(() => {
         if (!Array.isArray(homepageData)) {
             console.error('homepageData is not an array :', homepageData)
             return []

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { Link } from '@/i18n/routing'
@@ -16,6 +16,15 @@ export default function Directors({ directorsData }: DirectorProps) {
     const containerRef = useRef<HTMLDivElement | null>(null)
     const titleRef = useRef<HTMLParagraphElement | null>(null)
     const overlayRef = useRef<HTMLDivElement | null>(null)
+
+    const sortedDirectors = useMemo(() => {
+        if (!Array.isArray(directorsData)) {
+            console.error('directorData is not an array :', directorsData)
+            return []
+        }
+
+        return [...directorsData].sort((a, b) => a.order - b.order)
+    }, [directorsData])
 
     // Handle video change with fade effect
     const handleMouseEnter = (videoUrl: string, title: string) => {
@@ -64,19 +73,19 @@ export default function Directors({ directorsData }: DirectorProps) {
     // For the first director, set the first video as the current video
     useEffect(() => {
         if (directorsData.length > 0) {
-            const firstDirectorVideo = directorsData[0]?.coverVideo?.url ?? ''
-            const firstTitleVideo = directorsData[0]?.titleVideo ?? ''
+            const firstDirectorVideo = sortedDirectors[0]?.coverVideo?.url ?? ''
+            const firstTitleVideo = sortedDirectors[0]?.titleVideo ?? ''
 
             setCurrentVideo(firstDirectorVideo)
             setCurrentTitle(firstTitleVideo)
         }
-    }, [directorsData])
+    }, [sortedDirectors, directorsData.length])
 
     return (
         <main className={styles.directorContainer} ref={containerRef}>
             <section className={styles.textContainer}>
                 <ul className={styles.nameContainer}>
-                    {directorsData.map(
+                    {sortedDirectors.map(
                         (director: DirectorType, index: number) => {
                             const videoUrl = director?.coverVideo?.url ?? ''
                             return (

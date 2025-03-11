@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
@@ -35,6 +35,8 @@ export default function PhotographerDetails({
     const secondPart = cutName?.slice(1).join(' ') || ''
     const formattedSlug = photographerData[0]?.slug.replace(/-/g, '%20')
 
+    const [initialSlide, setInitialSlide] = useState(0)
+
     useGSAP(() => {
         gsap.fromTo(
             nameRef.current,
@@ -49,6 +51,13 @@ export default function PhotographerDetails({
         )
     }, [])
 
+    useEffect(() => {
+        const lastProjectIndex = localStorage.getItem('lastProjectIndex')
+        if (lastProjectIndex) {
+            setInitialSlide(parseInt(lastProjectIndex, 10))
+        }
+    }, [])
+
     return (
         <main className={styles.photographerDetails} ref={containerRef}>
             <h2 className={styles.title} ref={nameRef}>
@@ -58,6 +67,8 @@ export default function PhotographerDetails({
             </h2>
             {!isMobile ? (
                 <Swiper
+                    key={initialSlide}
+                    initialSlide={initialSlide}
                     modules={[Navigation, Mousewheel]} // Active les flèches de navigation et scroll
                     mousewheel={{
                         thresholdDelta: 30, // Réduit la sensibilité du trackpad (valeur par défaut : 0)
@@ -78,9 +89,18 @@ export default function PhotographerDetails({
                             <SwiperSlide
                                 key={projectIndex}
                                 className={styles.section}
+                                onClick={() =>
+                                    localStorage.setItem(
+                                        'lastProjectIndex',
+                                        projectIndex.toString()
+                                    )
+                                }
                             >
                                 <Link
-                                    href={`/photographers/${formattedSlug}/${project.projectSlug}`}
+                                    href={{
+                                        pathname: `/photographers/${formattedSlug}/${project.projectSlug}`,
+                                        query: { projectIndex },
+                                    }}
                                     className={styles.link}
                                 >
                                     <Image
