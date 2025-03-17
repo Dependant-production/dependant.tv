@@ -61,7 +61,7 @@ function ProjectDetails({
         <>
             <main className={styles.projectDetails} ref={containerRef}>
                 <h2 className={styles.name} ref={nameRef}>
-                    {projectDetails?.title}
+                    {`"${projectDetails?.title}"`}
                 </h2>
                 {!isMobile ? (
                     <Swiper
