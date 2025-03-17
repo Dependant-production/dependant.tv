@@ -112,7 +112,7 @@ export default function PhotographerDetails({
                                         className={styles.image}
                                     />
                                     <div className={styles.projectTitle}>
-                                        <p>{project?.title}</p>
+                                        <p>{`"${project?.title}"`}</p>
                                     </div>
                                 </Link>
                             </SwiperSlide>

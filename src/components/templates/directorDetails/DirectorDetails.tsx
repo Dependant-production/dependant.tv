@@ -124,7 +124,7 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                                         />
 
                                         <div className={styles.videoTitle}>
-                                            {project?.title}
+                                            {`"${project?.title}"`}
                                         </div>
                                     </section>
                                 )
