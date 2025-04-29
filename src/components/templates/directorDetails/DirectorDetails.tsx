@@ -60,17 +60,27 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        // 🔹 Trouver l'index de la vidéo visible
                         const videoIndex = videoRefs.current.findIndex(
                             (section) => section === entry.target
                         )
                         if (videoIndex !== -1) {
-                            setCurrentIndex(videoIndex) // 🔹 On met directement l’index de la vidéo
+                            setCurrentIndex(videoIndex)
+
+                            // 🔥 On ne touche qu'à la vidéo visible
+                            const section = videoRefs.current[videoIndex]
+                            const player = section.querySelector(
+                                'mux-player'
+                            ) as any
+
+                            if (player) {
+                                player.currentTime = 0
+                                player.play()
+                            }
                         }
                     }
                 })
             },
-            { threshold: 0.6 } // 🔹 Change de vidéo quand 60% de la vidéo est visible
+            { threshold: 0.6 }
         )
 
         videoRefs.current.forEach((section) => {
@@ -120,6 +130,9 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
                                             playbackId={video.playback_id}
                                             onClick={() =>
                                                 openVideo(video.playback_id)
+                                            }
+                                            isActive={
+                                                globalIndex === currentIndex
                                             }
                                         />
 
