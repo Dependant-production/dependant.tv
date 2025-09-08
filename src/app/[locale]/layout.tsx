@@ -41,7 +41,7 @@ const customFont = localFont({
 })
 
 export const metadata: Metadata = {
-    title: 'Dependant.tv',
+    title: 'DÉPENDANT',
 }
 
 export function generateStaticParams() {
