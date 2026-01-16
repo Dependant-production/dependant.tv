@@ -5,41 +5,75 @@ import type { NextRequest } from 'next/server'
 
 const i18nMiddleware = createMiddleware(routing)
 
-// Exemple de config i18n existante
-// matcher: ['/', '/(fr|en)/:path*', '/((?!_next|_vercel|.*\\..*).*)']
+// Liste de bots à bloquer (SEO agressif / scrapers)
+const BLOCKED_BOTS = [
+  'AhrefsBot',
+  'SemrushBot',
+  'MJ12bot',
+  'DotBot',
+  'PetalBot',
+  'Bytespider',
+  'DataForSeoBot',
+  'BLEXBot',
+  'ZoominfoBot',
+]
 
 export function middleware(req: NextRequest) {
-    const isProduction = process.env.NODE_ENV === 'production' // or true for testing
-    const maintenanceMode = process.env.MAINTENANCE_MODE === 'true' // or true for testing
+  const isProduction = process.env.NODE_ENV === 'production'
+  const maintenanceMode = process.env.MAINTENANCE_MODE === 'true'
 
-    const url = req.nextUrl.clone()
+  const url = req.nextUrl.clone()
+  const ua = req.headers.get('user-agent') || ''
+  const path = url.pathname
 
-    // 1) Condition Maintenance
-    //    On redirige TOUT sauf /maintenance, /_next, /_vercel, etc.
-    if (
-        isProduction &&
-        maintenanceMode &&
-        !url.pathname.startsWith('/maintenance') &&
-        !url.pathname.startsWith('/_next') &&
-        !url.pathname.startsWith('/_vercel') &&
-        // on exclut aussi les fichiers statiques (pattern .*\\..*),
-        // sinon vous risquez de bloquer les assets CSS/JS
-        !/.*\..*$/.test(url.pathname)
-    ) {
-        url.pathname = '/maintenance'
-        return NextResponse.redirect(url)
-    }
+  /* -------------------------------------------------
+   * 1️⃣ BLOQUAGE DES BOTS (PRIORITAIRE)
+   * ------------------------------------------------- */
+  if (
+    isProduction &&
+    BLOCKED_BOTS.some((bot) => ua.includes(bot))
+  ) {
+    // 403 = bloqué net (ne consomme pas de function runtime)
+    return new NextResponse(null, { status: 403 })
+  }
 
-    // 2) Sinon, exécuter le middleware i18n
-    return i18nMiddleware(req)
+  /* -------------------------------------------------
+   * 2️⃣ BLOQUAGE DES ROUTES POUBELLE (bots)
+   * ------------------------------------------------- */
+  if (
+    path.includes('undefined') ||
+    path.includes('null') ||
+    path.endsWith('.map')
+  ) {
+    return new NextResponse(null, { status: 404 })
+  }
+
+  /* -------------------------------------------------
+   * 3️⃣ MODE MAINTENANCE (inchangé, mais sécurisé)
+   * ------------------------------------------------- */
+  if (
+    isProduction &&
+    maintenanceMode &&
+    !path.startsWith('/maintenance') &&
+    !path.startsWith('/_next') &&
+    !path.startsWith('/_vercel') &&
+    !/.*\..*$/.test(path)
+  ) {
+    url.pathname = '/maintenance'
+    return NextResponse.redirect(url)
+  }
+
+  /* -------------------------------------------------
+   * 4️⃣ I18N (dernier, pour ne pas toucher aux bots)
+   * ------------------------------------------------- */
+  return i18nMiddleware(req)
 }
 
-// 3) Ajuster le config.matcher pour EXCLURE /maintenance
+/* -------------------------------------------------
+ * 5️⃣ MATCHER (important pour limiter les Edge hits)
+ * ------------------------------------------------- */
 export const config = {
-    matcher: [
-        // On exclut '/maintenance' explicitement pour qu'il ne rentre PAS dans i18n
-        // On exclut également les _next, _vercel, etc.
-        // Enfin, on capture toutes les autres routes pour i18n
-        '/((?!maintenance|_next|_vercel|.*\\..*).*)',
-    ],
+  matcher: [
+    '/((?!maintenance|_next|_vercel|.*\\..*).*)',
+  ],
 }
