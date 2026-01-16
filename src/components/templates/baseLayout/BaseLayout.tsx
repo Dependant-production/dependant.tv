@@ -5,21 +5,19 @@ import { ReactNode } from 'react'
 
 type Props = {
     children: ReactNode
-    locale: string
     className: string
 }
 
-export default async function BaseLayout({ children, locale }: Props) {
+export default async function BaseLayout({ children, className }: Props) {
     const messages = await getMessages()
 
     return (
-        <html lang={locale}>
-            <body>
+     <div className={className}>
                 <NextIntlClientProvider messages={messages}>
                     <Header />
                     {children}
                 </NextIntlClientProvider>
-            </body>
-        </html>
+     </div>
+    
     )
 }

@@ -5,8 +5,6 @@ import localFont from 'next/font/local'
 import { LayoutProps } from '../../../.next/types/app/layout'
 
 import { routing } from '@/i18n/routing'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import BaseLayout from '@/components/templates/baseLayout/BaseLayout'
 import Loading from './loading'
@@ -56,11 +54,9 @@ export default async function HomeLayout({ children, params }: LayoutProps) {
     }
 
     return (
-        <BaseLayout locale={locale} className={customFont.className}>
+        <BaseLayout className={customFont.className}>
             <Suspense fallback={<Loading />}>
                 {children}
-                <Analytics />
-                <SpeedInsights />
             </Suspense>
         </BaseLayout>
     )
