@@ -1,4 +1,4 @@
-@import '../../../app/[locale]/variables.scss';
+@use '@/styles/variables' as *;
 
 .infos {
     @media screen and (max-width: $desktop) {

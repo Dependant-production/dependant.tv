@@ -1,4 +1,4 @@
-@import '../../../app/[locale]/variables.scss';
+@use '@/styles/variables' as *;
 
 .navbar {
     font-size: 13px;

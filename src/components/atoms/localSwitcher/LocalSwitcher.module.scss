@@ -1,4 +1,4 @@
-@import '../../../app/[locale]/variables.scss';
+@use '@/styles/variables' as *;
 
 .localeButton {
     flex: 0 0 auto;
