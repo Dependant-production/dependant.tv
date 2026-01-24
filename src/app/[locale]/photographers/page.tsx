@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Photographers from '@/components/templates/photographersPage/Photographers'
-import axiosInstance from '@/helpers/axiosInstance'
+import { fetchStrapi } from '@/helpers/fetchStrapi'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -11,18 +12,14 @@ export default async function PhotographerPage(props: { params: tParams }) {
     const { locale } = await props.params
 
     try {
-        const response = await axiosInstance.get(
+        const response = await fetchStrapi<any[]>(
             `/api/photographers?locale=${locale}&populate=photo`
         )
-        if (
-            !response.data ||
-            !response.data.data ||
-            response.data.data.length === 0
-        ) {
+        if (!response.data || response.data.length === 0) {
             notFound()
         }
 
-        const photographersData = response?.data?.data
+        const photographersData = response?.data
         return <Photographers photographersData={photographersData} />
     } catch (error) {
         console.error('Erreur lors de la récupération des articles :', error)

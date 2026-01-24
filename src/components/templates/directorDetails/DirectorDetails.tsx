@@ -99,50 +99,45 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
             </h2>
 
             <div className={styles.videosContainer} ref={containerRef}>
-                {projectVideos?.map(
-                    (project: any, projectIndex: number) =>
-                        project.mux_video_uploader_mux_assets?.map(
-                            (video: any, videoIndex: number) => {
-                                const globalIndex =
-                                    projectVideos
-                                        .slice(0, projectIndex) // 🔹 On prend les projets précédents
-                                        .reduce(
-                                            (acc, proj) =>
-                                                acc +
-                                                (proj
-                                                    .mux_video_uploader_mux_assets
-                                                    ?.length || 0),
-                                            0
-                                        ) + videoIndex
+                {projectVideos?.map((project: any, projectIndex: number) =>
+                    project.mux_video_uploader_mux_assets?.map(
+                        (video: any, videoIndex: number) => {
+                            const globalIndex =
+                                projectVideos
+                                    .slice(0, projectIndex) // 🔹 On prend les projets précédents
+                                    .reduce(
+                                        (acc, proj) =>
+                                            acc +
+                                            (proj.mux_video_uploader_mux_assets
+                                                ?.length || 0),
+                                        0
+                                    ) + videoIndex
 
-                                return (
-                                    <section
-                                        key={`${projectIndex}-${videoIndex}`}
-                                        className={`${styles.section} section`}
-                                        ref={(el) => {
-                                            if (el) {
-                                                videoRefs.current[globalIndex] =
-                                                    el // 🔹 On stocke l’index global de la vidéo
-                                            }
-                                        }}
-                                    >
-                                        <MuxSnippet
-                                            playbackId={video.playback_id}
-                                            onClick={() =>
-                                                openVideo(video.playback_id)
-                                            }
-                                            isActive={
-                                                globalIndex === currentIndex
-                                            }
-                                        />
+                            return (
+                                <section
+                                    key={`${projectIndex}-${videoIndex}`}
+                                    className={`${styles.section} section`}
+                                    ref={(el) => {
+                                        if (el) {
+                                            videoRefs.current[globalIndex] = el // 🔹 On stocke l’index global de la vidéo
+                                        }
+                                    }}
+                                >
+                                    <MuxSnippet
+                                        playbackId={video.playback_id}
+                                        onClick={() =>
+                                            openVideo(video.playback_id)
+                                        }
+                                        isActive={globalIndex === currentIndex}
+                                    />
 
-                                        <div className={styles.videoTitle}>
-                                            {`"${project?.title}"`}
-                                        </div>
-                                    </section>
-                                )
-                            }
-                        )
+                                    <div className={styles.videoTitle}>
+                                        {`"${project?.title}"`}
+                                    </div>
+                                </section>
+                            )
+                        }
+                    )
                 )}
             </div>
 

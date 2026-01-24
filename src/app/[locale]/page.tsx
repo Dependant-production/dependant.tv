@@ -1,21 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Homepage from '@/components/templates/homepage/Homepage'
-import axiosInstance from '@/helpers/axiosInstance'
+import { fetchStrapi } from '@/helpers/fetchStrapi'
 import { notFound } from 'next/navigation'
 
 export default async function Home() {
     try {
-        const response = await axiosInstance.get(
+        const response = await fetchStrapi<any[]>(
             '/api/homepage-videos?populate=*'
         )
-        if (
-            !response.data ||
-            !response.data.data ||
-            response.data.data.length === 0
-        ) {
+        if (!response.data || response.data.length === 0) {
             notFound()
         }
 
-        const homepageData = response?.data?.data
+        const homepageData = response?.data
         return <Homepage homepageData={homepageData} />
     } catch (error) {
         console.error('Erreur lors de la récupération des articles :', error)

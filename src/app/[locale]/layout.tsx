@@ -55,9 +55,7 @@ export default async function HomeLayout({ children, params }: LayoutProps) {
 
     return (
         <BaseLayout className={customFont.className}>
-            <Suspense fallback={<Loading />}>
-                {children}
-            </Suspense>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
         </BaseLayout>
     )
 }

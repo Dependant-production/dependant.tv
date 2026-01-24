@@ -25,8 +25,8 @@ export default function SideNav({
         isBlack && isMobile && isPhotographers
             ? 'white'
             : isBlack
-            ? 'black'
-            : 'white'
+              ? 'black'
+              : 'white'
 
     return (
         <nav className={className} style={{ color: color }}>

@@ -2,7 +2,7 @@ import React from 'react'
 import Infos from '@/components/molecules/infos/Infos'
 import styles from './Contact.module.scss'
 
-interface ContactProps {
+export interface ContactProps {
     contactData: {
         id: number
         documentId: string

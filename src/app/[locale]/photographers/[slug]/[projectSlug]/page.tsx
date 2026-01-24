@@ -1,4 +1,5 @@
-import axiosInstance from '@/helpers/axiosInstance'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { fetchStrapi } from '@/helpers/fetchStrapi'
 import ProjectDetails from '@/components/templates/projectDetails/ProjectDetails'
 
 type tParamsSlug = Promise<{
@@ -15,11 +16,11 @@ export default async function ProjectDetailPage(props: {
         const formattedSlug = slug.replace(/%20/g, '-')
         const proSlug = projectSlug.replace(/%20/g, '-').toLowerCase()
 
-        const response = await axiosInstance.get(
+        const response = await fetchStrapi<any[]>(
             `/api/photographers?filters[slug][$eq]=${formattedSlug}&filters[projects][projectSlug][$eq]=${proSlug}&populate=projects.media`
         )
 
-        const projectsData = response?.data?.data[0]
+        const projectsData = response?.data[0]
         const projectDetails = projectsData.projects.find(
             (project: ProjectType) => project.projectSlug === projectSlug
         )

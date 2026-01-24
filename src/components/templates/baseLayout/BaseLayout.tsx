@@ -12,12 +12,11 @@ export default async function BaseLayout({ children, className }: Props) {
     const messages = await getMessages()
 
     return (
-     <div className={className}>
-                <NextIntlClientProvider messages={messages}>
-                    <Header />
-                    {children}
-                </NextIntlClientProvider>
-     </div>
-    
+        <div className={className}>
+            <NextIntlClientProvider messages={messages}>
+                <Header />
+                {children}
+            </NextIntlClientProvider>
+        </div>
     )
 }
