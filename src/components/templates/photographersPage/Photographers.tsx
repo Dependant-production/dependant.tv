@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { useGSAP } from '@gsap/react'
+import { previewsOnTap } from '@/helpers/tapToPreview'
 import styles from './Photographers.module.scss'
 
 interface PhotographerProps {
@@ -15,6 +16,7 @@ export default function Photographers({
 }: PhotographerProps) {
     const [currentPhoto, setCurrentPhoto] = useState<string | null>(null)
     const [currentTitle, setCurrentTitle] = useState<string>('')
+    const [selectedIndex, setSelectedIndex] = useState(0)
 
     const containerRef = useRef<HTMLDivElement | null>(null)
     const titleRef = useRef<HTMLParagraphElement | null>(null)
@@ -73,20 +75,36 @@ export default function Photographers({
                         (photographer: PhotographerType, index: number) => {
                             const firstPhotographerPhoto =
                                 photographer?.photo?.url ?? null
+                            const isSelected = index === selectedIndex
+                            const preview = () => {
+                                setSelectedIndex(index)
+                                setCurrentPhoto(firstPhotographerPhoto)
+                                setCurrentTitle(
+                                    photographer?.titlePhoto as string
+                                )
+                            }
                             return (
                                 <li
                                     key={index}
                                     className={styles.name}
-                                    onMouseEnter={() => {
-                                        setCurrentPhoto(firstPhotographerPhoto)
-                                        setCurrentTitle(
-                                            photographer?.titlePhoto as string
-                                        )
+                                    onPointerEnter={(event) => {
+                                        if (event.pointerType !== 'touch') {
+                                            preview()
+                                        }
                                     }}
                                 >
                                     <Link
                                         href={`/photographers/${photographer.name}`}
-                                        className={styles.link}
+                                        className={`${styles.link} ${isSelected ? styles.selected : ''}`}
+                                        onClick={(event) => {
+                                            if (
+                                                !isSelected &&
+                                                previewsOnTap()
+                                            ) {
+                                                event.preventDefault()
+                                                preview()
+                                            }
+                                        }}
                                     >
                                         {photographer.name}
                                     </Link>

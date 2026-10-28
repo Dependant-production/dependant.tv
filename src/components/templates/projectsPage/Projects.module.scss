@@ -78,14 +78,24 @@
     display: block;
     overflow-wrap: anywhere;
 
-    &:hover,
     &:focus-visible {
         font-weight: 700;
-    }
-
-    &:focus-visible {
         outline: 1px solid currentColor;
         outline-offset: -1px;
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            font-weight: 700;
+        }
+    }
+
+    // Touch screens have no hover: the project previewed by a first tap shows
+    // in bold instead.
+    @media (hover: none) {
+        &.selected {
+            font-weight: 700;
+        }
     }
 }
 

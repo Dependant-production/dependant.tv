@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { Link } from '@/i18n/routing'
+import { previewsOnTap } from '@/helpers/tapToPreview'
 import styles from './Directors.module.scss'
 
 interface DirectorProps {
@@ -12,6 +13,7 @@ interface DirectorProps {
 export default function Directors({ directorsData }: DirectorProps) {
     const [currentVideo, setCurrentVideo] = useState<string>('')
     const [currentTitle, setCurrentTitle] = useState<string>('')
+    const [selectedIndex, setSelectedIndex] = useState(0)
 
     const containerRef = useRef<HTMLDivElement | null>(null)
     const titleRef = useRef<HTMLParagraphElement | null>(null)
@@ -27,7 +29,7 @@ export default function Directors({ directorsData }: DirectorProps) {
     }, [directorsData])
 
     // Handle video change with fade effect
-    const handleMouseEnter = (videoUrl: string, title: string) => {
+    const changeVideo = (videoUrl: string, title: string) => {
         const overlay = overlayRef.current
 
         if (overlay) {
@@ -88,20 +90,36 @@ export default function Directors({ directorsData }: DirectorProps) {
                     {sortedDirectors.map(
                         (director: DirectorType, index: number) => {
                             const videoUrl = director?.coverVideo?.url ?? ''
+                            const isSelected = index === selectedIndex
+                            const preview = () => {
+                                setSelectedIndex(index)
+                                changeVideo(
+                                    videoUrl,
+                                    director?.titleVideo ?? ''
+                                )
+                            }
                             return (
                                 <li
                                     key={index}
                                     className={styles.name}
-                                    onMouseEnter={() =>
-                                        handleMouseEnter(
-                                            videoUrl,
-                                            director?.titleVideo ?? ''
-                                        )
-                                    }
+                                    onPointerEnter={(event) => {
+                                        if (event.pointerType !== 'touch') {
+                                            preview()
+                                        }
+                                    }}
                                 >
                                     <Link
                                         href={`/directors/${director.name}`}
-                                        className={styles.link}
+                                        className={`${styles.link} ${isSelected ? styles.selected : ''}`}
+                                        onClick={(event) => {
+                                            if (
+                                                !isSelected &&
+                                                previewsOnTap()
+                                            ) {
+                                                event.preventDefault()
+                                                preview()
+                                            }
+                                        }}
                                     >
                                         {director.name}
                                     </Link>

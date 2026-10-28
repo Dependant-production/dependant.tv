@@ -14,6 +14,17 @@ L’onglet réutilise les projets photo et vidéo existants.
 L’ordre est commun aux photos et vidéos. Les projets qui ont un ordre s’affichent en premier, puis tous les autres par ordre alphabétique du titre. À ordre égal, les titres sont aussi classés par ordre alphabétique. Un ordre vide ou égal à 0 compte comme « pas d’ordre ».
 
 Pour retirer un projet de cet onglet, désactiver **showInProjects**, puis publier.
+
+## Voir tous les projets de l’onglet
+
+Le menu **Onglet Projets**, dans la barre de gauche de Strapi, regroupe dans un seul tableau les projets photo et vidéo cochés, dans l’ordre du site. Chaque ligne indique le type, l’artiste, l’ordre et l’état, avec un lien vers la fiche :
+
+- **Publié** : le projet est sur le site.
+- **Modifications non publiées** : le projet est sur le site, mais la fiche contient des changements à publier.
+- **À publier** : la case est cochée sur le brouillon seulement ; publier la fiche pour l’afficher.
+- **Vidéo Mux manquante** : la vidéo est publiée, mais n’a pas encore de média Mux lisible ; le site ne l’affiche pas.
+
+Ce menu n’apparaît qu’aux comptes autorisés à lire les deux types de projets.
 Cette case concerne uniquement l’onglet Projets : elle ne change pas la sélection des pages réalisateurs et photographes.
 
 Les deux cases sont indépendantes :

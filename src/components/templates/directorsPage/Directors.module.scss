@@ -31,9 +31,20 @@
                 cursor: pointer;
                 max-height: 50px;
             }
-            .link:hover {
-                font-family: 'customFont';
-                font-weight: 700;
+            .link {
+                @media (hover: hover) {
+                    &:hover {
+                        font-family: 'customFont';
+                        font-weight: 700;
+                    }
+                }
+                // Touch screens have no hover: the name previewed by a first
+                // tap shows in bold instead.
+                @media (hover: none) {
+                    &.selected {
+                        font-weight: 700;
+                    }
+                }
             }
         }
     }

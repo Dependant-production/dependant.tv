@@ -7,6 +7,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import MuxPlayer from '@mux/mux-player-react'
 import { Link } from '@/i18n/routing'
+import { previewsOnTap } from '@/helpers/tapToPreview'
 import type { ProjectListItem } from '@/types/projects'
 import styles from './Projects.module.scss'
 
@@ -85,23 +86,48 @@ export default function Projects({ projects }: ProjectsProps) {
             <section className={styles.textContainer}>
                 {projects.length > 0 ? (
                     <ul className={styles.nameContainer}>
-                        {projects.map((project) => (
-                            <li
-                                key={`${project.category}-${project.documentId}`}
-                                className={styles.name}
-                            >
-                                <Link
-                                    href={`/projects/${project.category}/${encodeURIComponent(project.documentId)}`}
-                                    className={styles.link}
-                                    onMouseEnter={() =>
-                                        setSelectedProject(project)
-                                    }
-                                    onFocus={() => setSelectedProject(project)}
+                        {projects.map((project) => {
+                            const isSelected = project === currentProject
+
+                            return (
+                                <li
+                                    key={`${project.category}-${project.documentId}`}
+                                    className={styles.name}
                                 >
-                                    {project.title}
-                                </Link>
-                            </li>
-                        ))}
+                                    <Link
+                                        href={`/projects/${project.category}/${encodeURIComponent(project.documentId)}`}
+                                        className={`${styles.link} ${isSelected ? styles.selected : ''}`}
+                                        onPointerEnter={(event) => {
+                                            if (event.pointerType !== 'touch') {
+                                                setSelectedProject(project)
+                                            }
+                                        }}
+                                        onFocus={(event) => {
+                                            // A tap also focuses the link; only
+                                            // keyboard focus previews it.
+                                            if (
+                                                event.currentTarget.matches(
+                                                    ':focus-visible'
+                                                )
+                                            ) {
+                                                setSelectedProject(project)
+                                            }
+                                        }}
+                                        onClick={(event) => {
+                                            if (
+                                                !isSelected &&
+                                                previewsOnTap()
+                                            ) {
+                                                event.preventDefault()
+                                                setSelectedProject(project)
+                                            }
+                                        }}
+                                    >
+                                        {project.title}
+                                    </Link>
+                                </li>
+                            )
+                        })}
                     </ul>
                 ) : (
                     <p className={styles.empty}>{t('empty')}</p>
