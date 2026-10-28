@@ -16,6 +16,32 @@ type StrapiResponse<T> = {
     }
 }
 
+function normalizeMediaUrls(value: unknown, origin: string): unknown {
+    if (Array.isArray(value)) {
+        return value.map((item) => normalizeMediaUrls(item, origin))
+    }
+
+    if (value === null || typeof value !== 'object') return value
+
+    const record = value as Record<string, unknown>
+    const normalized = Object.fromEntries(
+        Object.entries(record).map(([key, item]) => [
+            key,
+            normalizeMediaUrls(item, origin),
+        ])
+    )
+
+    if (
+        typeof record.mime === 'string' &&
+        typeof record.url === 'string' &&
+        record.url.startsWith('/')
+    ) {
+        normalized.url = new URL(record.url, origin).href
+    }
+
+    return normalized
+}
+
 export async function fetchStrapi<T>(
     endpoint: string,
     options: FetchStrapiOptions = {}
@@ -25,8 +51,29 @@ export async function fetchStrapi<T>(
         tags = [],
     } = options
 
-    const baseURL =
-        process.env.NEXT_PUBLIC_STRAPI_BASE_URL || 'https://cms.dependant.tv'
+    const configuredBaseURL = process.env.NEXT_PUBLIC_STRAPI_BASE_URL?.trim()
+    const requiresIsolatedCMS =
+        process.env.VERCEL_ENV === 'preview' ||
+        process.env.DEPLOYMENT_ENV === 'preprod'
+
+    if (requiresIsolatedCMS && !configuredBaseURL) {
+        throw new Error(
+            'NEXT_PUBLIC_STRAPI_BASE_URL must be configured for preview/preprod.'
+        )
+    }
+
+    const baseURL = (configuredBaseURL || 'https://cms.dependant.tv').replace(
+        /\/+$/,
+        ''
+    )
+    const cmsURL = new URL(baseURL)
+
+    if (requiresIsolatedCMS && cmsURL.hostname === 'cms.dependant.tv') {
+        throw new Error(
+            'Preview/preprod must use an isolated Strapi instance, not cms.dependant.tv.'
+        )
+    }
+
     const url = `${baseURL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`
 
     const res = await fetch(url, {
@@ -46,5 +93,8 @@ export async function fetchStrapi<T>(
         throw new Error(`Strapi fetch error: ${res.status} - ${res.statusText}`)
     }
 
-    return res.json()
+    return normalizeMediaUrls(
+        await res.json(),
+        cmsURL.origin
+    ) as StrapiResponse<T>
 }
