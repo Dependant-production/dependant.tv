@@ -6,7 +6,8 @@ La préproduction comprend un frontend Vercel Preview et un second Strapi. Le CM
 
 | Élément                                  | Préproduction                            | Production                       |
 | ---------------------------------------- | ---------------------------------------- | -------------------------------- |
-| Site                                     | `https://dependant-preprod.vercel.app`   | `https://www.dependant.tv`       |
+| Site (client)                            | `https://preprod.dependant.tv`           | `https://www.dependant.tv`       |
+| Site (équipe, compte Vercel)             | `https://dependant-preprod.vercel.app`   | —                                |
 | Branche du site                          | `develop`                                | `master`                         |
 | Administration Strapi                    | `https://cms-preprod.dependant.tv/admin` | `https://cms.dependant.tv/admin` |
 | Branche du CMS                           | `develop`                                | `master`                         |
@@ -20,7 +21,7 @@ Le VPS est `51.222.156.38`. nginx expose le CMS de préproduction en HTTPS avec 
 
 Les deux dépôts ont une branche `develop` pour la préproduction :
 
-- **Site** : chaque push sur `develop` crée un déploiement Vercel Preview. Le domaine `dependant-preprod.vercel.app` est rattaché à cette branche et suit toujours son dernier déploiement. Il est accessible sans compte Vercel : c’est le lien à transmettre au client.
+- **Site** : chaque push sur `develop` crée un déploiement Vercel Preview. Les domaines `preprod.dependant.tv` et `dependant-preprod.vercel.app` sont rattachés à cette branche et suivent toujours son dernier déploiement (voir « Frontend Vercel Preview » pour leur accès).
 - **CMS** : le dossier de préproduction du VPS n’est pas un checkout git. Après un push sur `develop`, lancer `scripts/deploy-preprod.sh` depuis le dépôt `dependantCMS` (voir plus bas). Le commit déployé est inscrit dans `/home/ubuntu/dependantCMS-preprod/REVISION`.
 
 ## Contenu et accès au CMS
@@ -97,9 +98,9 @@ Créer un déploiement Preview des changements à valider, soit en poussant `dev
 
 Le frontend refuse de revenir vers `cms.dependant.tv` lorsqu’il est configuré en Preview/préproduction. Les images locales du CMS sont résolues avec son URL et la préproduction demande aux moteurs de recherche de ne pas l’indexer.
 
-Les URL de déploiement Vercel (`dependant-xxxx-tayyyyylors-projects.vercel.app`) sont protégées par authentification Vercel. La protection du projet (`all_except_custom_domains`) laisse en revanche ouverts les domaines du projet : `dependant-preprod.vercel.app`, rattaché à `develop`, est donc accessible au client sans compte et suit chaque nouveau push. La préproduction demande aux moteurs de recherche de ne pas l’indexer.
+La protection du projet (`all_except_custom_domains`) demande une connexion Vercel sur toutes les URL en `.vercel.app` des aperçus, y compris `dependant-preprod.vercel.app` : celle-ci sert à l’équipe. Seuls les domaines personnalisés sont ouverts : `preprod.dependant.tv`, rattaché à `develop`, est le lien à transmettre au client. La préproduction demande aux moteurs de recherche de ne pas l’indexer.
 
-Pour une adresse sur le domaine du client, ajouter `preprod.dependant.tv` au projet Vercel sur la branche `develop`, puis créer chez OVH un enregistrement `CNAME preprod → cname.vercel-dns.com.`. Cette adresse figure déjà dans `CORS_ORIGINS` du CMS de préproduction.
+`preprod.dependant.tv` nécessite chez OVH (zone DNS `dependant.tv`) l’enregistrement `preprod CNAME c2d770bf3aa42e80.vercel-dns-017.com.`. Vercel émet ensuite le certificat HTTPS automatiquement. Cette adresse figure déjà dans `CORS_ORIGINS` du CMS de préproduction.
 
 ## Validation et mise en production
 
