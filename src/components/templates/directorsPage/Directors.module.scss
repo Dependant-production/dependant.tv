@@ -9,10 +9,13 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
+        gap: 1rem;
         width: 100%;
         padding: 1rem;
 
         .nameContainer {
+            min-width: 0;
+            overflow-wrap: anywhere;
             display: flex;
             font-size: 20px;
             flex-direction: column;
@@ -54,13 +57,16 @@
 }
 
 .titleVideo {
+    flex-shrink: 0;
+    max-width: 40%;
+    text-align: right;
     color: white;
     text-transform: uppercase;
     font-size: 12px;
     p {
         font-family: 'customFont';
         font-weight: 500;
-        white-space: nowrap;
+        overflow-wrap: anywhere;
     }
     @media screen and (min-width: $desktop) {
         font-size: 20px;

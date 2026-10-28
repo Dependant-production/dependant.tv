@@ -19,13 +19,19 @@
         bottom: 1rem;
         left: 1rem;
         justify-content: flex-start;
+        // Laisse la place au compteur (bas droite)
+        max-width: calc(100% - 7rem);
+        @media screen and (min-width: $desktop) {
+            max-width: calc(100% - 11rem);
+        }
     }
 
     .linkName {
         display: flex;
         flex-direction: column;
         gap: 5px;
-        text-align: center;
+        text-align: start;
+        overflow-wrap: anywhere;
         align-items: flex-start;
         @media screen and (min-width: $desktop) {
             gap: 0;

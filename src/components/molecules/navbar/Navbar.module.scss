@@ -1,7 +1,7 @@
 @use '@/styles/variables' as *;
 
 .navbar {
-    font-size: 13px;
+    font-size: clamp(11px, 3vw, 13px);
     display: flex;
     width: 100%;
     text-transform: uppercase;
@@ -10,6 +10,7 @@
     justify-content: space-between;
     align-items: center;
     color: white;
+    gap: 0.5rem;
 
     @media screen and (min-width: $tablet) {
         position: relative;
@@ -24,6 +25,8 @@
         font-family: 'customFont';
         font-weight: 500;
         text-align: center;
+        white-space: nowrap;
+        flex-shrink: 0;
         @media screen and (min-width: $desktop) {
             display: inline-block;
             min-width: 100px;
@@ -48,17 +51,5 @@
 .black {
     .link {
         color: #000;
-    }
-}
-
-.padding {
-    @media screen and (min-width: $desktop) {
-        margin-right: 7px;
-    }
-}
-
-.margin {
-    @media screen and (min-width: $desktop) {
-        margin-right: -13px;
     }
 }

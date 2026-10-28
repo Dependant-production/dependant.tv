@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Gérer l’onglet Projets
+
+La sélection et l’ordre se règlent dans les fiches `projectsPhotos` et `ProjectVideos` du CMS Strapi, avec `showInProjects` et `projectsOrder`. Le champ indépendant `showInArtistPortfolio` permet de masquer un projet dans le portfolio de son artiste tout en le gardant dans l’onglet Projets. Voir le [guide de gestion des projets](docs/projects.md) pour la publication et la mise en service.
+
+Le [CMS de préproduction](https://cms-preprod.dependant.tv/admin) utilise un processus PM2, une base PostgreSQL et des uploads indépendants. Les vidéos existantes y sont en lecture seule. Le [guide de préproduction](docs/preproduction.md) décrit les accès, les mises à jour et le frontend Vercel Preview à faire valider avant livraison depuis `master`.
+
 ## Getting Started
 
 First, run the development server:

@@ -88,4 +88,8 @@ interface ProjectType {
     publishedAt: string
     coverMedia?: MediaType
     media?: MediaType[]
+    showInProjects?: boolean | null
+    showInArtistPortfolio?: boolean | null
+    projectsOrder?: number | null
+    photographerName?: string | null
 }
