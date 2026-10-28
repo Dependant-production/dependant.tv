@@ -49,12 +49,17 @@
 .nameContainer {
     flex: 1;
     min-width: 0;
-    max-height: calc(50vh - 1rem);
     max-height: calc(50dvh - 1rem);
     overflow-y: auto;
     overscroll-behavior-y: contain;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.6) transparent;
+
+    // Masquer la scrollbar
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
     list-style: none;
     font-size: 20px;
     line-height: 1;
