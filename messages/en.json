@@ -7,7 +7,11 @@
     "Navbar": {
         "directors": "directors",
         "photographers": "photographers",
+        "projects": "projects",
         "contact": "contact"
+    },
+    "Projects": {
+        "empty": "No projects yet."
     },
     "Contact": {
         "Infos": {

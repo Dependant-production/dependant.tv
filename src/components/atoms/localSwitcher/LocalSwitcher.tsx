@@ -24,12 +24,13 @@ export default function LocalSwitcher() {
 
     const isContactPage = pathname.startsWith('/contact')
     const isPhotographersPage = pathname.startsWith('/photographers/')
+    const isPhotoProjectPage = pathname.startsWith('/projects/photos/')
 
     let color = styles.white
 
     if (isContactPage) {
         color = styles.black
-    } else if (isPhotographersPage) {
+    } else if (isPhotographersPage || isPhotoProjectPage) {
         color = isMobile ? styles.white : styles.black
     }
 

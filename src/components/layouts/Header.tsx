@@ -19,12 +19,13 @@ export const Header = () => {
 
     const isContactPage = pathname.startsWith('/contact')
     const isPhotographersPage = pathname.startsWith('/photographers/')
+    const isPhotoProjectPage = pathname.startsWith('/projects/photos/')
 
     let color: 'white' | 'black' = 'white'
 
     if (isContactPage) {
         color = 'black'
-    } else if (isPhotographersPage) {
+    } else if (isPhotographersPage || isPhotoProjectPage) {
         color = isMobile ? 'white' : 'black'
     }
 
@@ -58,6 +59,7 @@ export const Header = () => {
                 cat1={t('Navbar.directors')}
                 cat2={t('Navbar.photographers')}
                 cat3={t('Navbar.contact')}
+                projects={t('Navbar.projects')}
                 color={color}
             />
         </header>
@@ -71,6 +73,7 @@ export const Header = () => {
                     cat1={t('Navbar.directors')}
                     cat2={t('Navbar.photographers')}
                     cat3={t('Navbar.contact')}
+                    projects={t('Navbar.projects')}
                     color={color}
                 />
             </div>

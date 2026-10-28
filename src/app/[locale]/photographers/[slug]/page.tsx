@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import PhotographerDetails from '@/components/templates/photographerDetails/PhotographerDetails'
 import { fetchStrapi } from '@/helpers/fetchStrapi'
 
@@ -11,11 +10,17 @@ export default async function PhotograophersPage(props: {
     try {
         const formattedSlug = slug.replace(/%20/g, '-').toLowerCase()
 
-        const response = await fetchStrapi<any[]>(
-            `/api/photographers?filters[slug][$eq]=${formattedSlug}&locale=${locale}&populate=projects&populate=projects.coverMedia`
+        const response = await fetchStrapi<PhotographerType[]>(
+            `/api/photographers?filters[slug][$eq]=${formattedSlug}&locale=${locale}&populate=projects&populate=projects.coverMedia`,
+            { revalidate: 60 }
         )
 
-        const photographerData = response?.data
+        const photographerData = response.data.map((photographer) => ({
+            ...photographer,
+            projects: photographer.projects?.filter(
+                (project) => project.showInArtistPortfolio !== false
+            ),
+        }))
         return <PhotographerDetails photographerData={photographerData} />
     } catch (error) {
         console.error('Error fetching data from strapi:', error)

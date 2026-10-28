@@ -1,0 +1,102 @@
+@use '@/styles/variables' as *;
+
+.projectsContainer {
+    position: relative;
+    isolation: isolate;
+    height: 100dvh;
+    background-color: black;
+    color: white;
+}
+
+.preview {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(transparent 35%, rgba(0, 0, 0, 0.6));
+    }
+}
+
+.backgroundMedia,
+.backgroundVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.backgroundVideo {
+    --controls: none;
+    --media-object-fit: cover;
+    --media-object-position: center;
+}
+
+.textContainer {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.nameContainer {
+    flex: 1;
+    min-width: 0;
+    max-height: calc(50vh - 1rem);
+    max-height: calc(50dvh - 1rem);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.6) transparent;
+    list-style: none;
+    font-size: 20px;
+    line-height: 1;
+    text-transform: uppercase;
+
+    @media screen and (min-width: $desktop) {
+        font-size: 50px;
+    }
+}
+
+.name {
+    padding: 0.1rem 0;
+}
+
+.link {
+    display: block;
+    overflow-wrap: anywhere;
+
+    &:hover,
+    &:focus-visible {
+        font-weight: 700;
+    }
+
+    &:focus-visible {
+        outline: 1px solid currentColor;
+        outline-offset: -1px;
+    }
+}
+
+.creatorName {
+    max-width: 30%;
+    overflow-wrap: anywhere;
+    text-align: right;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+
+    @media screen and (min-width: $desktop) {
+        font-size: 20px;
+    }
+}
+
+.empty {
+    font-size: 20px;
+}

@@ -1,12 +1,12 @@
 'use client'
 import { Link, usePathname } from '@/i18n/routing'
 import styles from './Navbar.module.scss'
-import { useLocale } from 'next-intl'
 
 interface NavbarProps {
     cat1: string
     cat2: string
     cat3: string
+    projects: string
     color?: 'black' | 'white'
 }
 
@@ -14,11 +14,12 @@ export default function Navbar({
     cat1,
     cat2,
     cat3,
+    projects,
     color = 'white',
 }: NavbarProps) {
     const pathname = usePathname()
-    const isActive = (path: string) => pathname?.includes(path)
-    const currentLocale = useLocale()
+    const isActive = (path: string) =>
+        pathname === path || pathname.startsWith(`${path}/`)
 
     const navbarColorClass = color === 'black' ? styles.black : styles.white
 
@@ -26,6 +27,7 @@ export default function Navbar({
         <nav className={`${styles.navbar} ${navbarColorClass}`}>
             <Link
                 href="/directors"
+                aria-current={isActive('/directors') ? 'page' : undefined}
                 className={`${styles.link} ${
                     isActive('/directors') ? styles.active : ''
                 }`}
@@ -34,18 +36,27 @@ export default function Navbar({
             </Link>
             <Link
                 href="/photographers"
-                className={`${
-                    currentLocale === 'fr' ? styles.margin : styles.padding
-                } ${styles.link} ${
+                aria-current={isActive('/photographers') ? 'page' : undefined}
+                className={`${styles.link} ${
                     isActive('/photographers') ? styles.active : ''
                 }`.trim()}
             >
                 {cat2}
             </Link>
             <Link
-                href="/contact"
+                href="/projects"
+                aria-current={isActive('/projects') ? 'page' : undefined}
                 className={`${styles.link} ${
-                    isActive('/photographers') ? styles.active : ''
+                    isActive('/projects') ? styles.active : ''
+                }`.trim()}
+            >
+                {projects}
+            </Link>
+            <Link
+                href="/contact"
+                aria-current={isActive('/contact') ? 'page' : undefined}
+                className={`${styles.link} ${
+                    isActive('/contact') ? styles.active : ''
                 }`.trim()}
             >
                 {cat3}

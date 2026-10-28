@@ -10,9 +10,10 @@ import CounterVideo from '@/components/molecules/counterVideo/CounterVideo'
 import styles from './DirectorDetails.module.scss'
 import MuxPlayer from '@mux/mux-player-react'
 import MuxSnippet from '@/components/atoms/muxSnippet/MuxSnippet'
+import type { DirectorPortfolio } from '@/types/projects'
 
 interface DirectorProps {
-    directorData: DirectorsDataType
+    directorData: DirectorPortfolio[]
 }
 
 export default function DirectorDetails({ directorData }: DirectorProps) {
@@ -31,9 +32,10 @@ export default function DirectorDetails({ directorData }: DirectorProps) {
     const firstPart = cutName?.[0] || ''
     const secondPart = cutName?.slice(1).join(' ') || ''
 
-    const totalVideos = projectVideos?.reduce((acc: number, project: any) => {
-        return acc + (project.mux_video_uploader_mux_assets?.length || 0)
-    }, 0)
+    const totalVideos =
+        projectVideos?.reduce((acc: number, project: any) => {
+            return acc + (project.mux_video_uploader_mux_assets?.length || 0)
+        }, 0) ?? 0
 
     const openVideo = (id: string) => {
         setCurrentVideoId(id)
