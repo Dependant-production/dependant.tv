@@ -26,6 +26,19 @@ async function fetchAll<T>(endpoint: string, tags: string[]): Promise<T[]> {
     return items
 }
 
+// Empty or 0 (the former CMS default) means the project has no set order.
+function toProjectsOrder(order?: number | null) {
+    return order && order > 0 ? order : undefined
+}
+
+// Projects with an order come first; the others follow alphabetically.
+function compareProjectsOrder(a?: number, b?: number) {
+    if (a === b) return 0
+    if (a === undefined) return 1
+    if (b === undefined) return -1
+    return a - b
+}
+
 // Projects are read directly rather than through their artist, so they stay
 // listed while the artist is a draft; the CMS adds the artist name
 // (`photographerName` / `directorName`) for that case.
@@ -54,7 +67,7 @@ export async function getProjects(locale: string): Promise<ProjectListItem[]> {
             category: 'photos',
             title: project.title,
             creatorName: project.photographerName || '',
-            projectsOrder: project.projectsOrder ?? 0,
+            projectsOrder: toProjectsOrder(project.projectsOrder),
             coverUrl: project.coverMedia?.url,
             coverMime: project.coverMedia?.mime,
         })
@@ -74,14 +87,14 @@ export async function getProjects(locale: string): Promise<ProjectListItem[]> {
             category: 'videos',
             title: project.title,
             creatorName: project.director?.name || project.directorName || '',
-            projectsOrder: project.projectsOrder ?? 0,
+            projectsOrder: toProjectsOrder(project.projectsOrder),
             playbackId,
         })
     }
 
     return [...projects.values()].sort(
         (a, b) =>
-            a.projectsOrder - b.projectsOrder ||
+            compareProjectsOrder(a.projectsOrder, b.projectsOrder) ||
             a.title.localeCompare(b.title, locale, { sensitivity: 'base' }) ||
             a.creatorName.localeCompare(b.creatorName, locale)
     )

@@ -251,7 +251,7 @@ describe('project catalog', () => {
         )
     })
 
-    it('applies one order across both media types, then alphabetizes ties without changing the source arrays', async () => {
+    it('lists ordered projects first across both media types, then the unordered ones alphabetically, without changing the source arrays', async () => {
         const photoProjects = [
             {
                 documentId: 'photo-third',
@@ -305,14 +305,14 @@ describe('project catalog', () => {
         const projects = await getProjects('fr')
 
         expect(projects.map(({ documentId }) => documentId)).toEqual([
-            'video-null-order',
-            'photo-default-order',
-            'video-zero-order',
             'video-first',
             'photo-first-tie',
             'video-second',
             'photo-third',
             'video-third',
+            'video-null-order',
+            'photo-default-order',
+            'video-zero-order',
         ])
         expect(JSON.stringify(photoProjects)).toBe(originalPhotoProjects)
         expect(JSON.stringify(videoProjects)).toBe(originalVideoProjects)
@@ -358,10 +358,10 @@ describe('project catalog', () => {
         const catalog = await getProjects('fr')
 
         expect(catalog.map(({ title }) => title)).toEqual([
-            'CAMPAIGN THEODORA X VINTED',
-            'CRYSTALLMESS - THE FACE MAGAZINE x NIKE',
             'Ashnikko - Trinkets',
             "Arsenal Kit 25/26 - Director's Cut",
+            'CAMPAIGN THEODORA X VINTED',
+            'CRYSTALLMESS - THE FACE MAGAZINE x NIKE',
         ])
         expect(
             catalog.every(({ creatorName }) => creatorName === 'Lea esmaili')

@@ -29,7 +29,7 @@ export interface ProjectListItem {
     category: ProjectCategory
     title: string
     creatorName: string
-    projectsOrder: number
+    projectsOrder?: number
     coverUrl?: string
     coverMime?: string
     playbackId?: string

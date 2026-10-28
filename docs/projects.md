@@ -7,11 +7,11 @@ L’onglet réutilise les projets photo et vidéo existants.
 
 1. Ouvrir **projectsPhotos** pour un projet photo, ou **ProjectVideos** pour une vidéo.
 2. Ouvrir la fiche du projet et activer **showInProjects** pour l’inclure dans l’onglet.
-3. Renseigner **projectsOrder** : les petits nombres apparaissent d’abord. Utiliser par exemple 10, 20, 30 pour pouvoir intercaler d’autres projets ensuite.
+3. **projectsOrder** est facultatif. Le laisser vide pour classer le projet par ordre alphabétique, ou le renseigner pour le placer en tête de liste : les petits nombres apparaissent d’abord. Utiliser par exemple 10, 20, 30 pour pouvoir intercaler d’autres projets ensuite.
 4. Choisir **showInArtistPortfolio** : activé pour afficher aussi ce projet sur la page de son artiste, désactivé pour le retirer de son portfolio.
 5. Enregistrer et **publier** la fiche. Une modification enregistrée en brouillon ne modifie pas la version publiée.
 
-L’ordre est commun aux photos et vidéos. À ordre égal, les titres sont classés par ordre alphabétique. Un ordre vide est traité comme 0.
+L’ordre est commun aux photos et vidéos. Les projets qui ont un ordre s’affichent en premier, puis tous les autres par ordre alphabétique du titre. À ordre égal, les titres sont aussi classés par ordre alphabétique. Un ordre vide ou égal à 0 compte comme « pas d’ordre ».
 
 Pour retirer un projet de cet onglet, désactiver **showInProjects**, puis publier.
 Cette case concerne uniquement l’onglet Projets : elle ne change pas la sélection des pages réalisateurs et photographes.
