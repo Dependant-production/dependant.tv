@@ -60,9 +60,14 @@ function ProjectDetails({
     return (
         <>
             <main className={styles.projectDetails} ref={containerRef}>
-                <h2 className={styles.name} ref={nameRef}>
-                    {`"${projectDetails?.title}"`}
-                </h2>
+                <div className={styles.caption}>
+                    <h2 className={styles.name} ref={nameRef}>
+                        {`"${projectDetails?.title}"`}
+                    </h2>
+                    <h3 className={styles.title}>
+                        {firstPart} {secondPart}
+                    </h3>
+                </div>
                 {!isMobile ? (
                     <Swiper
                         modules={[Navigation, Mousewheel]} // Active le scroll horizontal
@@ -143,10 +148,6 @@ function ProjectDetails({
                         ))}
                     </div>
                 )}
-
-                <h3 className={styles.title}>
-                    {firstPart} {secondPart}
-                </h3>
             </main>
         </>
     )

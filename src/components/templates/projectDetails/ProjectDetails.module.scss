@@ -31,15 +31,26 @@
         }
     }
 
-    .name {
+    .caption {
         position: fixed;
         z-index: 2;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 1rem;
+        pointer-events: none;
+    }
+
+    .name {
+        min-width: 0;
+        overflow-wrap: anywhere;
         font-family: 'customFont';
         font-weight: 700;
         text-transform: uppercase;
-        bottom: 1rem;
         line-height: 0.9;
-        left: 1rem;
         color: white;
         font-size: 20px;
         @media screen and (min-width: $desktop) {
@@ -59,9 +70,10 @@
     }
 
     .title {
-        position: fixed;
-        bottom: 1rem;
-        right: 1rem;
+        flex-shrink: 0;
+        max-width: 40%;
+        overflow-wrap: anywhere;
+        text-align: right;
         font-family: 'customFont';
         font-weight: 700;
         text-transform: uppercase;

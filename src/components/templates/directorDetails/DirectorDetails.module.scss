@@ -13,6 +13,9 @@
         bottom: 1rem;
         left: 1rem;
         z-index: 2;
+        // Laisse 1rem entre le nom et le titre de la vidéo (bas droite)
+        max-width: calc(60% - 1.5rem);
+        overflow-wrap: anywhere;
         font-size: 20px;
         font-family: 'customFont';
         font-weight: 700;
@@ -63,6 +66,9 @@
         position: absolute;
         bottom: 1rem;
         right: 1rem;
+        max-width: calc(40% - 1.5rem);
+        overflow-wrap: anywhere;
+        text-align: right;
         text-transform: uppercase;
         color: white;
         font-family: 'customFont';
