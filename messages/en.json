@@ -11,9 +11,9 @@
         "contact": "contact"
     },
     "Projects": {
-        "commercials": "[commercials]",
-        "musicVideos": "[music videos]",
-        "photography": "[photography]",
+        "commercials": "commercials",
+        "musicVideos": "music videos",
+        "photography": "photography",
         "empty": "No projects yet."
     },
     "Contact": {

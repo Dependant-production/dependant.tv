@@ -7,41 +7,45 @@ import gsap from 'gsap'
 import { Link } from '@/i18n/routing'
 import styles from './ProjectSections.module.scss'
 
+const SECTIONS = [
+    { href: '/projects/commercials', label: 'commercials' },
+    { href: '/projects/music-videos', label: 'musicVideos' },
+    { href: '/projects/photography', label: 'photography' },
+] as const
+
 export default function ProjectSections() {
     const t = useTranslations('Projects')
     const containerRef = useRef<HTMLElement | null>(null)
 
     useGSAP(
         () => {
-            const links = containerRef.current?.querySelectorAll('a')
-            if (!links?.length) return
-
-            gsap.fromTo(
-                links,
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.5,
-                    stagger: 0.1,
-                    ease: 'power2.out',
-                }
+            const words = containerRef.current?.querySelectorAll(
+                `.${styles.word}`
             )
+            if (!words?.length) return
+
+            gsap.to(words, {
+                width: 'auto',
+                delay: 0.3,
+                duration: 1,
+                ease: 'power3.inOut',
+            })
         },
         { scope: containerRef }
     )
 
     return (
         <main className={styles.sections} ref={containerRef}>
-            <Link href="/projects/commercials" className={styles.link}>
-                {t('commercials')}
-            </Link>
-            <Link href="/projects/music-videos" className={styles.link}>
-                {t('musicVideos')}
-            </Link>
-            <Link href="/projects/photography" className={styles.link}>
-                {t('photography')}
-            </Link>
+            {SECTIONS.map(({ href, label }) => (
+                <Link
+                    key={href}
+                    href={href}
+                    aria-label={t(label)}
+                    className={styles.link}
+                >
+                    [<span className={styles.word}>{t(label)}</span>]
+                </Link>
+            ))}
         </main>
     )
 }
