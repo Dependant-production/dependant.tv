@@ -1,7 +1,12 @@
 import { notFound } from 'next/navigation'
 import DirectorDetails from '@/components/templates/directorDetails/DirectorDetails'
+import HomepageProject from '@/components/templates/homepageProject/HomepageProject'
 import ProjectDetails from '@/components/templates/projectDetails/ProjectDetails'
-import { getPhotoProject, getVideoProject } from '@/helpers/projects'
+import {
+    getHomepageProject,
+    getPhotoProject,
+    getVideoProject,
+} from '@/helpers/projects'
 
 type ProjectParams = Promise<{
     locale: string
@@ -29,6 +34,13 @@ export default async function ProjectPage(props: { params: ProjectParams }) {
         if (!director) notFound()
 
         return <DirectorDetails directorData={[director]} />
+    }
+
+    if (type === 'homepage') {
+        const project = await getHomepageProject(locale, documentId)
+        if (!project) notFound()
+
+        return <HomepageProject {...project} />
     }
 
     notFound()

@@ -44,7 +44,7 @@ describe('artist portfolio routes', () => {
             { documentId: 'unset', showInArtistPortfolio: null },
             {
                 documentId: 'projects-only',
-                showInProjects: true,
+                projectsSection: 'commercials',
                 showInArtistPortfolio: false,
             },
         ]
@@ -67,7 +67,7 @@ describe('artist portfolio routes', () => {
             { documentId: 'unset', showInArtistPortfolio: null },
             {
                 documentId: 'projects-only',
-                showInProjects: true,
+                projectsSection: 'commercials',
                 showInArtistPortfolio: false,
             },
         ]
@@ -111,7 +111,7 @@ describe('artist portfolio routes', () => {
                     projects: [
                         {
                             projectSlug: 'selected-project',
-                            showInProjects: true,
+                            projectsSection: 'commercials',
                             showInArtistPortfolio: false,
                         },
                     ],

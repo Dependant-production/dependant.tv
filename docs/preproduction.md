@@ -32,11 +32,11 @@ En cas de perte d’accès, réinitialiser uniquement le compte de préproductio
 
 Les médias sont enregistrés dans `/home/ubuntu/dependantCMS-preprod/public/uploads` avec `UPLOAD_PROVIDER=local`. L’initialisation a recopié les 365 médias existants et leurs variantes, soit 1 522 fichiers et environ 9,5 Go. Leurs références ont été adaptées dans la seule base de préproduction. Une modification ou une suppression dans cette médiathèque agit sur cette copie locale, tandis que la production conserve ses fichiers S3.
 
-Les vidéos existantes restent lisibles via leurs identifiants Mux, mais **l’ajout, la modification et la suppression d’assets Mux sont désactivés** avec `MUX_UPLOADS_ENABLED=false`. Le middleware de lecture seule renvoie une erreur explicite pour ces opérations. Il reste possible de modifier les titres des projets et les cases d’affichage. Pour tester un nouvel upload vidéo ultérieurement, créer d’abord un environnement Mux séparé et fournir ses propres identifiants ; ne pas utiliser les secrets Mux de production.
+Les vidéos existantes restent lisibles via leurs identifiants Mux, mais **l’ajout, la modification et la suppression d’assets Mux sont désactivés** avec `MUX_UPLOADS_ENABLED=false`. Le middleware de lecture seule renvoie une erreur explicite pour ces opérations. Il reste possible de modifier les titres des projets, leur section et les cases d’affichage. Pour tester un nouvel upload vidéo ultérieurement, créer d’abord un environnement Mux séparé et fournir ses propres identifiants ; ne pas utiliser les secrets Mux de production.
 
-L’administration inclut un correctif ciblé dans `src/admin/app.ts` pour l’initialisation Mux avec Strapi 5.4.1 : sans ce correctif, la connexion réussit mais l’écran reste sur « Loading content ». Conserver ce fichier dans les prochaines compilations de l’administration. Le rôle Editor de préproduction peut lire et modifier les trois nouveaux champs de sélection des projets.
+L’administration inclut un correctif ciblé dans `src/admin/app.ts` pour l’initialisation Mux avec Strapi 5.4.1 : sans ce correctif, la connexion réussit mais l’écran reste sur « Loading content ». Conserver ce fichier dans les prochaines compilations de l’administration. Le rôle Editor de préproduction peut lire et modifier `projectsOrder` et `showInArtistPortfolio` ; `projectsSection` reste à lui autoriser (voir le [guide des projets](projects.md)).
 
-Le [guide des projets](projects.md) décrit `showInProjects`, `showInArtistPortfolio` et l’ordre des projets. Pour un affichage uniquement dans l’onglet Projets, activer la première case et désactiver la seconde, tout en conservant l’association à l’artiste.
+Le [guide des projets](projects.md) décrit `projectsSection`, `showInArtistPortfolio` et l’ordre des projets. Pour un affichage uniquement dans l’onglet Projets, choisir une section et désactiver `showInArtistPortfolio`, tout en conservant l’association à l’artiste.
 
 ## Configuration CMS et commandes de suivi
 
@@ -106,7 +106,7 @@ La protection du projet (`all_except_custom_domains`) demande une connexion Verc
 
 1. Contrôler le CMS HTTPS, l’administration, les photos et la lecture des vidéos existantes.
 2. Vérifier que les changements de contenu restent dans le CMS et la base de préproduction.
-3. Valider les quatre combinaisons de `showInProjects` et `showInArtistPortfolio`, l’ordre, les galeries, le nom de l’artiste en bas à droite et l’affichage mobile.
+3. Valider les deux sections, les quatre combinaisons de `projectsSection` et `showInArtistPortfolio`, l’ordre, les galeries, le nom de l’artiste en bas à droite et l’affichage mobile.
 4. Attendre le statut **Ready** de l’aperçu Vercel, contrôler son accès client et transmettre cette URL.
 5. Après validation explicite du client, intégrer le code dans les branches de production et déployer séparément le CMS et le site. Le déploiement du site depuis `master` reste le flux de production.
 6. Organiser les changements de contenu à publier : la base, les utilisateurs et les fichiers de préproduction ne sont jamais recopiés automatiquement en production.
