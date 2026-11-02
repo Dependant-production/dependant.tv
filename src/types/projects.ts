@@ -1,6 +1,6 @@
 export type ProjectCategory = 'photos' | 'videos' | 'homepage'
 
-export type ProjectSection = 'commercials' | 'music-videos'
+export type ProjectSection = 'commercials' | 'music-videos' | 'photography'
 
 export interface VideoProject {
     id: number

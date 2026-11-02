@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Gérer l’onglet Projets
 
-L’onglet ouvre deux listes, `commercials` et `music videos`. La section et l’ordre de chaque projet se règlent dans l’entrée **projects** du Content Manager de Strapi, qui liste les photos, les vidéos et les vidéos de la homepage. Le champ indépendant `showInArtistPortfolio` permet de masquer un projet dans le portfolio de son artiste tout en le gardant dans l’onglet Projets. Voir le [guide de gestion des projets](docs/projects.md) pour le classement et la mise en service.
+L’onglet ouvre trois listes, `commercials`, `music videos` et `photography`. La section et l’ordre de chaque projet se règlent dans l’entrée **projects** du Content Manager de Strapi, qui liste les photos, les vidéos et les vidéos de la homepage. Le champ indépendant `showInArtistPortfolio` permet de masquer un projet dans le portfolio de son artiste tout en le gardant dans l’onglet Projets. Voir le [guide de gestion des projets](docs/projects.md) pour le classement et la mise en service.
 
 Le [CMS de préproduction](https://cms-preprod.dependant.tv/admin) utilise un processus PM2, une base PostgreSQL et des uploads indépendants. Les vidéos existantes y sont en lecture seule. Le [guide de préproduction](docs/preproduction.md) décrit les accès, les mises à jour et le frontend Vercel Preview à faire valider avant livraison depuis `master`.
 

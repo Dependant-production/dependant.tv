@@ -39,6 +39,9 @@ export default function ProjectSections() {
             <Link href="/projects/music-videos" className={styles.link}>
                 {t('musicVideos')}
             </Link>
+            <Link href="/projects/photography" className={styles.link}>
+                {t('photography')}
+            </Link>
         </main>
     )
 }

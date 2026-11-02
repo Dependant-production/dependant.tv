@@ -13,6 +13,7 @@
     "Projects": {
         "commercials": "[commercials]",
         "musicVideos": "[music videos]",
+        "photography": "[photography]",
         "empty": "No projects yet."
     },
     "Contact": {

@@ -1,12 +1,12 @@
 # Gérer l’onglet Projets dans Strapi
 
-Sur le site, **Projets** ouvre une page avec deux entrées, `[publicités]` et `[clips]` en français, `[commercials]` et `[music videos]` en anglais, qui mènent chacune à sa liste de projets. Dans Strapi, les sections s’appellent **Commercials** et **Music videos**. Tout se règle depuis un seul endroit dans Strapi (projet `dependantCMS`) : l’entrée **projects** de la liste du Content Manager, à côté de `projectsPhotos` et `ProjectVideos`. La même page s’ouvre avec l’icône **Onglet Projets** de la barre de gauche.
+Sur le site, **Projets** ouvre une page avec trois entrées, `[commercials]`, `[music videos]` et `[photography]`, en français comme en anglais, qui mènent chacune à sa liste de projets. Dans Strapi, les sections portent les mêmes noms. Tout se règle depuis un seul endroit dans Strapi (projet `dependantCMS`) : l’entrée **projects** de la liste du Content Manager, à côté de `projectsPhotos` et `ProjectVideos`. La même page s’ouvre avec l’icône **Onglet Projets** de la barre de gauche.
 
 ## Classer les projets
 
-Cette page liste **tous** les projets, sans avoir à ouvrir chaque fiche : les photos (`projectsPhotos`), les vidéos (`ProjectVideos`) et les vidéos de la homepage (`homepageVideos`). Ils sont répartis en trois tableaux : **Commercials**, **Music videos** et **Hors de l’onglet**, et la colonne **Type** indique d’où vient chacun. Sur la ligne d’un projet :
+Cette page liste **tous** les projets, sans avoir à ouvrir chaque fiche : les photos (`projectsPhotos`), les vidéos (`ProjectVideos`) et les vidéos de la homepage (`homepageVideos`). Ils sont répartis en quatre tableaux : **Commercials**, **Music videos**, **Photography** et **Hors de l’onglet**, et la colonne **Type** indique d’où vient chacun. Sur la ligne d’un projet :
 
-1. **Section** : choisir `Commercials` ou `Music videos` pour l’afficher dans cette liste, ou `Hors de l’onglet` pour l’en retirer. Un projet n’est que dans une seule section.
+1. **Section** : choisir `Commercials`, `Music videos` ou `Photography` pour l’afficher dans cette liste, ou `Hors de l’onglet` pour l’en retirer. Un projet n’est que dans une seule section.
 2. **Ordre** (facultatif) : le laisser vide pour classer le projet par ordre alphabétique, ou le renseigner pour le placer en tête de liste. Les petits nombres apparaissent d’abord. Utiliser par exemple 10, 20, 30 pour pouvoir intercaler d’autres projets ensuite.
 
 Ces deux réglages s’enregistrent tout seuls, sans ouvrir la fiche ni la publier. Si la fiche contient d’autres modifications non publiées, elles restent en attente.
@@ -68,7 +68,7 @@ Respecter cet ordre, qui garde l’onglet en ligne pendant toute la transition :
 
 1. **Déployer le CMS.** Le champ `projectsSection` s’ajoute sans rien retirer : le site déjà en ligne continue de lire `showInProjects`, masqué dans les fiches mais conservé en base.
 2. **Classer les projets** dans **Onglet Projets** : ceux qui étaient cochés apparaissent avec l’état **À classer**. Cela ne change rien sur le site en ligne.
-3. **Déployer le site.** Il lit désormais uniquement `projectsSection`. Déployé avant le CMS, il afficherait une erreur sur les deux listes, car Strapi refuse un filtre sur un champ qu’il ne connaît pas.
+3. **Déployer le site.** Il lit désormais uniquement `projectsSection`. Déployé avant le CMS, il afficherait une erreur sur les listes, car Strapi refuse un filtre sur un champ qu’il ne connaît pas.
 4. Une fois le site déployé dans tous les environnements, `showInProjects` et l’état **À classer** peuvent être retirés du CMS.
 
 Le classement ne se recopie pas d’un environnement à l’autre : il est à refaire en production, même s’il a été fait en préproduction.
