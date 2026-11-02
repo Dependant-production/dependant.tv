@@ -23,12 +23,13 @@ export default function LocalSwitcher() {
     const locales = routing.locales.filter((locale) => locale !== currentLocale)
 
     const isContactPage = pathname.startsWith('/contact')
+    const isProjectSectionsPage = pathname === '/projects'
     const isPhotographersPage = pathname.startsWith('/photographers/')
     const isPhotoProjectPage = pathname.startsWith('/projects/photos/')
 
     let color = styles.white
 
-    if (isContactPage) {
+    if (isContactPage || isProjectSectionsPage) {
         color = styles.black
     } else if (isPhotographersPage || isPhotoProjectPage) {
         color = isMobile ? styles.white : styles.black

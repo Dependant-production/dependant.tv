@@ -1,10 +1,12 @@
-export type ProjectCategory = 'photos' | 'videos'
+export type ProjectCategory = 'photos' | 'videos' | 'homepage'
+
+export type ProjectSection = 'commercials' | 'music-videos'
 
 export interface VideoProject {
     id: number
     documentId: string
     title: string
-    showInProjects?: boolean | null
+    projectsSection?: ProjectSection | null
     showInArtistPortfolio?: boolean | null
     projectsOrder?: number | null
     director?: Pick<DirectorType, 'name'> | null

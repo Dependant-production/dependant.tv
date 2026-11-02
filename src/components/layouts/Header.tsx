@@ -18,12 +18,13 @@ export const Header = () => {
     const headerRef = useRef<HTMLDivElement | null>(null)
 
     const isContactPage = pathname.startsWith('/contact')
+    const isProjectSectionsPage = pathname === '/projects'
     const isPhotographersPage = pathname.startsWith('/photographers/')
     const isPhotoProjectPage = pathname.startsWith('/projects/photos/')
 
     let color: 'white' | 'black' = 'white'
 
-    if (isContactPage) {
+    if (isContactPage || isProjectSectionsPage) {
         color = 'black'
     } else if (isPhotographersPage || isPhotoProjectPage) {
         color = isMobile ? 'white' : 'black'

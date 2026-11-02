@@ -11,6 +11,8 @@
         "contact": "contact"
     },
     "Projects": {
+        "commercials": "[publicités]",
+        "musicVideos": "[clips]",
         "empty": "Aucun projet pour le moment."
     },
     "Contact": {

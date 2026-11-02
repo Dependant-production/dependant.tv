@@ -7,11 +7,14 @@ type tParams = Promise<{ locale: string }>
 
 interface HomepageItem {
     createdAt: string
-    director?: DirectorType
+    director?: DirectorType | null
+    directorName?: string | null
     directorNameBIS?: string | null
     documentId: string
     id: number
     order: number
+    projectsSection?: import('./projects').ProjectSection | null
+    projectsOrder?: number | null
     publishedAt: string
     title: string
     updatedAt: string
@@ -88,7 +91,7 @@ interface ProjectType {
     publishedAt: string
     coverMedia?: MediaType
     media?: MediaType[]
-    showInProjects?: boolean | null
+    projectsSection?: import('./projects').ProjectSection | null
     showInArtistPortfolio?: boolean | null
     projectsOrder?: number | null
     photographerName?: string | null

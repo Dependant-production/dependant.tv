@@ -1,49 +1,57 @@
 # Gérer l’onglet Projets dans Strapi
 
-La sélection se gère dans le projet `dependantCMS`, depuis **Content Manager**.
-L’onglet réutilise les projets photo et vidéo existants.
+Sur le site, **Projets** ouvre une page avec deux entrées, `[publicités]` et `[clips]` en français, `[commercials]` et `[music videos]` en anglais, qui mènent chacune à sa liste de projets. Dans Strapi, les sections s’appellent **Commercials** et **Music videos**. Tout se règle depuis un seul endroit dans Strapi (projet `dependantCMS`) : l’entrée **projects** de la liste du Content Manager, à côté de `projectsPhotos` et `ProjectVideos`. La même page s’ouvre avec l’icône **Onglet Projets** de la barre de gauche.
 
-## Choisir et ordonner les projets
+## Classer les projets
 
-1. Ouvrir **projectsPhotos** pour un projet photo, ou **ProjectVideos** pour une vidéo.
-2. Ouvrir la fiche du projet et activer **showInProjects** pour l’inclure dans l’onglet.
-3. **projectsOrder** est facultatif. Le laisser vide pour classer le projet par ordre alphabétique, ou le renseigner pour le placer en tête de liste : les petits nombres apparaissent d’abord. Utiliser par exemple 10, 20, 30 pour pouvoir intercaler d’autres projets ensuite.
-4. Choisir **showInArtistPortfolio** : activé pour afficher aussi ce projet sur la page de son artiste, désactivé pour le retirer de son portfolio.
-5. Enregistrer et **publier** la fiche. Une modification enregistrée en brouillon ne modifie pas la version publiée.
+Cette page liste **tous** les projets, sans avoir à ouvrir chaque fiche : les photos (`projectsPhotos`), les vidéos (`ProjectVideos`) et les vidéos de la homepage (`homepageVideos`). Ils sont répartis en trois tableaux : **Commercials**, **Music videos** et **Hors de l’onglet**, et la colonne **Type** indique d’où vient chacun. Sur la ligne d’un projet :
 
-L’ordre est commun aux photos et vidéos. Les projets qui ont un ordre s’affichent en premier, puis tous les autres par ordre alphabétique du titre. À ordre égal, les titres sont aussi classés par ordre alphabétique. Un ordre vide ou égal à 0 compte comme « pas d’ordre ».
+1. **Section** : choisir `Commercials` ou `Music videos` pour l’afficher dans cette liste, ou `Hors de l’onglet` pour l’en retirer. Un projet n’est que dans une seule section.
+2. **Ordre** (facultatif) : le laisser vide pour classer le projet par ordre alphabétique, ou le renseigner pour le placer en tête de liste. Les petits nombres apparaissent d’abord. Utiliser par exemple 10, 20, 30 pour pouvoir intercaler d’autres projets ensuite.
 
-Pour retirer un projet de cet onglet, désactiver **showInProjects**, puis publier.
+Ces deux réglages s’enregistrent tout seuls, sans ouvrir la fiche ni la publier. Si la fiche contient d’autres modifications non publiées, elles restent en attente.
 
-## Voir tous les projets de l’onglet
+Dans chaque section, tous les types sont mélangés : les projets qui ont un ordre s’affichent en premier, puis tous les autres par ordre alphabétique du titre. À ordre égal, les titres sont aussi classés par ordre alphabétique. Un ordre vide ou égal à 0 compte comme « pas d’ordre ».
 
-Le menu **Onglet Projets**, dans la barre de gauche de Strapi, regroupe dans un seul tableau les projets photo et vidéo cochés, dans l’ordre du site. Chaque ligne indique le type, l’artiste, l’ordre et l’état, avec un lien vers la fiche :
+La colonne **État** indique où en est chaque projet :
 
-- **Publié** : le projet est sur le site.
-- **Modifications non publiées** : le projet est sur le site, mais la fiche contient des changements à publier.
-- **À publier** : la case est cochée sur le brouillon seulement ; publier la fiche pour l’afficher.
+- **Sur le site** : le projet est affiché.
+- **Modifications non publiées** : le projet est affiché, mais sa fiche contient des changements à publier.
+- **À publier** : le projet n’a jamais été publié ; publier sa fiche pour l’afficher.
 - **Vidéo Mux manquante** : la vidéo est publiée, mais n’a pas encore de média Mux lisible ; le site ne l’affiche pas.
+- **À classer** : le projet avait été sélectionné avant la création des sections ; lui choisir une section. Ces projets sont en tête du tableau **Hors de l’onglet**.
+- **Non affiché** : le projet n’est pas dans l’onglet.
 
-Ce menu n’apparaît qu’aux comptes autorisés à lire les deux types de projets.
-Cette case concerne uniquement l’onglet Projets : elle ne change pas la sélection des pages réalisateurs et photographes.
+L’entrée **projects** n’apparaît qu’aux comptes autorisés à lire les trois types de projets. L’icône apparaît dès qu’un compte peut en lire un seul, mais la page affiche alors une erreur. Modifier une ligne demande le droit de modifier les trois types.
 
-Les deux cases sont indépendantes :
+## Depuis la fiche d’un projet
 
-| showInProjects | showInArtistPortfolio | Affichage                                 |
-| -------------- | --------------------- | ----------------------------------------- |
-| Activé         | Désactivé             | Uniquement dans l’onglet Projets          |
-| Désactivé      | Activé                | Uniquement dans le portfolio de l’artiste |
-| Activé         | Activé                | Dans les deux                             |
-| Désactivé      | Désactivé             | Dans aucune des deux listes               |
+Les mêmes réglages existent dans les fiches **projectsPhotos**, **ProjectVideos** et **homepageVideos**, avec les champs **projectsSection** et **projectsOrder**. Dans la fiche, ils suivent le fonctionnement habituel : il faut enregistrer puis **publier**.
+
+**showInArtistPortfolio** existe sur les photos et les vidéos, et se règle uniquement dans la fiche : activé pour afficher aussi le projet sur la page de son artiste, désactivé pour le retirer de son portfolio. Il est indépendant de la section :
+
+| projectsSection | showInArtistPortfolio | Affichage                                 |
+| --------------- | --------------------- | ----------------------------------------- |
+| Renseignée      | Désactivé             | Uniquement dans l’onglet Projets          |
+| Vide            | Activé                | Uniquement dans le portfolio de l’artiste |
+| Renseignée      | Activé                | Dans les deux                             |
+| Vide            | Désactivé             | Dans aucune des deux listes               |
 
 Conserver l’association au réalisateur ou au photographe, même pour un projet affiché uniquement dans l’onglet Projets : elle sert à récupérer son nom. Le projet est masqué du portfolio grâce à **showInArtistPortfolio**, sans supprimer cette association. Les projets existants restent visibles dans les portfolios tant que cette case n’est pas explicitement désactivée.
 
 L’artiste peut rester en **brouillon** : seul le projet doit être publié. Il apparaît alors dans l’onglet Projets avec le nom de l’artiste, sans que la page de l’artiste soit visible sur le site. Le CMS ajoute ce nom aux réponses de l’API (`photographerName` pour les photos, `directorName` pour les vidéos), car Strapi ne renvoie pas la relation vers un artiste non publié.
 
+## Vidéos de la homepage
+
+Une vidéo de la homepage placée dans une section y apparaît en plus de la homepage : elle ne la quitte pas. Son champ `order` règle sa place sur la homepage, et `projectsOrder` sa place dans l’onglet.
+
+Le site utilise le premier fichier du champ `url` comme aperçu dans la liste. Au clic, il ouvre une page avec ce fichier en lecture, sans le son au départ, et le lecteur permet de l’activer. Le nom affiché est celui du réalisateur, sinon `directorNameBIS`.
+
 ## Mettre à jour le contenu
 
 - **Photos** : modifier `title`, `coverMedia` (aperçu) et `media` (galerie) dans **projectsPhotos**. Le projet doit être associé à un photographe via le champ `projects` de sa fiche.
 - **Vidéos** : modifier `title` et les médias Mux dans **ProjectVideos**. Le projet doit être associé à un réalisateur et comporter au moins un média avec un identifiant de lecture Mux.
+- **Homepage** : modifier `title`, `url` et le réalisateur (ou `directorNameBIS`) dans **homepageVideos**.
 - Le nom affiché en bas à droite est repris de la fiche du photographe ou du réalisateur associé.
 
 Les données de cet onglet et de ses pages de détail ont un cache de 60 secondes. Après publication, attendre son expiration et recharger la page ; la première visite peut encore servir la version précédente pendant l’actualisation en arrière-plan.
@@ -54,9 +62,15 @@ Les champs sont définis dans les deux schémas du dépôt `dependantCMS` :
 
 - `src/api/project/content-types/project/schema.json`
 - `src/api/project-video/content-types/project-video/schema.json`
+- `src/api/homepage-video/content-types/homepage-video/schema.json`
 
-Redémarrer le CMS local, ou reconstruire et redéployer le CMS hébergé, pour charger ces schémas avant de déployer le site. Si un formulaire d’administration personnalisé masque les nouveaux champs, les ajouter via **Configurer la vue**.
+Respecter cet ordre, qui garde l’onglet en ligne pendant toute la transition :
 
-Pour un rôle comme **Editor**, autoriser aussi la lecture, la création et la modification de `showInProjects`, `projectsOrder` et `showInArtistPortfolio` dans les permissions des deux types de projet. Les droits existants n’incluent pas automatiquement les nouveaux champs. Ce réglage est appliqué au rôle Editor de préproduction ; il devra être vérifié lors de la mise en production.
+1. **Déployer le CMS.** Le champ `projectsSection` s’ajoute sans rien retirer : le site déjà en ligne continue de lire `showInProjects`, masqué dans les fiches mais conservé en base.
+2. **Classer les projets** dans **Onglet Projets** : ceux qui étaient cochés apparaissent avec l’état **À classer**. Cela ne change rien sur le site en ligne.
+3. **Déployer le site.** Il lit désormais uniquement `projectsSection`. Déployé avant le CMS, il afficherait une erreur sur les deux listes, car Strapi refuse un filtre sur un champ qu’il ne connaît pas.
+4. Une fois le site déployé dans tous les environnements, `showInProjects` et l’état **À classer** peuvent être retirés du CMS.
 
-La sélection est explicite : `showInProjects` vaut `false` par défaut, et seules les fiches publiées avec la case activée apparaissent. Les projets existants doivent donc être sélectionnés puis republiés. Tant que le CMS ne renvoie pas ce champ ou qu’aucun projet n’est sélectionné, l’onglet affiche son état vide.
+Le classement ne se recopie pas d’un environnement à l’autre : il est à refaire en production, même s’il a été fait en préproduction.
+
+Pour un rôle comme **Editor**, autoriser aussi la lecture, la création et la modification de `projectsSection` dans les permissions des trois types de projet, ainsi que `projectsOrder` sur `homepageVideos`, sans quoi ces champs restent invisibles dans la fiche. Les droits existants n’incluent pas automatiquement les nouveaux champs. Le tableau **Onglet Projets** n’en dépend pas.
