@@ -1,6 +1,6 @@
 # Gérer l’onglet Projets dans Strapi
 
-Sur le site, **Projets** ouvre une page avec trois entrées, `[commercials]`, `[music videos]` et `[photography]`, en français comme en anglais, qui mènent chacune à sa liste de projets. Dans Strapi, les sections portent les mêmes noms. Tout se règle depuis un seul endroit dans Strapi (projet `dependantCMS`) : l’entrée **projects** de la liste du Content Manager, à côté de `projectsPhotos` et `ProjectVideos`. La même page s’ouvre avec l’icône **Onglet Projets** de la barre de gauche.
+Sur le site, **Projets** ouvre une page avec trois entrées, `[commercials]`, `[music videos]` et `[stills]`, en français comme en anglais, qui mènent chacune à sa liste de projets. Dans Strapi, les deux premières portent les mêmes noms ; la section `[stills]` y s’appelle **Photography** (valeur `photography`, qui reste aussi dans l’adresse `/projects/photography`). Tout se règle depuis un seul endroit dans Strapi (projet `dependantCMS`) : l’entrée **projects** de la liste du Content Manager, à côté de `projectsPhotos` et `ProjectVideos`. La même page s’ouvre avec l’icône **Onglet Projets** de la barre de gauche.
 
 ## Classer les projets
 

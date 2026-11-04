@@ -61,22 +61,25 @@
     }
 
     list-style: none;
+    // Same spacing as the directors and photographers lists: 24px per name
+    // on phones, 50px on desktop.
     font-size: 20px;
-    line-height: 1;
+    line-height: 1.2;
     text-transform: uppercase;
 
     @media screen and (min-width: $desktop) {
         font-size: 50px;
+        line-height: 1;
     }
 }
 
+// Also targeted by the fade-in animation in Projects.tsx.
 .name {
-    padding: 0.1rem 0;
+    overflow-wrap: anywhere;
 }
 
 .link {
     display: block;
-    overflow-wrap: anywhere;
 
     &:focus-visible {
         font-weight: 700;

@@ -15,7 +15,7 @@ jest.mock('../../../i18n/routing', () => ({
 }))
 
 describe('Project sections', () => {
-    it('links to the commercials, music videos and photography lists', () => {
+    it('links to the commercials, music videos and stills lists', () => {
         render(<ProjectSections />)
 
         expect(
@@ -25,7 +25,7 @@ describe('Project sections', () => {
             screen.getByRole('link', { name: 'musicVideos' })
         ).toHaveAttribute('href', '/projects/music-videos')
         expect(
-            screen.getByRole('link', { name: 'photography' })
+            screen.getByRole('link', { name: 'stills' })
         ).toHaveAttribute('href', '/projects/photography')
     })
 })
