@@ -10,7 +10,7 @@ import styles from './ProjectSections.module.scss'
 const SECTIONS = [
     { href: '/projects/commercials', label: 'commercials' },
     { href: '/projects/music-videos', label: 'musicVideos' },
-    { href: '/projects/photography', label: 'photography' },
+    { href: '/projects/photography', label: 'stills' },
 ] as const
 
 export default function ProjectSections() {
