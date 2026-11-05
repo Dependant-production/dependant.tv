@@ -28,7 +28,12 @@ async function fetchAll<T>(endpoint: string, tags: string[]): Promise<T[]> {
 }
 
 export function isProjectSection(value: string): value is ProjectSection {
-    return ['commercials', 'music-videos', 'photography'].includes(value)
+    return [
+        'commercials',
+        'music-videos',
+        'photography',
+        'unscripted',
+    ].includes(value)
 }
 
 // Empty or 0 (the former CMS default) means the project has no set order.

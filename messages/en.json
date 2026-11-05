@@ -14,6 +14,7 @@
         "commercials": "commercials",
         "musicVideos": "music videos",
         "stills": "stills",
+        "unscripted": "unscripted",
         "empty": "No projects yet."
     },
     "Contact": {
@@ -21,10 +22,10 @@
             "title": "[contact]",
             "titleServices": "[services]",
             "titleCredits": "[credits]",
-            "advertising": "Commercial",
+            "advertising": "Commercials",
             "clip": "Music Videos",
-            "brand": "Brand content",
-            "print": "Print",
+            "brand": "Unscripted",
+            "print": "Stills",
             "designed": "Designed by",
             "designer": "Baptiste Guiné",
             "developed": "Developed by",

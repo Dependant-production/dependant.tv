@@ -603,10 +603,11 @@ describe('project catalog', () => {
         }
     )
 
-    it('recognises only the three sections of the Projects tab', () => {
+    it('recognises only the four sections of the Projects tab', () => {
         expect(isProjectSection('commercials')).toBe(true)
         expect(isProjectSection('music-videos')).toBe(true)
         expect(isProjectSection('photography')).toBe(true)
+        expect(isProjectSection('unscripted')).toBe(true)
         expect(isProjectSection('photos')).toBe(false)
     })
 

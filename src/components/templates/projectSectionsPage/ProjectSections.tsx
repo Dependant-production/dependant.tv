@@ -11,6 +11,7 @@ const SECTIONS = [
     { href: '/projects/commercials', label: 'commercials' },
     { href: '/projects/music-videos', label: 'musicVideos' },
     { href: '/projects/photography', label: 'stills' },
+    { href: '/projects/unscripted', label: 'unscripted' },
 ] as const
 
 export default function ProjectSections() {

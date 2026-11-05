@@ -10,7 +10,7 @@
     padding: 1rem;
     color: black;
 
-    // The three sections only fit on one line from tablets up.
+    // The four sections only fit on one line from tablets up.
     @media screen and (min-width: $tablet) {
         flex-direction: row;
         justify-content: space-evenly;
@@ -26,15 +26,16 @@
     }
 }
 
-// Same size as the project names on the next page.
 .link {
     display: flex;
     font-size: 20px;
     line-height: 1;
     transition: color 0.4s ease;
 
+    // The four words take about 980px at 50px: they shrink with the screen
+    // until it is wide enough to hold them on one line.
     @media screen and (min-width: $desktop) {
-        font-size: 50px;
+        font-size: min(50px, 4.4vw);
     }
 
     &:focus-visible {

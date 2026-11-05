@@ -1,12 +1,12 @@
 # Gérer l’onglet Projets dans Strapi
 
-Sur le site, **Projets** ouvre une page avec trois entrées, `[commercials]`, `[music videos]` et `[stills]`, en français comme en anglais, qui mènent chacune à sa liste de projets. Dans Strapi, les deux premières portent les mêmes noms ; la section `[stills]` y s’appelle **Photography** (valeur `photography`, qui reste aussi dans l’adresse `/projects/photography`). Tout se règle depuis un seul endroit dans Strapi (projet `dependantCMS`) : l’entrée **projects** de la liste du Content Manager, à côté de `projectsPhotos` et `ProjectVideos`. La même page s’ouvre avec l’icône **Onglet Projets** de la barre de gauche.
+Sur le site, **Projets** ouvre une page avec quatre entrées, `[commercials]`, `[music videos]`, `[stills]` et `[unscripted]`, en français comme en anglais, qui mènent chacune à sa liste de projets. Dans Strapi, `Commercials`, `Music videos` et `Unscripted` portent les mêmes noms ; la section `[stills]` y s’appelle **Photography** (valeur `photography`, qui reste aussi dans l’adresse `/projects/photography`). Tout se règle depuis un seul endroit dans Strapi (projet `dependantCMS`) : l’entrée **projects** de la liste du Content Manager, à côté de `projectsPhotos` et `ProjectVideos`. La même page s’ouvre avec l’icône **Onglet Projets** de la barre de gauche.
 
 ## Classer les projets
 
-Cette page liste **tous** les projets, sans avoir à ouvrir chaque fiche : les photos (`projectsPhotos`), les vidéos (`ProjectVideos`) et les vidéos de la homepage (`homepageVideos`). Ils sont répartis en quatre tableaux : **Commercials**, **Music videos**, **Photography** et **Hors de l’onglet**, et la colonne **Type** indique d’où vient chacun. Sur la ligne d’un projet :
+Cette page liste **tous** les projets, sans avoir à ouvrir chaque fiche : les photos (`projectsPhotos`), les vidéos (`ProjectVideos`) et les vidéos de la homepage (`homepageVideos`). Ils sont répartis en cinq tableaux : **Commercials**, **Music videos**, **Photography**, **Unscripted** et **Hors de l’onglet**, et la colonne **Type** indique d’où vient chacun. Sur la ligne d’un projet :
 
-1. **Section** : choisir `Commercials`, `Music videos` ou `Photography` pour l’afficher dans cette liste, ou `Hors de l’onglet` pour l’en retirer. Un projet n’est que dans une seule section.
+1. **Section** : choisir `Commercials`, `Music videos`, `Photography` ou `Unscripted` pour l’afficher dans cette liste, ou `Hors de l’onglet` pour l’en retirer. Un projet n’est que dans une seule section.
 2. **Ordre** (facultatif) : le laisser vide pour classer le projet par ordre alphabétique, ou le renseigner pour le placer en tête de liste. Les petits nombres apparaissent d’abord. Utiliser par exemple 10, 20, 30 pour pouvoir intercaler d’autres projets ensuite.
 
 Ces deux réglages s’enregistrent tout seuls, sans ouvrir la fiche ni la publier. Si la fiche contient d’autres modifications non publiées, elles restent en attente.
