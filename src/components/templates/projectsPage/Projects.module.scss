@@ -61,14 +61,13 @@
     }
 
     list-style: none;
-    // Same spacing as the directors and photographers lists: 24px per name
-    // on phones, 50px on desktop.
-    font-size: 20px;
+    // Smaller than the directors and photographers lists (20px and 50px).
+    font-size: 16px;
     line-height: 1.2;
     text-transform: uppercase;
 
     @media screen and (min-width: $desktop) {
-        font-size: 50px;
+        font-size: 36px;
         line-height: 1;
     }
 }
