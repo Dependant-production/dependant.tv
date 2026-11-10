@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { useGSAP } from '@gsap/react'
@@ -13,12 +13,20 @@ import styles from './Projects.module.scss'
 
 interface ProjectsProps {
     projects: ProjectListItem[]
+    // Projects listed before the "more" button; undefined lists them all.
+    beforeMore?: number
 }
 
-export default function Projects({ projects }: ProjectsProps) {
+export default function Projects({ projects, beforeMore }: ProjectsProps) {
     const t = useTranslations('Projects')
     const [selectedProject, setSelectedProject] = useState(projects[0])
+    const [showAll, setShowAll] = useState(false)
     const containerRef = useRef<HTMLElement | null>(null)
+    const listedProjects =
+        showAll || !beforeMore ? projects : projects.slice(0, beforeMore)
+    const hasMore = listedProjects.length < projects.length
+    // Number of projects listed before "more" was clicked, if it was.
+    const revealedFrom = showAll ? beforeMore : undefined
 
     useGSAP(
         () => {
@@ -27,8 +35,9 @@ export default function Projects({ projects }: ProjectsProps) {
             )
             if (!names?.length) return
 
+            // On arrival every name fades in; after "more", only the new ones.
             gsap.fromTo(
-                names,
+                Array.from(names).slice(revealedFrom ?? 0),
                 { opacity: 0 },
                 {
                     opacity: 1,
@@ -38,8 +47,17 @@ export default function Projects({ projects }: ProjectsProps) {
                 }
             )
         },
-        { scope: containerRef }
+        { scope: containerRef, dependencies: [revealedFrom] }
     )
+
+    useEffect(() => {
+        if (revealedFrom === undefined) return
+
+        // The button is gone: keep the focus on the first project it revealed.
+        containerRef.current
+            ?.querySelectorAll<HTMLElement>(`.${styles.link}`)
+            [revealedFrom]?.focus()
+    }, [revealedFrom])
 
     const currentProject =
         projects.find(
@@ -86,7 +104,7 @@ export default function Projects({ projects }: ProjectsProps) {
             <section className={styles.textContainer}>
                 {projects.length > 0 ? (
                     <ul className={styles.nameContainer}>
-                        {projects.map((project) => {
+                        {listedProjects.map((project) => {
                             const isSelected = project === currentProject
 
                             return (
@@ -128,6 +146,17 @@ export default function Projects({ projects }: ProjectsProps) {
                                 </li>
                             )
                         })}
+                        {hasMore && (
+                            <li className={styles.name}>
+                                <button
+                                    type="button"
+                                    className={`${styles.link} ${styles.more}`}
+                                    onClick={() => setShowAll(true)}
+                                >
+                                    {t('more')}
+                                </button>
+                            </li>
+                        )}
                     </ul>
                 ) : (
                     <p className={styles.empty}>{t('empty')}</p>

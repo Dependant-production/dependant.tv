@@ -3,6 +3,7 @@ import {
     getHomepageProject,
     getPhotoProject,
     getProjects,
+    getProjectsBeforeMore,
     getVideoProject,
     isProjectSection,
 } from './projects'
@@ -625,6 +626,58 @@ describe('project catalog', () => {
         await expect(getProjects('fr', 'commercials')).rejects.toThrow(
             'Strapi unavailable'
         )
+    })
+})
+
+describe('projects shown before "more"', () => {
+    beforeEach(() => {
+        mockFetchStrapi.mockReset()
+    })
+
+    it('reads the number set for each section', async () => {
+        mockFetchStrapi.mockResolvedValue({
+            data: {
+                commercialsBeforeMore: 4,
+                musicVideosBeforeMore: 6,
+                photographyBeforeMore: 8,
+                unscriptedBeforeMore: 10,
+            },
+        })
+
+        await expect(getProjectsBeforeMore('commercials')).resolves.toBe(4)
+        await expect(getProjectsBeforeMore('music-videos')).resolves.toBe(6)
+        await expect(getProjectsBeforeMore('photography')).resolves.toBe(8)
+        await expect(getProjectsBeforeMore('unscripted')).resolves.toBe(10)
+        expect(mockFetchStrapi).toHaveBeenCalledWith('/api/projects-tab', {
+            revalidate: 60,
+            tags: ['projects', 'projects-tab'],
+        })
+    })
+
+    it('shows the whole section when its number is empty or 0', async () => {
+        mockFetchStrapi.mockResolvedValue({
+            data: { commercialsBeforeMore: 0, musicVideosBeforeMore: null },
+        })
+
+        await expect(
+            getProjectsBeforeMore('commercials')
+        ).resolves.toBeUndefined()
+        await expect(
+            getProjectsBeforeMore('music-videos')
+        ).resolves.toBeUndefined()
+        await expect(
+            getProjectsBeforeMore('photography')
+        ).resolves.toBeUndefined()
+    })
+
+    it('shows the whole section while Strapi has no setting or cannot answer', async () => {
+        mockFetchStrapi.mockRejectedValue(
+            new Error('Strapi fetch error: 404 - Not Found')
+        )
+
+        await expect(
+            getProjectsBeforeMore('commercials')
+        ).resolves.toBeUndefined()
     })
 })
 

@@ -101,6 +101,19 @@
     }
 }
 
+// "more" button at the end of a list, styled like the names above it.
+.more {
+    margin-top: 0.5em;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    text-transform: inherit;
+    cursor: pointer;
+}
+
 .creatorName {
     max-width: 30%;
     overflow-wrap: anywhere;

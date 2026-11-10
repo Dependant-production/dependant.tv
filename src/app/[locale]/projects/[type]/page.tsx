@@ -1,7 +1,11 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Projects from '@/components/templates/projectsPage/Projects'
-import { getProjects, isProjectSection } from '@/helpers/projects'
+import {
+    getProjects,
+    getProjectsBeforeMore,
+    isProjectSection,
+} from '@/helpers/projects'
 
 export const metadata: Metadata = {
     title: 'Projects',
@@ -15,7 +19,11 @@ export default async function ProjectSectionPage(props: {
     const { locale, type } = await props.params
     if (!isProjectSection(type)) notFound()
 
-    const projects = await getProjects(locale, type)
+    const [projects, beforeMore] = await Promise.all([
+        getProjects(locale, type),
+        getProjectsBeforeMore(type),
+    ])
 
-    return <Projects projects={projects} />
+    // Keyed by section, so moving to another one starts with its short list.
+    return <Projects key={type} projects={projects} beforeMore={beforeMore} />
 }

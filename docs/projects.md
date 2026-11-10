@@ -13,6 +13,12 @@ Ces deux réglages s’enregistrent tout seuls, sans ouvrir la fiche ni la publi
 
 Dans chaque section, tous les types sont mélangés : les projets qui ont un ordre s’affichent en premier, puis tous les autres par ordre alphabétique du titre. À ordre égal, les titres sont aussi classés par ordre alphabétique. Un ordre vide ou égal à 0 compte comme « pas d’ordre ».
 
+## Nombre de projets avant « more »
+
+Au-dessus du tableau de chaque section, le champ **Projets affichés sur le site** fixe combien de projets la section montre à l’arrivée. Les suivants apparaissent sous la liste au clic sur le bouton `more`, en français comme en anglais. Vide ou 0 : la section affiche tous ses projets, sans bouton ; le bouton n’apparaît pas non plus si la section compte autant de projets ou moins.
+
+Le nombre s’enregistre en quittant le champ, comme l’ordre, et vaut pour les deux langues. Il compte uniquement les projets affichés sur le site (états **Sur le site** et **Modifications non publiées**), dans l’ordre du tableau. Les mêmes nombres se trouvent dans le type unique **projectsTab** du Content Manager (`commercialsBeforeMore`, `musicVideosBeforeMore`, `photographyBeforeMore` pour la section `[stills]`, `unscriptedBeforeMore`), où ils s’enregistrent aussi sans publication.
+
 La colonne **État** indique où en est chaque projet :
 
 - **Sur le site** : le projet est affiché.
@@ -22,7 +28,7 @@ La colonne **État** indique où en est chaque projet :
 - **À classer** : le projet avait été sélectionné avant la création des sections ; lui choisir une section. Ces projets sont en tête du tableau **Hors de l’onglet**.
 - **Non affiché** : le projet n’est pas dans l’onglet.
 
-L’entrée **projects** n’apparaît qu’aux comptes autorisés à lire les trois types de projets. L’icône apparaît dès qu’un compte peut en lire un seul, mais la page affiche alors une erreur. Modifier une ligne demande le droit de modifier les trois types.
+L’entrée **projects** n’apparaît qu’aux comptes autorisés à lire les trois types de projets. L’icône apparaît dès qu’un compte peut en lire un seul, mais la page affiche alors une erreur. Modifier une ligne ou un nombre de projets affichés demande le droit de modifier les trois types.
 
 ## Depuis la fiche d’un projet
 
@@ -58,11 +64,12 @@ Les données de cet onglet et de ses pages de détail ont un cache de 60 seconde
 
 ## Première mise en service
 
-Les champs sont définis dans les deux schémas du dépôt `dependantCMS` :
+Les champs sont définis dans ces schémas du dépôt `dependantCMS` :
 
 - `src/api/project/content-types/project/schema.json`
 - `src/api/project-video/content-types/project-video/schema.json`
 - `src/api/homepage-video/content-types/homepage-video/schema.json`
+- `src/api/projects-tab/content-types/projects-tab/schema.json` (nombres de projets avant `more`)
 
 Respecter cet ordre, qui garde l’onglet en ligne pendant toute la transition :
 
@@ -71,6 +78,8 @@ Respecter cet ordre, qui garde l’onglet en ligne pendant toute la transition :
 3. **Déployer le site.** Il lit désormais uniquement `projectsSection`. Déployé avant le CMS, il afficherait une erreur sur les listes, car Strapi refuse un filtre sur un champ qu’il ne connaît pas.
 4. Une fois le site déployé dans tous les environnements, `showInProjects` et l’état **À classer** peuvent être retirés du CMS.
 
-Le classement ne se recopie pas d’un environnement à l’autre : il est à refaire en production, même s’il a été fait en préproduction.
+Le classement ne se recopie pas d’un environnement à l’autre : il est à refaire en production, même s’il a été fait en préproduction. Il en va de même pour les nombres de projets avant `more`.
 
-Pour un rôle comme **Editor**, autoriser aussi la lecture, la création et la modification de `projectsSection` dans les permissions des trois types de projet, ainsi que `projectsOrder` sur `homepageVideos`, sans quoi ces champs restent invisibles dans la fiche. Les droits existants n’incluent pas automatiquement les nouveaux champs. Le tableau **Onglet Projets** n’en dépend pas.
+Le nombre de projets avant `more` n’impose pas d’ordre de déploiement : tant que le CMS ne le fournit pas, ou qu’aucun nombre n’a encore été enregistré, le site affiche toutes les sections en entier. Le site le lit sans jeton, par `/api/projects-tab`, ouverte en lecture par le code du CMS : il n’y a rien à cocher dans les permissions du rôle **Public**.
+
+Pour un rôle comme **Editor**, autoriser aussi la lecture, la création et la modification de `projectsSection` dans les permissions des trois types de projet, ainsi que `projectsOrder` sur `homepageVideos`, sans quoi ces champs restent invisibles dans la fiche. Les droits existants n’incluent pas automatiquement les nouveaux champs. Le tableau **Onglet Projets** n’en dépend pas. Pour que ce rôle voie aussi **projectsTab** dans le Content Manager, lui donner les droits de lecture et de modification sur ce type ; les champs de la page **Onglet Projets** n’en ont pas besoin.
