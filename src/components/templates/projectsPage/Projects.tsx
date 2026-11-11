@@ -22,6 +22,9 @@ export default function Projects({ projects, beforeMore }: ProjectsProps) {
     const [selectedProject, setSelectedProject] = useState(projects[0])
     const [showAll, setShowAll] = useState(false)
     const containerRef = useRef<HTMLElement | null>(null)
+    const listRef = useRef<HTMLUListElement | null>(null)
+    // Height of the list when "more" was clicked, to unfold it from there.
+    const heightBeforeMore = useRef(0)
     const listedProjects =
         showAll || !beforeMore ? projects : projects.slice(0, beforeMore)
     const hasMore = listedProjects.length < projects.length
@@ -35,13 +38,40 @@ export default function Projects({ projects, beforeMore }: ProjectsProps) {
             )
             if (!names?.length) return
 
-            // On arrival every name fades in; after "more", only the new ones.
+            // On arrival every name fades in.
+            if (revealedFrom === undefined) {
+                gsap.fromTo(
+                    names,
+                    { opacity: 0 },
+                    {
+                        opacity: 1,
+                        duration: 0.6,
+                        stagger: { amount: 0.6 },
+                        ease: 'power2.out',
+                    }
+                )
+                return
+            }
+
+            // After "more", the list sits at the bottom of the screen and grows
+            // upwards: it unfolds from its former height instead of pushing the
+            // names up at once, while the new ones rise into the room it makes.
+            if (heightBeforeMore.current > 0) {
+                gsap.from(listRef.current, {
+                    height: heightBeforeMore.current,
+                    duration: 0.8,
+                    ease: 'power3.inOut',
+                    clearProps: 'height',
+                })
+            }
             gsap.fromTo(
-                Array.from(names).slice(revealedFrom ?? 0),
-                { opacity: 0 },
+                Array.from(names).slice(revealedFrom),
+                { opacity: 0, y: '0.5em' },
                 {
                     opacity: 1,
+                    y: 0,
                     duration: 0.6,
+                    delay: 0.2,
                     stagger: { amount: 0.6 },
                     ease: 'power2.out',
                 }
@@ -103,7 +133,7 @@ export default function Projects({ projects, beforeMore }: ProjectsProps) {
             </div>
             <section className={styles.textContainer}>
                 {projects.length > 0 ? (
-                    <ul className={styles.nameContainer}>
+                    <ul className={styles.nameContainer} ref={listRef}>
                         {listedProjects.map((project) => {
                             const isSelected = project === currentProject
 
@@ -152,7 +182,11 @@ export default function Projects({ projects, beforeMore }: ProjectsProps) {
                                     type="button"
                                     aria-label={t('more')}
                                     className={`${styles.link} ${styles.more}`}
-                                    onClick={() => setShowAll(true)}
+                                    onClick={() => {
+                                        heightBeforeMore.current =
+                                            listRef.current?.offsetHeight ?? 0
+                                        setShowAll(true)
+                                    }}
                                 >
                                     [{t('more')}]
                                 </button>
