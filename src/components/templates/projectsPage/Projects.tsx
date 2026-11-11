@@ -150,10 +150,11 @@ export default function Projects({ projects, beforeMore }: ProjectsProps) {
                             <li className={styles.name}>
                                 <button
                                     type="button"
+                                    aria-label={t('more')}
                                     className={`${styles.link} ${styles.more}`}
                                     onClick={() => setShowAll(true)}
                                 >
-                                    {t('more')}
+                                    [{t('more')}]
                                 </button>
                             </li>
                         )}

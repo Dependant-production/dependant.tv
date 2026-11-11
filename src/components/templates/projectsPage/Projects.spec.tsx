@@ -64,7 +64,10 @@ describe('Projects list', () => {
             screen.queryByRole('link', { name: 'Second project' })
         ).not.toBeInTheDocument()
 
-        fireEvent.click(screen.getByRole('button', { name: 'more' }))
+        const more = screen.getByRole('button', { name: 'more' })
+        expect(more).toHaveTextContent('[more]')
+
+        fireEvent.click(more)
 
         expect(
             screen.getAllByRole('link').map((link) => link.textContent)

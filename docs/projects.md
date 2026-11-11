@@ -15,7 +15,7 @@ Dans chaque section, tous les types sont mélangés : les projets qui ont un ord
 
 ## Nombre de projets avant « more »
 
-Au-dessus du tableau de chaque section, le champ **Projets affichés sur le site** fixe combien de projets la section montre à l’arrivée. Les suivants apparaissent sous la liste au clic sur le bouton `more`, en français comme en anglais. Vide ou 0 : la section affiche tous ses projets, sans bouton ; le bouton n’apparaît pas non plus si la section compte autant de projets ou moins.
+Au-dessus du tableau de chaque section, le champ **Projets affichés sur le site** fixe combien de projets la section montre à l’arrivée. Les suivants apparaissent sous la liste au clic sur le bouton `[more]`, en français comme en anglais ; le survoler grise les projets, comme sur la page des sections. Vide ou 0 : la section affiche tous ses projets, sans bouton ; le bouton n’apparaît pas non plus si la section compte autant de projets ou moins.
 
 Le nombre s’enregistre en quittant le champ, comme l’ordre, et vaut pour les deux langues. Il compte uniquement les projets affichés sur le site (états **Sur le site** et **Modifications non publiées**), dans l’ordre du tableau. Les mêmes nombres se trouvent dans le type unique **projectsTab** du Content Manager (`commercialsBeforeMore`, `musicVideosBeforeMore`, `photographyBeforeMore` pour la section `[stills]`, `unscriptedBeforeMore`), où ils s’enregistrent aussi sans publication.
 
