@@ -22,7 +22,7 @@ Le VPS est `51.222.156.38`. nginx expose le CMS de préproduction en HTTPS avec 
 Les deux dépôts ont une branche `develop` pour la préproduction :
 
 - **Site** : chaque push sur `develop` crée un déploiement Vercel Preview. Les domaines `preprod.dependant.tv` et `dependant-preprod.vercel.app` sont rattachés à cette branche et suivent toujours son dernier déploiement (voir « Frontend Vercel Preview » pour leur accès).
-- **CMS** : le dossier de préproduction du VPS n’est pas un checkout git. Après un push sur `develop`, lancer `scripts/deploy-preprod.sh` depuis le dépôt `dependantCMS` (voir plus bas). Le commit déployé est inscrit dans `/home/ubuntu/dependantCMS-preprod/REVISION`.
+- **CMS** : chaque push sur `develop` déclenche aussi son déploiement, par GitHub Actions (voir « Mettre à jour le CMS de préproduction »). Le dossier de préproduction du VPS n’est pas un checkout git ; le commit déployé est inscrit dans `/home/ubuntu/dependantCMS-preprod/REVISION`.
 
 ## Contenu et accès au CMS
 
@@ -64,20 +64,36 @@ Les contrôles de santé Strapi renvoient `204`. Utiliser le nom précis `depend
 
 ## Mettre à jour le CMS de préproduction
 
-Le VPS dispose de 2 Go de mémoire et héberge également la production : Strapi est compilé sur le Mac, avec Node 22 installé via nvm. Depuis le dépôt `dependantCMS`, une fois les changements commités et poussés sur `develop` :
+Chaque push sur `develop` du dépôt `Dependant-production/dependantCMS` lance le workflow **Deploy preproduction CMS** (`.github/workflows/deploy-preprod.yml`). Il dure quelques minutes ; son résultat se suit dans l’onglet **Actions** du dépôt, et il peut être relancé depuis cet onglet avec **Run workflow**. Les déploiements s’enchaînent sans se chevaucher.
+
+Le VPS dispose de 2 Go de mémoire et héberge également la production : Strapi n’y est jamais compilé. Le workflow lance `scripts/deploy-preprod.sh` sur une machine GitHub, qui :
+
+1. exporte le commit avec `git archive`, sans fichiers non commités ni `.env` local ;
+2. compile Strapi avec Node 22 et l’URL publique de préproduction, intégrée au bundle d’administration ;
+3. envoie `dist` et les sources au VPS, où `scripts/preprod-receive.sh` (installé dans `/home/ubuntu/.local/bin/dependant-preprod-receive`) les copie dans `/home/ubuntu/dependantCMS-preprod`, sans toucher à `.env.preprod`, `node_modules` ni `public/uploads` ;
+4. lance `npm ci` sur le VPS uniquement si `package-lock.json` a changé (les dépendances natives doivent être installées sous Linux) ;
+5. recharge uniquement `dependant-preprod` via `ecosystem.preprod.config.cjs`, qui refuse de démarrer si la base, le port ou les uploads ne sont pas ceux de la préproduction ;
+6. attend que le CMS réponde `204`, sur le VPS puis sur `https://cms-preprod.dependant.tv/_health`.
+
+Le même script se lance aussi depuis le Mac, avec Node 22 installé via nvm, par exemple pour redéployer un commit précis :
 
 ```bash
 scripts/deploy-preprod.sh          # ou scripts/deploy-preprod.sh <commit>
 ```
 
-Le script :
+### Clé de déploiement GitHub
 
-1. exporte le commit avec `git archive`, sans fichiers non commités ni `.env` local ;
-2. compile Strapi avec Node 22 et l’URL publique de préproduction, intégrée au bundle d’administration ;
-3. envoie `dist` et les sources vers `/home/ubuntu/dependantCMS-preprod`, sans toucher à `.env.preprod`, `node_modules` ni `public/uploads` ;
-4. lance `npm ci` sur le VPS uniquement si `package-lock.json` a changé (les dépendances natives doivent être installées sous Linux) ;
-5. recharge uniquement `dependant-preprod` via `ecosystem.preprod.config.cjs`, qui refuse de démarrer si la base, le port ou les uploads ne sont pas ceux de la préproduction ;
-6. attend que `https://cms-preprod.dependant.tv/_health` réponde `204`.
+Le secret `PREPROD_SSH_KEY` du dépôt contient une clé SSH réservée à ce déploiement. Dans `/home/ubuntu/.ssh/authorized_keys`, elle est précédée de `restrict,command="/home/ubuntu/.local/bin/dependant-preprod-receive"` : elle ne peut ni ouvrir un terminal, ni lancer une autre commande, ni ouvrir de tunnel, ni toucher au processus de production.
+
+- **Modifier `scripts/preprod-receive.sh`** : le recopier ensuite sur le VPS, car le serveur n’utilise pas la version du dépôt :
+
+    ```bash
+    ssh ubuntu@51.222.156.38 'cat > ~/.local/bin/dependant-preprod-receive' < scripts/preprod-receive.sh
+    ```
+
+- **Révoquer la clé** : supprimer la ligne `github-actions dependantCMS preprod deploy` de `authorized_keys` et le secret `PREPROD_SSH_KEY`. Le déploiement depuis le Mac continue de fonctionner.
+
+La clé ne donne accès qu’au déploiement, mais le code déployé s’exécute sur le VPS avec l’utilisateur `ubuntu`, le même que la production. Toute personne autorisée à pousser sur `develop` peut donc faire exécuter du code sur ce serveur : réserver ce droit aux personnes de confiance.
 
 Une mise à jour de code n’importe pas de données. Conserver la base et les uploads de préproduction, et ne pas réinitialiser la copie à partir de la production à chaque livraison.
 

@@ -3,6 +3,7 @@ import type {
     DirectorPortfolio,
     ProjectListItem,
     ProjectSection,
+    ProjectsTab,
     VideoProject,
 } from '@/types/projects'
 
@@ -36,9 +37,38 @@ export function isProjectSection(value: string): value is ProjectSection {
     ].includes(value)
 }
 
-// Empty or 0 (the former CMS default) means the project has no set order.
+// Empty or 0 (the former CMS default) means the project has no set order, and
+// a section with no number before "more" shows all its projects.
 function toProjectsOrder(order?: number | null) {
     return order && order > 0 ? order : undefined
+}
+
+const BEFORE_MORE_FIELDS: Record<ProjectSection, keyof ProjectsTab> = {
+    commercials: 'commercialsBeforeMore',
+    'music-videos': 'musicVideosBeforeMore',
+    photography: 'photographyBeforeMore',
+    unscripted: 'unscriptedBeforeMore',
+}
+
+// Number of projects a section shows before its "more" button, or undefined
+// to show them all. Strapi answers 404 until a number is set once, and the
+// setting only trims the list, so any failure shows the whole section.
+export async function getProjectsBeforeMore(
+    section: ProjectSection
+): Promise<number | undefined> {
+    try {
+        const { data } = await fetchStrapi<ProjectsTab | null>(
+            '/api/projects-tab',
+            {
+                revalidate: PROJECTS_REVALIDATE,
+                tags: ['projects', 'projects-tab'],
+            }
+        )
+
+        return toProjectsOrder(data?.[BEFORE_MORE_FIELDS[section]])
+    } catch {
+        return undefined
+    }
 }
 
 function toHomepageCredit(video: HomepageItem) {

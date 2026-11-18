@@ -30,6 +30,15 @@ export interface DirectorPortfolio {
     project_videos?: VideoProject[]
 }
 
+// Strapi single type `projectsTab`: projects each section shows before its
+// "more" button. Empty or 0 shows them all.
+export interface ProjectsTab {
+    commercialsBeforeMore?: number | null
+    musicVideosBeforeMore?: number | null
+    photographyBeforeMore?: number | null
+    unscriptedBeforeMore?: number | null
+}
+
 export interface ProjectListItem {
     documentId: string
     category: ProjectCategory
